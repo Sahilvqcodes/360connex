@@ -5,6 +5,8 @@ import 'package:connex/Apis/DashboardApis.dart';
 import 'package:connex/Models/brandList_model.dart';
 import 'package:connex/Models/congressList_model.dart';
 import 'package:connex/screens/DashBoard.dart/commercial_engagements.dart';
+import 'package:connex/screens/DashBoard.dart/institution.dart';
+import 'package:connex/screens/DashBoard.dart/kol_overview.dart';
 import 'package:connex/screens/DashBoard.dart/medical_engagements.dart';
 import 'package:connex/screens/DashBoard.dart/total_engagements.dart';
 import 'package:connex/screens/DashBoard.dart/engament_topic_leaderboard.dart';
@@ -80,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQE7Dv4NG9SLNdIiA_bdEVfdxG5HhC5vzEET514..L0Szkd15JUu3sX6oOM7j1taiOP4YlBMtlo0G.YOnZNEQx2.LXhcS'
+            'Bearer 00D23000000FGah!AQUAQJht818TxKnxPLcxCmKbqWSBwYlhl3CpUOAl7GAV4YEUiXt6XbxWTYUBiBC6shXgt68sn_G_lbq04FfOjFP08_r_Cb5s'
       },
     );
     // print("response ${response.body}");
@@ -315,10 +317,10 @@ class _HomeScreenState extends State<HomeScreen> {
               MedicalEngagements(),
 
               const SizedBox(height: 10),
-              _overView(),
+              KolOverview(),
 
               const SizedBox(height: 10),
-              _instiTutions(),
+              kolInstitution(),
 
               const SizedBox(
                 height: 10,
@@ -470,232 +472,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         )),
                   ),
                 ),
-                // child: DropdownButtonHideUnderline(
-                //   child: DropdownButton(
-                //     // Initial Value
-                //     isExpanded: true,
-                //     value: dropdownvalue2,
-
-                //     // Down Arrow Icon
-                //     icon: const Icon(Icons.keyboard_arrow_down),
-
-                //     // Array list of items
-                //     items: items2.map((String items) {
-                //       return DropdownMenuItem(
-                //         value: items,
-                //         child: Text(items),
-                //       );
-                //     }).toList(),
-                //     // After selecting the desired option,it will
-                //     // change button value to selected value
-                //     onTap: () {
-                //       _getCongressList();
-                //     },
-                //     onChanged: (String? newValue) {
-                //       setState(() {
-                //         dropdownvalue2 = newValue!;
-                //       });
-                //     },
-                //   ),
-                // ),
               ),
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  _overView() {
-    return Container(
-      height: MediaQuery.of(context).size.height / 3.5,
-      width: MediaQuery.of(context).size.width / 1.10,
-      //height: 250,
-      //width: 350,
-      color: Colors.white,
-      child: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.only(right: 180, top: 10),
-            child: Text(
-              "KOL Overview",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-          ),
-          const Divider(
-            height: 10.0,
-            color: Colors.black54,
-            endIndent: 10,
-            indent: 10,
-            thickness: 1.0,
-          ),
-          const SizedBox(
-            height: 5.0,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: const [
-              Text(
-                "Total KOLs",
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                "261",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                "Target KOLs",
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                "261",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-          const Padding(
-            padding: EdgeInsets.only(right: 160),
-            child: Text(
-              "KOL Classification",
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-            ),
-          ),
-          const SizedBox(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: const [
-              Text(
-                "Academic:184",
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                "Community:42",
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                "LUGPA:42",
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-          Container(
-            height: 50,
-            width: 150,
-            decoration: BoxDecoration(
-              //  shape: BoxShape.circle,
-              color: Color(0xFF05357c),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: const Center(
-              child: Text(
-                "KOL profiles",
-                style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  _instiTutions() {
-    return Container(
-      height: MediaQuery.of(context).size.height / 3.5,
-      width: MediaQuery.of(context).size.width / 1.10,
-      // height: 250,
-      // width: 350,
-      color: Colors.white,
-      child: Column(
-        children: [
-          const Padding(
-            padding: EdgeInsets.only(right: 180, top: 10),
-            child: Text(
-              "Institutions",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-          ),
-          const Divider(
-            height: 10.0,
-            color: Colors.black54,
-            endIndent: 10,
-            indent: 10,
-            thickness: 1.0,
-          ),
-          const SizedBox(
-            height: 5.0,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: const [
-              Text(
-                "Total Engagments",
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                "146",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                "Total Institutions",
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                "155",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-          const Padding(
-            padding: EdgeInsets.only(right: 160),
-            child: Text(
-              "KOL Classification",
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-            ),
-          ),
-          const SizedBox(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: const [
-              Text(
-                "Academic:184",
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                "Community:42",
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                "LUGPA:42",
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-          Container(
-            height: 50,
-            width: 150,
-            decoration: BoxDecoration(
-              //  shape: BoxShape.circle,
-              color: Color(0xFF05357c),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: const Center(
-              child: Text(
-                "KOL profiles",
-                style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white),
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }

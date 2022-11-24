@@ -144,7 +144,7 @@ class MedicalEngagements extends StatelessWidget {
                                       .recordsList!
                                       .where((element) => element.expr0 == 4)
                                       .toList();
-                              print("_overView $index  $forExpr1");
+                              // print("_overView $index  $forExpr1");
                               int totalValue = 0;
                               _totalEngagements[index].recordsList!.forEach(
                                 (element) {
@@ -162,9 +162,24 @@ class MedicalEngagements extends StatelessWidget {
                                         Container(
                                           height: 15,
                                           width: 15,
-                                          decoration: const BoxDecoration(
+                                          decoration: BoxDecoration(
                                             shape: BoxShape.circle,
-                                            color: Colors.yellow,
+                                            color: _totalEngagements[index]
+                                                        .recordsList![0]
+                                                        .name ==
+                                                    "Leukemia-Lymphoma"
+                                                ? Colors.green
+                                                : _totalEngagements[index]
+                                                            .recordsList![0]
+                                                            .name ==
+                                                        "MM Portfolio"
+                                                    ? Colors.blue
+                                                    : _totalEngagements[index]
+                                                                .recordsList![0]
+                                                                .name ==
+                                                            "Prostate Franchise"
+                                                        ? Colors.yellow
+                                                        : null,
                                           ),
                                         ),
                                         const SizedBox(

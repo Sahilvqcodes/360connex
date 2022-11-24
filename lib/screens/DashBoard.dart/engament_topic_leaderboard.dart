@@ -1,4 +1,7 @@
+import 'package:connex/Apis/DashboardApis.dart';
 import 'package:flutter/material.dart';
+
+import '../../Models/engagements_sort.dart';
 
 class EngagementTopicLeaderBoard extends StatefulWidget {
   const EngagementTopicLeaderBoard({Key? key}) : super(key: key);
@@ -14,7 +17,7 @@ class _EngagementTopicLeaderBoardState
   Widget build(BuildContext context) {
     return Column(children: [
       Container(
-        height: MediaQuery.of(context).size.height * 0.52,
+        height: 440,
         width: MediaQuery.of(context).size.width / 1.10,
         color: Colors.white,
         child: DefaultTabController(
@@ -60,7 +63,7 @@ class _EngagementTopicLeaderBoardState
                       const SizedBox(
                         width: 5,
                       ),
-                      Expanded(child: const Text('Leukenia-Lymphoma')),
+                      Expanded(child: const Text('Leukemia-Lymphoma')),
                     ],
                   ),
                   Row(
@@ -76,7 +79,7 @@ class _EngagementTopicLeaderBoardState
                       const SizedBox(
                         width: 5,
                       ),
-                      Expanded(child: const Text('Commercial Engagements')),
+                      Expanded(child: const Text('MM Portfolio')),
                     ],
                   ),
                   Row(
@@ -92,20 +95,118 @@ class _EngagementTopicLeaderBoardState
                       const SizedBox(
                         width: 5,
                       ),
-                      Expanded(child: const Text('Medical Engagements')),
+                      const Expanded(
+                        child: Text('Prostate Franchise'),
+                      ),
                     ],
                   ),
                 ],
               ),
               Container(
-                height: MediaQuery.of(context).size.height * 0.37,
+                height: 300,
                 child: TabBarView(
                   children: <Widget>[
-                    Container(
-                        // child: Row(children: [Text("ncjk")]),
-                        ),
-                    Container(),
-                    Container(),
+                    ...List.generate(3, (i) {
+                      return FutureBuilder(
+                          future: DashBoardApi.getEngagementTopicLraderboard(
+                              context),
+                          builder:
+                              (BuildContext context, AsyncSnapshot snapshot) {
+                            List<TotalLeaderboardData>? listTotalLeaderboard =
+                                snapshot.data;
+                            int diseasesLength = listTotalLeaderboard?[i]
+                                    .diseasesFocusList
+                                    ?.length ??
+                                0;
+                            return MediaQuery.removePadding(
+                              removeTop: true,
+                              context: context,
+                              child: ListView(
+                                physics: NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(20.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: const [
+                                        Text(
+                                          "Brand Focus",
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(left: 0.0),
+                                          child: Text(
+                                            "Disease Focus",
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.w500),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  ...List.generate(
+                                    5,
+                                    (index) {
+                                      return Column(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 20.0,
+                                                top: 5,
+                                                bottom: 5,
+                                                right: 20),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Expanded(
+                                                  child: Text(
+                                                    "${listTotalLeaderboard?[i].brandFocusList?[index].topic}",
+                                                    style: const TextStyle(
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Text(
+                                                    index < diseasesLength
+                                                        ? "${listTotalLeaderboard?[i].diseasesFocusList?[index].topic}"
+                                                        : "",
+                                                    style: const TextStyle(
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          const Divider(
+                                            height: 10.0,
+                                            color: Color.fromARGB(
+                                                137, 150, 147, 147),
+                                            endIndent: 10,
+                                            indent: 10,
+                                            thickness: 0.5,
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  ),
+                                ],
+                              ),
+                            );
+                          });
+                    }),
                   ],
                 ),
               ),
