@@ -14,6 +14,7 @@ import '../Models/brands_activity.dart';
 import '../Models/congressList_model.dart';
 import '../Models/engagements_sort.dart';
 import '../Models/pie_chart_data.dart';
+import '../Models/pie_data_map.dart';
 import '../Models/total_leaderboard.dart';
 
 class DashBoardApi {
@@ -32,7 +33,7 @@ class DashBoardApi {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQOteB5bRHkrdggycrO3dp42JSJBgn.HnNjHWg3Ce5psko8vqVCchq7s1XD596SfYTpaboyatXOzM1PhtZVayWGr_R_uR'
+            'Bearer 00D23000000FGah!AQUAQB17Gky5jJiTYtFD836d_gr4arf2JmT75P54XzQf8osy28aiFU8UdZ8CkGXNizFCUTPZ4.mE9sLG.ZcZUK9lRXbpAyb_'
       },
     );
     // print("response ${response.body}");
@@ -50,7 +51,7 @@ class DashBoardApi {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQOteB5bRHkrdggycrO3dp42JSJBgn.HnNjHWg3Ce5psko8vqVCchq7s1XD596SfYTpaboyatXOzM1PhtZVayWGr_R_uR'
+            'Bearer 00D23000000FGah!AQUAQB17Gky5jJiTYtFD836d_gr4arf2JmT75P54XzQf8osy28aiFU8UdZ8CkGXNizFCUTPZ4.mE9sLG.ZcZUK9lRXbpAyb_'
       },
     );
     // print("getTotalEngagements ${response.body}");
@@ -87,7 +88,7 @@ class DashBoardApi {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQOteB5bRHkrdggycrO3dp42JSJBgn.HnNjHWg3Ce5psko8vqVCchq7s1XD596SfYTpaboyatXOzM1PhtZVayWGr_R_uR'
+            'Bearer 00D23000000FGah!AQUAQB17Gky5jJiTYtFD836d_gr4arf2JmT75P54XzQf8osy28aiFU8UdZ8CkGXNizFCUTPZ4.mE9sLG.ZcZUK9lRXbpAyb_'
       },
     );
     // print("getCommercialEngagements ${response.body}");
@@ -121,7 +122,7 @@ class DashBoardApi {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQOteB5bRHkrdggycrO3dp42JSJBgn.HnNjHWg3Ce5psko8vqVCchq7s1XD596SfYTpaboyatXOzM1PhtZVayWGr_R_uR'
+            'Bearer 00D23000000FGah!AQUAQB17Gky5jJiTYtFD836d_gr4arf2JmT75P54XzQf8osy28aiFU8UdZ8CkGXNizFCUTPZ4.mE9sLG.ZcZUK9lRXbpAyb_'
       },
     );
     // print("getMedicalEngagements ${response.body}");
@@ -155,7 +156,7 @@ class DashBoardApi {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQOteB5bRHkrdggycrO3dp42JSJBgn.HnNjHWg3Ce5psko8vqVCchq7s1XD596SfYTpaboyatXOzM1PhtZVayWGr_R_uR'
+            'Bearer 00D23000000FGah!AQUAQB17Gky5jJiTYtFD836d_gr4arf2JmT75P54XzQf8osy28aiFU8UdZ8CkGXNizFCUTPZ4.mE9sLG.ZcZUK9lRXbpAyb_'
       },
     );
     // print("totalKolOverview ${response.body}");
@@ -173,7 +174,7 @@ class DashBoardApi {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQOteB5bRHkrdggycrO3dp42JSJBgn.HnNjHWg3Ce5psko8vqVCchq7s1XD596SfYTpaboyatXOzM1PhtZVayWGr_R_uR'
+            'Bearer 00D23000000FGah!AQUAQB17Gky5jJiTYtFD836d_gr4arf2JmT75P54XzQf8osy28aiFU8UdZ8CkGXNizFCUTPZ4.mE9sLG.ZcZUK9lRXbpAyb_'
       },
     );
     // print("totalKolOverview ${response.body}");
@@ -191,7 +192,7 @@ class DashBoardApi {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQOteB5bRHkrdggycrO3dp42JSJBgn.HnNjHWg3Ce5psko8vqVCchq7s1XD596SfYTpaboyatXOzM1PhtZVayWGr_R_uR'
+            'Bearer 00D23000000FGah!AQUAQB17Gky5jJiTYtFD836d_gr4arf2JmT75P54XzQf8osy28aiFU8UdZ8CkGXNizFCUTPZ4.mE9sLG.ZcZUK9lRXbpAyb_'
       },
     );
     // print("classificationKolOverview ${response.body}");
@@ -211,7 +212,7 @@ class DashBoardApi {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQOteB5bRHkrdggycrO3dp42JSJBgn.HnNjHWg3Ce5psko8vqVCchq7s1XD596SfYTpaboyatXOzM1PhtZVayWGr_R_uR'
+            'Bearer 00D23000000FGah!AQUAQB17Gky5jJiTYtFD836d_gr4arf2JmT75P54XzQf8osy28aiFU8UdZ8CkGXNizFCUTPZ4.mE9sLG.ZcZUK9lRXbpAyb_'
       },
     );
     // print("kolTotalEngagements ${response.body}");
@@ -230,7 +231,7 @@ class DashBoardApi {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQOteB5bRHkrdggycrO3dp42JSJBgn.HnNjHWg3Ce5psko8vqVCchq7s1XD596SfYTpaboyatXOzM1PhtZVayWGr_R_uR'
+            'Bearer 00D23000000FGah!AQUAQB17Gky5jJiTYtFD836d_gr4arf2JmT75P54XzQf8osy28aiFU8UdZ8CkGXNizFCUTPZ4.mE9sLG.ZcZUK9lRXbpAyb_'
       },
     );
     // print("kolTotalInstitutions ${response.body}");
@@ -249,7 +250,7 @@ class DashBoardApi {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQOteB5bRHkrdggycrO3dp42JSJBgn.HnNjHWg3Ce5psko8vqVCchq7s1XD596SfYTpaboyatXOzM1PhtZVayWGr_R_uR'
+            'Bearer 00D23000000FGah!AQUAQB17Gky5jJiTYtFD836d_gr4arf2JmT75P54XzQf8osy28aiFU8UdZ8CkGXNizFCUTPZ4.mE9sLG.ZcZUK9lRXbpAyb_'
       },
     );
     // print("affliatedKols ${response.body}");
@@ -269,7 +270,7 @@ class DashBoardApi {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQOteB5bRHkrdggycrO3dp42JSJBgn.HnNjHWg3Ce5psko8vqVCchq7s1XD596SfYTpaboyatXOzM1PhtZVayWGr_R_uR'
+            'Bearer 00D23000000FGah!AQUAQB17Gky5jJiTYtFD836d_gr4arf2JmT75P54XzQf8osy28aiFU8UdZ8CkGXNizFCUTPZ4.mE9sLG.ZcZUK9lRXbpAyb_'
       },
     );
     // print("getLeukemiaActivity ${response.body}");
@@ -288,7 +289,7 @@ class DashBoardApi {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQOteB5bRHkrdggycrO3dp42JSJBgn.HnNjHWg3Ce5psko8vqVCchq7s1XD596SfYTpaboyatXOzM1PhtZVayWGr_R_uR'
+            'Bearer 00D23000000FGah!AQUAQB17Gky5jJiTYtFD836d_gr4arf2JmT75P54XzQf8osy28aiFU8UdZ8CkGXNizFCUTPZ4.mE9sLG.ZcZUK9lRXbpAyb_'
       },
     );
     // print("getMMPortfolioActivity ${response.body}");
@@ -307,7 +308,7 @@ class DashBoardApi {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQOteB5bRHkrdggycrO3dp42JSJBgn.HnNjHWg3Ce5psko8vqVCchq7s1XD596SfYTpaboyatXOzM1PhtZVayWGr_R_uR'
+            'Bearer 00D23000000FGah!AQUAQB17Gky5jJiTYtFD836d_gr4arf2JmT75P54XzQf8osy28aiFU8UdZ8CkGXNizFCUTPZ4.mE9sLG.ZcZUK9lRXbpAyb_'
       },
     );
     // print("getProstateFranchiseActivity ${response.body}");
@@ -326,7 +327,7 @@ class DashBoardApi {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQOteB5bRHkrdggycrO3dp42JSJBgn.HnNjHWg3Ce5psko8vqVCchq7s1XD596SfYTpaboyatXOzM1PhtZVayWGr_R_uR'
+            'Bearer 00D23000000FGah!AQUAQB17Gky5jJiTYtFD836d_gr4arf2JmT75P54XzQf8osy28aiFU8UdZ8CkGXNizFCUTPZ4.mE9sLG.ZcZUK9lRXbpAyb_'
       },
     );
     // print("getEngagementTopicLraderboard ${response.body}");
@@ -398,7 +399,7 @@ class DashBoardApi {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQOteB5bRHkrdggycrO3dp42JSJBgn.HnNjHWg3Ce5psko8vqVCchq7s1XD596SfYTpaboyatXOzM1PhtZVayWGr_R_uR'
+            'Bearer 00D23000000FGah!AQUAQB17Gky5jJiTYtFD836d_gr4arf2JmT75P54XzQf8osy28aiFU8UdZ8CkGXNizFCUTPZ4.mE9sLG.ZcZUK9lRXbpAyb_'
       },
     );
     // print("getMeetingsAndActivites ${response.body}");
@@ -457,7 +458,7 @@ class DashBoardApi {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQOteB5bRHkrdggycrO3dp42JSJBgn.HnNjHWg3Ce5psko8vqVCchq7s1XD596SfYTpaboyatXOzM1PhtZVayWGr_R_uR'
+            'Bearer 00D23000000FGah!AQUAQB17Gky5jJiTYtFD836d_gr4arf2JmT75P54XzQf8osy28aiFU8UdZ8CkGXNizFCUTPZ4.mE9sLG.ZcZUK9lRXbpAyb_'
       },
     );
     // print("getProstateFranchiseActivity ${response.body}");
@@ -465,5 +466,404 @@ class DashBoardApi {
         PieChartData.fromJson(jsonDecode(response.body));
 
     return _pieChartData;
+  }
+
+  static getRectangleChartData(BuildContext context) async {
+    String url =
+        "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=Select%20Master_Engagement__r.Type__c,%20KOL_Brand__r.Advocacy_Score_1__c,%20count(id)%20from%20KOL_Engagement__c%20where%20Master_Engagement__r.KOL_Profile_Portal__r.Name%20=%20%27Janssen%20KOL%20Portal%27%20and%20(Master_Engagement__r.Brand_Master__r.Name%20=%20%27Leukemia-Lymphoma%27%20or%20Master_Engagement__r.Brand_Master__r.Name%20=%20%27MM%20Portfolio%27%20or%20Master_Engagement__r.Brand_Master__r.Name%20=%20%27Prostate%20Franchise%27%20)%20group%20by%20Master_Engagement__r.Type__c,%20KOL_Brand__r.Advocacy_Score_1__c%20order%20by%20KOL_Brand__r.Advocacy_Score_1__c%20asc";
+    var response = await http.get(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+        // 'Accept': 'application/json',
+        'Authorization':
+            'Bearer 00D23000000FGah!AQUAQB17Gky5jJiTYtFD836d_gr4arf2JmT75P54XzQf8osy28aiFU8UdZ8CkGXNizFCUTPZ4.mE9sLG.ZcZUK9lRXbpAyb_'
+      },
+    );
+    // print("getProstateFranchiseActivity ${response.body}");
+    PieChartData __rectangleChartData =
+        PieChartData.fromJson(jsonDecode(response.body));
+    List<PieChartRecords> _oneMeetingListData = __rectangleChartData.records!
+        .where((element) => element.typeC == "1:1 Meetings")
+        .toList();
+    List<PieChartRecords> _UnscoredMeetingData = _oneMeetingListData
+        .where((element) => element.advocacyScore1C == "Unscored")
+        .toList();
+    List<PieChartRecords> _DetractorMeetingData = _oneMeetingListData
+        .where((element) => element.advocacyScore1C == "Detractor")
+        .toList();
+    List<PieChartRecords> _NeutralMeetingData = _oneMeetingListData
+        .where((element) => element.advocacyScore1C == "Neutral")
+        .toList();
+    List<PieChartRecords> _PassiveMeetingData = _oneMeetingListData
+        .where((element) => element.advocacyScore1C == "Passive Supporter")
+        .toList();
+    List<PieChartRecords> _ProactiveMeetingData = _oneMeetingListData
+        .where((element) => element.advocacyScore1C == "Proactive Advocate")
+        .toList();
+
+    List<PieChartRecords> _advisoryListData = __rectangleChartData.records!
+        .where((element) => element.typeC == "Advisory Board")
+        .toList();
+    List<PieChartRecords> _UnscoredAdvisoryData = _advisoryListData
+        .where((element) => element.advocacyScore1C == "Unscored")
+        .toList();
+    List<PieChartRecords> _DetractorAdvisoryData = _advisoryListData
+        .where((element) => element.advocacyScore1C == "Detractor")
+        .toList();
+    List<PieChartRecords> _NeutralAdvisoryData = _advisoryListData
+        .where((element) => element.advocacyScore1C == "Neutral")
+        .toList();
+    List<PieChartRecords> _PassiveAdvisoryData = _advisoryListData
+        .where((element) => element.advocacyScore1C == "Passive Supporter")
+        .toList();
+    List<PieChartRecords> _ProactiveAdvisoryData = _advisoryListData
+        .where((element) => element.advocacyScore1C == "Proactive Advocate")
+        .toList();
+
+    List<PieChartRecords> _consultingData = __rectangleChartData.records!
+        .where((element) => element.typeC == "Consulting")
+        .toList();
+    List<PieChartRecords> _UnscoredConsultingData = _consultingData
+        .where((element) => element.advocacyScore1C == "Unscored")
+        .toList();
+    List<PieChartRecords> _DetractorConsultingData = _consultingData
+        .where((element) => element.advocacyScore1C == "Detractor")
+        .toList();
+    List<PieChartRecords> _NeutralConsultingData = _consultingData
+        .where((element) => element.advocacyScore1C == "Neutral")
+        .toList();
+    List<PieChartRecords> _PassiveConsultingData = _consultingData
+        .where((element) => element.advocacyScore1C == "Passive Supporter")
+        .toList();
+    List<PieChartRecords> _ProactiveConsultingData = _consultingData
+        .where((element) => element.advocacyScore1C == "Proactive Advocate")
+        .toList();
+    List<PieChartRecords> _ExecutiveData = __rectangleChartData.records!
+        .where((element) => element.typeC == "Executive Encounter")
+        .toList();
+    List<PieChartRecords> _UnscoredExecutiveData =
+        _ExecutiveData.where((element) => element.advocacyScore1C == "Unscored")
+            .toList();
+    List<PieChartRecords> _DetractorExecutiveData = _ExecutiveData.where(
+        (element) => element.advocacyScore1C == "Detractor").toList();
+    List<PieChartRecords> _NeutralExecutiveData =
+        _ExecutiveData.where((element) => element.advocacyScore1C == "Neutral")
+            .toList();
+    List<PieChartRecords> _PassiveExecutiveData = _ExecutiveData.where(
+        (element) => element.advocacyScore1C == "Passive Supporter").toList();
+    List<PieChartRecords> _ProactiveExecutiveData = _ExecutiveData.where(
+        (element) => element.advocacyScore1C == "Proactive Advocate").toList();
+
+    List<PieChartRecords> _InstitutionalData = __rectangleChartData.records!
+        .where((element) => element.typeC == "Institutional Programs")
+        .toList();
+    List<PieChartRecords> _UnscoredInstitutionalData = _InstitutionalData.where(
+        (element) => element.advocacyScore1C == "Unscored").toList();
+    List<PieChartRecords> _DetractorInstitutionalData =
+        _InstitutionalData.where(
+            (element) => element.advocacyScore1C == "Detractor").toList();
+    List<PieChartRecords> _NeutralInstitutionalData = _InstitutionalData.where(
+        (element) => element.advocacyScore1C == "Neutral").toList();
+    List<PieChartRecords> _PassiveInstitutionalData = _InstitutionalData.where(
+        (element) => element.advocacyScore1C == "Passive Supporter").toList();
+    List<PieChartRecords> _ProactiveInstitutionalData =
+        _InstitutionalData.where(
+                (element) => element.advocacyScore1C == "Proactive Advocate")
+            .toList();
+
+    List<PieChartRecords> _SponsorshipData = __rectangleChartData.records!
+        .where((element) => element.typeC == "Sponsorship / 3rd Party Events")
+        .toList();
+    List<PieChartRecords> _UnscoredSponsorshipData =
+        _SponsorshipData.where((element) => element.typeC == "Unscored")
+            .toList();
+    List<PieChartRecords> _DetractorSponsorshipData =
+        _SponsorshipData.where((element) => element.typeC == "Detractor")
+            .toList();
+    List<PieChartRecords> _NeutralSponsorshipData =
+        _SponsorshipData.where((element) => element.typeC == "Neutral")
+            .toList();
+    List<PieChartRecords> _PassiveSponsorshipData = _SponsorshipData.where(
+        (element) => element.typeC == "Passive Supporter").toList();
+    List<PieChartRecords> _ProactiveSponsorshipData = _SponsorshipData.where(
+        (element) => element.typeC == "Proactive Advocate").toList();
+
+    List<PieChartRecords> _InternalData = __rectangleChartData.records!
+        .where((element) => element.typeC == "Internal Event")
+        .toList();
+    List<PieChartRecords> _UnscoredInternalData =
+        _InternalData.where((element) => element.typeC == "Unscored").toList();
+    List<PieChartRecords> _DetractorInternalData =
+        _InternalData.where((element) => element.typeC == "Detractor").toList();
+    List<PieChartRecords> _NeutralInternalData =
+        _InternalData.where((element) => element.typeC == "Neutral").toList();
+    List<PieChartRecords> _PassiveInternalData =
+        _InternalData.where((element) => element.typeC == "Passive Supporter")
+            .toList();
+    List<PieChartRecords> _ProactiveInternalData =
+        _InternalData.where((element) => element.typeC == "Proactive Advocate")
+            .toList();
+
+    List<PieChartRecords> _SteeringData = __rectangleChartData.records!
+        .where((element) => element.typeC == "Steering Committee")
+        .toList();
+    List<PieChartRecords> _UnscoredSteeringData =
+        _SteeringData.where((element) => element.typeC == "Unscored").toList();
+    List<PieChartRecords> _DetractorSteeringData =
+        _SteeringData.where((element) => element.typeC == "Detractor").toList();
+    List<PieChartRecords> _NeutralSteeringData =
+        _SteeringData.where((element) => element.typeC == "Neutral").toList();
+    List<PieChartRecords> _PassiveSteeringData =
+        _SteeringData.where((element) => element.typeC == "Passive Supporter")
+            .toList();
+    List<PieChartRecords> _ProactiveSteeringData =
+        _SteeringData.where((element) => element.typeC == "Proactive Advocate")
+            .toList();
+
+    List<PieChartRecords> _ProductData = __rectangleChartData.records!
+        .where((element) => element.typeC == "Product Theater/Symposium")
+        .toList();
+    List<PieChartRecords> _UnscoredProductData =
+        _ProductData.where((element) => element.typeC == "Unscored").toList();
+    List<PieChartRecords> _DetractorProductData =
+        _ProductData.where((element) => element.typeC == "Detractor").toList();
+    List<PieChartRecords> _NeutralProductData =
+        _ProductData.where((element) => element.typeC == "Neutral").toList();
+    List<PieChartRecords> _PassiveProductData =
+        _ProductData.where((element) => element.typeC == "Passive Supporter")
+            .toList();
+    List<PieChartRecords> _ProactiveProductData =
+        _ProductData.where((element) => element.typeC == "Proactive Advocate")
+            .toList();
+
+    List<PieChartRecords> _OtherData = __rectangleChartData.records!
+        .where((element) => element.typeC == "Other")
+        .toList();
+    List<PieChartRecords> _UnscoredOtherData =
+        _OtherData.where((element) => element.typeC == "Unscored").toList();
+    List<PieChartRecords> _DetractorOtherData =
+        _OtherData.where((element) => element.typeC == "Detractor").toList();
+    List<PieChartRecords> _NeutralOtherData =
+        _OtherData.where((element) => element.typeC == "Neutral").toList();
+    List<PieChartRecords> _PassiveOtherData =
+        _OtherData.where((element) => element.typeC == "Passive Supporter")
+            .toList();
+    List<PieChartRecords> _ProactiveOtherData =
+        _OtherData.where((element) => element.typeC == "Proactive Advocate")
+            .toList();
+
+    List<PieChartRecords> _speakerList = __rectangleChartData.records!
+        .where((element) => element.typeC == "Speaker Training")
+        .toList();
+    List<PieChartRecords> _UnscoredSpeakerData =
+        _speakerList.where((element) => element.typeC == "Unscored").toList();
+    List<PieChartRecords> _DetractorSpeakerData =
+        _speakerList.where((element) => element.typeC == "Detractor").toList();
+    List<PieChartRecords> _NeutralSpeakerData =
+        _speakerList.where((element) => element.typeC == "Neutral").toList();
+    List<PieChartRecords> _PassiveSpeakerData = _speakerList
+        .where((element) => element.typeC == "Passive Supporter")
+        .toList();
+    List<PieChartRecords> _ProactiveSpeakerData = _speakerList
+        .where((element) => element.typeC == "Proactive Advocate")
+        .toList();
+
+    List<PieChartRecords> _mslRoundtableList = __rectangleChartData.records!
+        .where((element) => element.typeC == "MSL Roundtable")
+        .toList();
+    List<PieChartRecords> _UnscoredmslRoundtableData = _mslRoundtableList
+        .where((element) => element.typeC == "Unscored")
+        .toList();
+    List<PieChartRecords> _DetractormslRoundtableData = _mslRoundtableList
+        .where((element) => element.typeC == "Detractor")
+        .toList();
+    List<PieChartRecords> _NeutralmslRoundtableData = _mslRoundtableList
+        .where((element) => element.typeC == "Neutral")
+        .toList();
+    List<PieChartRecords> _PassivemslRoundtableData = _mslRoundtableList
+        .where((element) => element.typeC == "Passive Supporter")
+        .toList();
+    List<PieChartRecords> _ProactivemslRoundtableData = _mslRoundtableList
+        .where((element) => element.typeC == "Proactive Advocate")
+        .toList();
+
+    List<PieChartRecords> _mediaEventList = __rectangleChartData.records!
+        .where((element) => element.typeC == "Media Event")
+        .toList();
+    List<PieChartRecords> _UnscoredmediaEventData = _mediaEventList
+        .where((element) => element.typeC == "Unscored")
+        .toList();
+    List<PieChartRecords> _DetractormediaEventData = _mediaEventList
+        .where((element) => element.typeC == "Detractor")
+        .toList();
+    List<PieChartRecords> _NeutralmediaEventData =
+        _mediaEventList.where((element) => element.typeC == "Neutral").toList();
+    List<PieChartRecords> _PassivemediaEventData = _mediaEventList
+        .where((element) => element.typeC == "Passive Supporter")
+        .toList();
+    List<PieChartRecords> _ProactivemediaEventData = _mediaEventList
+        .where((element) => element.typeC == "Proactive Advocate")
+        .toList();
+
+    List<PieChartRecords> _CMEList = __rectangleChartData.records!
+        .where((element) => element.typeC == "CME")
+        .toList();
+    List<PieChartRecords> _UnscoredCMEData =
+        _CMEList.where((element) => element.typeC == "Unscored").toList();
+    List<PieChartRecords> _DetractorCMEData =
+        _CMEList.where((element) => element.typeC == "Detractor").toList();
+    List<PieChartRecords> _NeutralCMEData =
+        _CMEList.where((element) => element.typeC == "Neutral").toList();
+    List<PieChartRecords> _PassiveCMEData =
+        _CMEList.where((element) => element.typeC == "Passive Supporter")
+            .toList();
+    List<PieChartRecords> _ProactiveCMEData =
+        _CMEList.where((element) => element.typeC == "Proactive Advocate")
+            .toList();
+
+    List<RectangleChartDataMap>? __rectangleChartDataMap = [
+      RectangleChartDataMap(
+        id: "1",
+        name: "1:1 Meetings",
+        listOfRectangularChartData: _oneMeetingListData,
+        neutralList: _NeutralMeetingData,
+        passiveList: _PassiveMeetingData,
+        unscoredList: _UnscoredMeetingData,
+        detractorList: _DetractorMeetingData,
+        proactiveList: _ProactiveMeetingData,
+      ),
+      RectangleChartDataMap(
+        id: "2",
+        name: "Executive Encounter",
+        listOfRectangularChartData: _ExecutiveData,
+        neutralList: _NeutralExecutiveData,
+        passiveList: _PassiveExecutiveData,
+        unscoredList: _UnscoredExecutiveData,
+        detractorList: _DetractorExecutiveData,
+        proactiveList: _ProactiveExecutiveData,
+      ),
+      RectangleChartDataMap(
+        id: "3",
+        name: "Institutional Programs",
+        listOfRectangularChartData: _InstitutionalData,
+        neutralList: _NeutralInstitutionalData,
+        passiveList: _PassiveInstitutionalData,
+        unscoredList: _UnscoredInstitutionalData,
+        detractorList: _DetractorInstitutionalData,
+        proactiveList: _ProactiveInstitutionalData,
+      ),
+      RectangleChartDataMap(
+        id: "4",
+        name: "Advisory Board",
+        listOfRectangularChartData: _advisoryListData,
+        neutralList: _NeutralAdvisoryData,
+        passiveList: _PassiveAdvisoryData,
+        unscoredList: _UnscoredAdvisoryData,
+        detractorList: _DetractorAdvisoryData,
+        proactiveList: _ProactiveAdvisoryData,
+      ),
+      RectangleChartDataMap(
+        id: "5",
+        name: "Steering Committee",
+        listOfRectangularChartData: _SteeringData,
+        neutralList: _NeutralSteeringData,
+        passiveList: _PassiveSteeringData,
+        unscoredList: _UnscoredSteeringData,
+        detractorList: _DetractorSteeringData,
+        proactiveList: _ProactiveSteeringData,
+      ),
+      RectangleChartDataMap(
+        id: "6",
+        name: "MSL Roundtable",
+        listOfRectangularChartData: _mslRoundtableList,
+        neutralList: _DetractormslRoundtableData,
+        passiveList: _PassivemslRoundtableData,
+        unscoredList: _UnscoredmslRoundtableData,
+        detractorList: _DetractormslRoundtableData,
+        proactiveList: _ProactivemslRoundtableData,
+      ),
+      RectangleChartDataMap(
+        id: "7",
+        name: "Consulting",
+        listOfRectangularChartData: _consultingData,
+        neutralList: _NeutralConsultingData,
+        passiveList: _PassiveConsultingData,
+        unscoredList: _UnscoredConsultingData,
+        detractorList: _DetractorConsultingData,
+        proactiveList: _ProactiveConsultingData,
+      ),
+      RectangleChartDataMap(
+        id: "8",
+        name: "Speaker Training",
+        listOfRectangularChartData: _speakerList,
+        neutralList: _NeutralSpeakerData,
+        passiveList: _PassiveSpeakerData,
+        unscoredList: _UnscoredSpeakerData,
+        detractorList: _DetractorSpeakerData,
+        proactiveList: _ProactiveSpeakerData,
+      ),
+      RectangleChartDataMap(
+        id: "9",
+        name: "Internal Event",
+        listOfRectangularChartData: _InternalData,
+        neutralList: _NeutralInternalData,
+        passiveList: _PassiveInternalData,
+        unscoredList: _UnscoredInternalData,
+        detractorList: _DetractorInternalData,
+        proactiveList: _ProactiveInternalData,
+      ),
+      RectangleChartDataMap(
+        id: "10",
+        name: "Media Event",
+        listOfRectangularChartData: _mediaEventList,
+        neutralList: _NeutralmediaEventData,
+        passiveList: _PassivemediaEventData,
+        unscoredList: _UnscoredmediaEventData,
+        detractorList: _DetractormediaEventData,
+        proactiveList: _ProactivemediaEventData,
+      ),
+      RectangleChartDataMap(
+        id: "11",
+        name: "Product Theater/Symposium",
+        listOfRectangularChartData: _ProductData,
+        neutralList: _NeutralProductData,
+        passiveList: _PassiveProductData,
+        unscoredList: _UnscoredProductData,
+        detractorList: _DetractorProductData,
+        proactiveList: _ProactiveProductData,
+      ),
+      RectangleChartDataMap(
+        id: "12",
+        name: "Sponsorship / 3rd Party Events",
+        listOfRectangularChartData: _SponsorshipData,
+        neutralList: _NeutralSponsorshipData,
+        passiveList: _PassiveSponsorshipData,
+        unscoredList: _UnscoredSponsorshipData,
+        detractorList: _DetractorSponsorshipData,
+        proactiveList: _ProactiveSponsorshipData,
+      ),
+      RectangleChartDataMap(
+        id: "13",
+        name: "CME",
+        listOfRectangularChartData: _CMEList,
+        neutralList: _NeutralCMEData,
+        passiveList: _PassiveCMEData,
+        unscoredList: _UnscoredCMEData,
+        detractorList: _DetractorCMEData,
+        proactiveList: _ProactiveCMEData,
+      ),
+      RectangleChartDataMap(
+        id: "14",
+        name: "Other",
+        listOfRectangularChartData: _OtherData,
+        neutralList: _NeutralOtherData,
+        passiveList: _PassiveOtherData,
+        unscoredList: _UnscoredOtherData,
+        detractorList: _DetractorOtherData,
+        proactiveList: _ProactiveOtherData,
+      ),
+    ];
+    return __rectangleChartDataMap;
   }
 }
