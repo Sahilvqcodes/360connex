@@ -19,8 +19,10 @@ class MultiSelect extends StatefulWidget {
 class _MultiSelectState extends State<MultiSelect> {
   // this variable holds the selected items
   RxList<Records> _selectedItems = RxList<Records>([]);
+
   void initState() {
     _selectedItems = widget.selectedItems;
+    print("widget.brands ${widget.brands}");
     super.initState();
   }
 

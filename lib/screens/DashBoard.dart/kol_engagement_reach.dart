@@ -43,7 +43,7 @@ class KolEngagemetReach extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: MediaQuery.of(context).size.height / 2.5,
+        // height: MediaQuery.of(context).size.height / 2.5,
         width: MediaQuery.of(context).size.width / 1.10,
         // height: 200,
         // width: 300,
@@ -75,84 +75,83 @@ class KolEngagemetReach extends StatelessWidget {
               height: 250,
               child: Center(
                 child: FutureBuilder(
-                    future: DashBoardApi.getPieChartData(context),
+                    // future: DashBoardApi.getPieChartData(context),
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
-                      PieChartData? _pieChartData = snapshot.data;
-                      List _dataMap = [];
+                  PieChartData? _pieChartData = snapshot.data;
+                  List _dataMap = [];
 
-                      _pieChartData?.records!.forEach((element) {
-                        print(element.advocacyScore1C);
-                        dataList.add(
-                          DataMap(
-                            unorted: element.advocacyScore1C == null
+                  _pieChartData?.records!.forEach((element) {
+                    print(element.advocacyScore1C);
+                    dataList.add(
+                      DataMap(
+                        unorted: element.advocacyScore1C == null
+                            ? element.expr0!
+                            : 0,
+                        neutral: element.advocacyScore1C == "Neutral"
+                            ? element.expr0!
+                            : 0,
+                        proactive:
+                            element.advocacyScore1C == "Proactive Advocate"
                                 ? element.expr0!
                                 : 0,
-                            neutral: element.advocacyScore1C == "Neutral"
-                                ? element.expr0!
-                                : 0,
-                            proactive:
-                                element.advocacyScore1C == "Proactive Advocate"
-                                    ? element.expr0!
-                                    : 0,
-                            detractor: element.advocacyScore1C == "Detractor"
-                                ? element.expr0!
-                                : 0,
-                            passive:
-                                element.advocacyScore1C == "Passive Supporter"
-                                    ? element.expr0!
-                                    : 0,
-                          ),
-                        );
-                      });
-                      dataList.forEach((element) {
-                        print("element.detractor ${element.detractor}");
-                        print("element.neutral ${element.neutral}");
-                        print("element.passive ${element.passive}");
-                        print("element.proactive ${element.proactive}");
-                        print("element.unorted ${element.unorted}");
-                      });
-                      Map<String, double> dataMap = {
-                        'Unscored: ${dataList[0].unorted!}':
-                            dataList[0].unorted!.toDouble(),
-                        "Detractor: ${dataList[1].detractor!}":
-                            dataList[1].detractor!.toDouble(),
-                        "Neutral: ${dataList[2].neutral!}":
-                            dataList[2].neutral!.toDouble(),
-                        "Passive Supporter: ${dataList[3].passive!}":
-                            dataList[3].passive!.toDouble(),
-                        "Proactive Advocate: ${dataList[4].proactive!}":
-                            dataList[4].proactive!.toDouble(),
-                      };
-                      // Map<String, String> dataMap1 = {
-                      //   'unorted': dataList[0].unorted!.toString(),
-                      //   "Passive Supporter": dataList[3].neutral!.toString(),
-                      //   "Proactive Advocate": dataList[1].passive!.toString(),
-                      //   "Neutral": dataList[4].proactive!.toString(),
-                      //   "Detractor": dataList[2].detractor!.toString(),
-                      // };
-                      print(dataMap);
+                        detractor: element.advocacyScore1C == "Detractor"
+                            ? element.expr0!
+                            : 0,
+                        passive: element.advocacyScore1C == "Passive Supporter"
+                            ? element.expr0!
+                            : 0,
+                      ),
+                    );
+                  });
+                  // dataList.forEach((element) {
+                  //   print("element.detractor ${element.detractor}");
+                  //   print("element.neutral ${element.neutral}");
+                  //   print("element.passive ${element.passive}");
+                  //   print("element.proactive ${element.proactive}");
+                  //   print("element.unorted ${element.unorted}");
+                  // });
+                  Map<String, double> dataMap = {
+                    'Unscored: ${dataList[0].unorted!}':
+                        dataList[0].unorted!.toDouble(),
+                    "Detractor: ${dataList[1].detractor!}":
+                        dataList[1].detractor!.toDouble(),
+                    "Neutral: ${dataList[2].neutral!}":
+                        dataList[2].neutral!.toDouble(),
+                    "Passive Supporter: ${dataList[3].passive!}":
+                        dataList[3].passive!.toDouble(),
+                    "Proactive Advocate: ${dataList[4].proactive!}":
+                        dataList[4].proactive!.toDouble(),
+                  };
+                  // Map<String, String> dataMap1 = {
+                  //   'unorted': dataList[0].unorted!.toString(),
+                  //   "Passive Supporter": dataList[3].neutral!.toString(),
+                  //   "Proactive Advocate": dataList[1].passive!.toString(),
+                  //   "Neutral": dataList[4].proactive!.toString(),
+                  //   "Detractor": dataList[2].detractor!.toString(),
+                  // };
+                  print(dataMap);
 
-                      return PieChart(
-                        dataMap: dataMap,
-                        colorList: colorList,
-                        chartRadius: MediaQuery.of(context).size.width / 2.5,
-                        chartType: ChartType.ring,
-                        ringStrokeWidth: 30,
-                        animationDuration: const Duration(seconds: 3),
-                        chartValuesOptions: const ChartValuesOptions(
-                            showChartValues: false,
-                            // showChartValuesOutside: true,
-                            // showChartValuesInPercentage: true,
-                            showChartValueBackground: false),
-                        legendOptions: const LegendOptions(
-                            showLegends: true,
-                            legendShape: BoxShape.rectangle,
-                            legendTextStyle: TextStyle(fontSize: 15),
-                            legendPosition: LegendPosition.bottom,
-                            showLegendsInRow: true),
-                        // gradientList: gradientList,
-                      );
-                    }),
+                  return PieChart(
+                    dataMap: dataMap,
+                    colorList: colorList,
+                    chartRadius: MediaQuery.of(context).size.width / 2.5,
+                    chartType: ChartType.ring,
+                    ringStrokeWidth: 30,
+                    animationDuration: const Duration(seconds: 3),
+                    chartValuesOptions: const ChartValuesOptions(
+                        showChartValues: false,
+                        // showChartValuesOutside: true,
+                        // showChartValuesInPercentage: true,
+                        showChartValueBackground: false),
+                    legendOptions: const LegendOptions(
+                        showLegends: true,
+                        legendShape: BoxShape.rectangle,
+                        legendTextStyle: TextStyle(fontSize: 15),
+                        legendPosition: LegendPosition.bottom,
+                        showLegendsInRow: true),
+                    // gradientList: gradientList,
+                  );
+                }),
               ),
             ),
           ],

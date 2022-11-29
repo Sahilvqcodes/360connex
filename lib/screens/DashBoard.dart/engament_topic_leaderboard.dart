@@ -17,7 +17,7 @@ class _EngagementTopicLeaderBoardState
   Widget build(BuildContext context) {
     return Column(children: [
       Container(
-        height: 440,
+        // height: 440,
         width: MediaQuery.of(context).size.width / 1.10,
         color: Colors.white,
         child: DefaultTabController(
@@ -103,7 +103,7 @@ class _EngagementTopicLeaderBoardState
                 ],
               ),
               Container(
-                height: 300,
+                height: 330,
                 child: TabBarView(
                   children: <Widget>[
                     ...List.generate(3, (i) {

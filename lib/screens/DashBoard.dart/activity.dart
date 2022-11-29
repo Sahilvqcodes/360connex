@@ -14,7 +14,7 @@ class _ActivityState extends State<Activity> {
   Widget build(BuildContext context) {
     return Column(children: [
       Container(
-        height: 500,
+        // height: 500,
         width: MediaQuery.of(context).size.width / 1.10,
         color: Colors.white,
         child: DefaultTabController(
@@ -102,461 +102,461 @@ class _ActivityState extends State<Activity> {
                 child: TabBarView(
                   children: <Widget>[
                     FutureBuilder(
-                        future: DashBoardApi.getLeukemiaActivity(context),
+                        // future: DashBoardApi.getLeukemiaActivity(context),
                         builder:
                             (BuildContext context, AsyncSnapshot snapshot) {
-                          BrandsActivity? _brandsActivity = snapshot.data;
+                      BrandsActivity? _brandsActivity = snapshot.data;
 
-                          _brandsActivity?.records!.sort((b, a) =>
-                              (a.kOLEngagementsR?.totalSize ?? 0).compareTo(
-                                  b.kOLEngagementsR?.totalSize ?? 0));
-                          // _brandsActivity!.records!.forEach((element) {
-                          //   print(element.name);
-                          // });
+                      _brandsActivity?.records!.sort((b, a) =>
+                          (a.kOLEngagementsR?.totalSize ?? 0)
+                              .compareTo(b.kOLEngagementsR?.totalSize ?? 0));
+                      // _brandsActivity!.records!.forEach((element) {
+                      //   print(element.name);
+                      // });
 
-                          if (!snapshot.hasData) {
-                            return Center(child: CircularProgressIndicator());
-                          }
-                          return MediaQuery.removePadding(
-                            removeTop: true,
-                            context: context,
-                            child: ListView(
-                              children: [
-                                ListTile(
-                                  // title: Text("name"),
-                                  trailing: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: const [
-                                      SizedBox(
-                                        width: 95,
-                                        child: Center(
-                                            child: Text(
-                                          "Engagements",
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w500),
-                                        )),
-                                      ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      SizedBox(
-                                        width: 70,
-                                        child: Center(
-                                            child: Text(
-                                          "iMono",
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w500),
-                                        )),
-                                      ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      SizedBox(
-                                        width: 70,
-                                        child: Center(
-                                            child: Text(
-                                          "I+V",
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w500),
-                                        )),
-                                      ),
-                                    ],
+                      if (!snapshot.hasData) {
+                        return Center(child: CircularProgressIndicator());
+                      }
+                      return MediaQuery.removePadding(
+                        removeTop: true,
+                        context: context,
+                        child: ListView(
+                          children: [
+                            ListTile(
+                              // title: Text("name"),
+                              trailing: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: const [
+                                  SizedBox(
+                                    width: 95,
+                                    child: Center(
+                                        child: Text(
+                                      "Engagements",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500),
+                                    )),
                                   ),
-                                ),
-                                ...List.generate(
-                                  _brandsActivity!.totalSize!,
-                                  (index) {
-                                    return Column(
-                                      children: [
-                                        ListTile(
-                                          leading: const CircleAvatar(
-                                            backgroundColor: Color.fromARGB(
-                                                255, 111, 113, 112),
-                                            radius: 20,
-                                            child: Text(
-                                              'I',
-                                              style: TextStyle(
-                                                  fontSize: 25,
-                                                  color: Colors.white),
-                                            ), //Text
-                                          ),
-                                          title: SizedBox(
-                                            width: 100,
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  SizedBox(
+                                    width: 70,
+                                    child: Center(
+                                        child: Text(
+                                      "iMono",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500),
+                                    )),
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  SizedBox(
+                                    width: 70,
+                                    child: Center(
+                                        child: Text(
+                                      "I+V",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500),
+                                    )),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            ...List.generate(
+                              _brandsActivity!.totalSize!,
+                              (index) {
+                                return Column(
+                                  children: [
+                                    ListTile(
+                                      leading: const CircleAvatar(
+                                        backgroundColor:
+                                            Color.fromARGB(255, 111, 113, 112),
+                                        radius: 20,
+                                        child: Text(
+                                          'I',
+                                          style: TextStyle(
+                                              fontSize: 25,
+                                              color: Colors.white),
+                                        ), //Text
+                                      ),
+                                      title: SizedBox(
+                                        width: 100,
+                                        child: Center(
+                                          child: Text(
+                                              "${_brandsActivity.records![index].name}"),
+                                        ),
+                                      ),
+                                      trailing: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          SizedBox(
+                                            width: 40,
                                             child: Center(
                                               child: Text(
-                                                  "${_brandsActivity.records![index].name}"),
+                                                "${_brandsActivity.records![index].kOLEngagementsR?.totalSize ?? "0"}",
+                                                style: const TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                              ),
                                             ),
                                           ),
-                                          trailing: Row(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              SizedBox(
-                                                width: 40,
-                                                child: Center(
-                                                  child: Text(
-                                                    "${_brandsActivity.records![index].kOLEngagementsR?.totalSize ?? "0"}",
-                                                    style: const TextStyle(
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.w500),
-                                                  ),
-                                                ),
-                                              ),
-                                              const SizedBox(
-                                                width: 5,
-                                              ),
-                                              SizedBox(
-                                                width: 70,
-                                                child: Center(
-                                                  child: Text(
-                                                    _brandsActivity
-                                                            .records![index]
-                                                            .kOLBrandsR
-                                                            ?.records![0]
-                                                            .advocacyScore1C ??
-                                                        "-",
-                                                    style: const TextStyle(
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.w500),
-                                                  ),
-                                                ),
-                                              ),
-                                              const SizedBox(
-                                                width: 5,
-                                              ),
-                                              SizedBox(
-                                                width: 70,
-                                                child: Center(
-                                                  child: Text(
-                                                    _brandsActivity
-                                                            .records![index]
-                                                            .kOLBrandsR
-                                                            ?.records![0]
-                                                            .advocacyScore2C ??
-                                                        "-",
-                                                    style: const TextStyle(
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.w500),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
+                                          const SizedBox(
+                                            width: 5,
                                           ),
-                                        )
-                                      ],
-                                    );
-                                  },
-                                )
-                              ],
-                            ),
-                          );
-                        }),
+                                          SizedBox(
+                                            width: 70,
+                                            child: Center(
+                                              child: Text(
+                                                _brandsActivity
+                                                        .records![index]
+                                                        .kOLBrandsR
+                                                        ?.records![0]
+                                                        .advocacyScore1C ??
+                                                    "-",
+                                                style: const TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          SizedBox(
+                                            width: 70,
+                                            child: Center(
+                                              child: Text(
+                                                _brandsActivity
+                                                        .records![index]
+                                                        .kOLBrandsR
+                                                        ?.records![0]
+                                                        .advocacyScore2C ??
+                                                    "-",
+                                                style: const TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                );
+                              },
+                            )
+                          ],
+                        ),
+                      );
+                    }),
                     FutureBuilder(
-                        future: DashBoardApi.getMMPortfolioActivity(context),
+                        // future: DashBoardApi.getMMPortfolioActivity(context),
                         builder:
                             (BuildContext context, AsyncSnapshot snapshot) {
-                          BrandsActivity? _brandsActivity = snapshot.data;
-                          _brandsActivity?.records!.sort((b, a) =>
-                              (a.kOLEngagementsR?.totalSize ?? 0).compareTo(
-                                  b.kOLEngagementsR?.totalSize ?? 0));
-                          if (!snapshot.hasData) {
-                            return Center(child: CircularProgressIndicator());
-                          }
-                          return MediaQuery.removePadding(
-                            removeTop: true,
-                            context: context,
-                            child: ListView(
-                              children: [
-                                ListTile(
-                                  // title: Text("name"),
-                                  trailing: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: const [
-                                      SizedBox(
-                                        width: 95,
-                                        child: Center(
-                                            child: Text(
-                                          "Engagements",
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w500),
-                                        )),
-                                      ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      SizedBox(
-                                        width: 70,
-                                        child: Center(
-                                            child: Text(
-                                          "iMono",
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w500),
-                                        )),
-                                      ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      SizedBox(
-                                        width: 70,
-                                        child: Center(
-                                            child: Text(
-                                          "I+V",
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w500),
-                                        )),
-                                      ),
-                                    ],
+                      BrandsActivity? _brandsActivity = snapshot.data;
+                      _brandsActivity?.records!.sort((b, a) =>
+                          (a.kOLEngagementsR?.totalSize ?? 0)
+                              .compareTo(b.kOLEngagementsR?.totalSize ?? 0));
+                      if (!snapshot.hasData) {
+                        return Center(child: CircularProgressIndicator());
+                      }
+                      return MediaQuery.removePadding(
+                        removeTop: true,
+                        context: context,
+                        child: ListView(
+                          children: [
+                            ListTile(
+                              // title: Text("name"),
+                              trailing: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: const [
+                                  SizedBox(
+                                    width: 95,
+                                    child: Center(
+                                        child: Text(
+                                      "Engagements",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500),
+                                    )),
                                   ),
-                                ),
-                                ...List.generate(
-                                  _brandsActivity!.totalSize!,
-                                  (index) {
-                                    return Column(
-                                      children: [
-                                        ListTile(
-                                          leading: const CircleAvatar(
-                                            backgroundColor: Color.fromARGB(
-                                                255, 111, 113, 112),
-                                            radius: 20,
-                                            child: Text(
-                                              'I',
-                                              style: TextStyle(
-                                                  fontSize: 25,
-                                                  color: Colors.white),
-                                            ), //Text
-                                          ),
-                                          title: SizedBox(
-                                            width: 100,
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  SizedBox(
+                                    width: 70,
+                                    child: Center(
+                                        child: Text(
+                                      "iMono",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500),
+                                    )),
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  SizedBox(
+                                    width: 70,
+                                    child: Center(
+                                        child: Text(
+                                      "I+V",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500),
+                                    )),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            ...List.generate(
+                              _brandsActivity!.totalSize!,
+                              (index) {
+                                return Column(
+                                  children: [
+                                    ListTile(
+                                      leading: const CircleAvatar(
+                                        backgroundColor:
+                                            Color.fromARGB(255, 111, 113, 112),
+                                        radius: 20,
+                                        child: Text(
+                                          'I',
+                                          style: TextStyle(
+                                              fontSize: 25,
+                                              color: Colors.white),
+                                        ), //Text
+                                      ),
+                                      title: SizedBox(
+                                        width: 100,
+                                        child: Center(
+                                          child: Text(
+                                              "${_brandsActivity.records![index].name}"),
+                                        ),
+                                      ),
+                                      trailing: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          SizedBox(
+                                            width: 40,
                                             child: Center(
                                               child: Text(
-                                                  "${_brandsActivity.records![index].name}"),
+                                                "${_brandsActivity.records![index].kOLEngagementsR?.totalSize ?? "0"}",
+                                                style: const TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                              ),
                                             ),
                                           ),
-                                          trailing: Row(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              SizedBox(
-                                                width: 40,
-                                                child: Center(
-                                                  child: Text(
-                                                    "${_brandsActivity.records![index].kOLEngagementsR?.totalSize ?? "0"}",
-                                                    style: const TextStyle(
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.w500),
-                                                  ),
-                                                ),
-                                              ),
-                                              const SizedBox(
-                                                width: 5,
-                                              ),
-                                              SizedBox(
-                                                width: 70,
-                                                child: Center(
-                                                  child: Text(
-                                                    _brandsActivity
-                                                            .records![index]
-                                                            .kOLBrandsR
-                                                            ?.records![0]
-                                                            .advocacyScore1C ??
-                                                        "-",
-                                                    style: const TextStyle(
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.w500),
-                                                  ),
-                                                ),
-                                              ),
-                                              const SizedBox(
-                                                width: 5,
-                                              ),
-                                              SizedBox(
-                                                width: 70,
-                                                child: Center(
-                                                  child: Text(
-                                                    _brandsActivity
-                                                            .records![index]
-                                                            .kOLBrandsR
-                                                            ?.records![0]
-                                                            .advocacyScore2C ??
-                                                        "-",
-                                                    style: const TextStyle(
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.w500),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
+                                          const SizedBox(
+                                            width: 5,
                                           ),
-                                        )
-                                      ],
-                                    );
-                                  },
-                                )
-                              ],
-                            ),
-                          );
-                        }),
+                                          SizedBox(
+                                            width: 70,
+                                            child: Center(
+                                              child: Text(
+                                                _brandsActivity
+                                                        .records![index]
+                                                        .kOLBrandsR
+                                                        ?.records![0]
+                                                        .advocacyScore1C ??
+                                                    "-",
+                                                style: const TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          SizedBox(
+                                            width: 70,
+                                            child: Center(
+                                              child: Text(
+                                                _brandsActivity
+                                                        .records![index]
+                                                        .kOLBrandsR
+                                                        ?.records![0]
+                                                        .advocacyScore2C ??
+                                                    "-",
+                                                style: const TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                );
+                              },
+                            )
+                          ],
+                        ),
+                      );
+                    }),
                     FutureBuilder(
-                        future:
-                            DashBoardApi.getProstateFranchiseActivity(context),
+                        // future:
+                        // DashBoardApi.getProstateFranchiseActivity(context),
                         builder:
                             (BuildContext context, AsyncSnapshot snapshot) {
-                          BrandsActivity? _brandsActivity = snapshot.data;
-                          _brandsActivity?.records!.sort((b, a) =>
-                              (a.kOLEngagementsR?.totalSize ?? 0).compareTo(
-                                  b.kOLEngagementsR?.totalSize ?? 0));
-                          if (!snapshot.hasData) {
-                            return Center(child: CircularProgressIndicator());
-                          }
-                          return MediaQuery.removePadding(
-                            removeTop: true,
-                            context: context,
-                            child: ListView(
-                              children: [
-                                ListTile(
-                                  // title: Text("name"),
-                                  trailing: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: const [
-                                      SizedBox(
-                                        width: 95,
-                                        child: Center(
-                                            child: Text(
-                                          "Engagements",
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w500),
-                                        )),
-                                      ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      SizedBox(
-                                        width: 70,
-                                        child: Center(
-                                            child: Text(
-                                          "iMono",
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w500),
-                                        )),
-                                      ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      SizedBox(
-                                        width: 70,
-                                        child: Center(
-                                            child: Text(
-                                          "I+V",
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w500),
-                                        )),
-                                      ),
-                                    ],
+                      BrandsActivity? _brandsActivity = snapshot.data;
+                      _brandsActivity?.records!.sort((b, a) =>
+                          (a.kOLEngagementsR?.totalSize ?? 0)
+                              .compareTo(b.kOLEngagementsR?.totalSize ?? 0));
+                      if (!snapshot.hasData) {
+                        return Center(child: CircularProgressIndicator());
+                      }
+                      return MediaQuery.removePadding(
+                        removeTop: true,
+                        context: context,
+                        child: ListView(
+                          children: [
+                            ListTile(
+                              // title: Text("name"),
+                              trailing: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: const [
+                                  SizedBox(
+                                    width: 95,
+                                    child: Center(
+                                        child: Text(
+                                      "Engagements",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500),
+                                    )),
                                   ),
-                                ),
-                                ...List.generate(
-                                  _brandsActivity!.totalSize!,
-                                  (index) {
-                                    return Column(
-                                      children: [
-                                        ListTile(
-                                          leading: const CircleAvatar(
-                                            backgroundColor: Color.fromARGB(
-                                                255, 111, 113, 112),
-                                            radius: 20,
-                                            child: Text(
-                                              'I',
-                                              style: TextStyle(
-                                                  fontSize: 25,
-                                                  color: Colors.white),
-                                            ), //Text
-                                          ),
-                                          title: SizedBox(
-                                            width: 100,
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  SizedBox(
+                                    width: 70,
+                                    child: Center(
+                                        child: Text(
+                                      "iMono",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500),
+                                    )),
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  SizedBox(
+                                    width: 70,
+                                    child: Center(
+                                        child: Text(
+                                      "I+V",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500),
+                                    )),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            ...List.generate(
+                              _brandsActivity!.totalSize!,
+                              (index) {
+                                return Column(
+                                  children: [
+                                    ListTile(
+                                      leading: const CircleAvatar(
+                                        backgroundColor:
+                                            Color.fromARGB(255, 111, 113, 112),
+                                        radius: 20,
+                                        child: Text(
+                                          'I',
+                                          style: TextStyle(
+                                              fontSize: 25,
+                                              color: Colors.white),
+                                        ), //Text
+                                      ),
+                                      title: SizedBox(
+                                        width: 100,
+                                        child: Center(
+                                          child: Text(
+                                              "${_brandsActivity.records![index].name}"),
+                                        ),
+                                      ),
+                                      trailing: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          SizedBox(
+                                            width: 40,
                                             child: Center(
                                               child: Text(
-                                                  "${_brandsActivity.records![index].name}"),
+                                                "${_brandsActivity.records![index].kOLEngagementsR?.totalSize ?? "0"}",
+                                                style: const TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                              ),
                                             ),
                                           ),
-                                          trailing: Row(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              SizedBox(
-                                                width: 40,
-                                                child: Center(
-                                                  child: Text(
-                                                    "${_brandsActivity.records![index].kOLEngagementsR?.totalSize ?? "0"}",
-                                                    style: const TextStyle(
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.w500),
-                                                  ),
-                                                ),
-                                              ),
-                                              const SizedBox(
-                                                width: 5,
-                                              ),
-                                              SizedBox(
-                                                width: 70,
-                                                child: Center(
-                                                  child: Text(
-                                                    _brandsActivity
-                                                            .records![index]
-                                                            .kOLBrandsR
-                                                            ?.records![0]
-                                                            .advocacyScore1C ??
-                                                        "-",
-                                                    style: const TextStyle(
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.w500),
-                                                  ),
-                                                ),
-                                              ),
-                                              const SizedBox(
-                                                width: 5,
-                                              ),
-                                              SizedBox(
-                                                width: 70,
-                                                child: Center(
-                                                  child: Text(
-                                                    _brandsActivity
-                                                            .records![index]
-                                                            .kOLBrandsR
-                                                            ?.records![0]
-                                                            .advocacyScore2C ??
-                                                        "-",
-                                                    style: const TextStyle(
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.w500),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
+                                          const SizedBox(
+                                            width: 5,
                                           ),
-                                        )
-                                      ],
-                                    );
-                                  },
-                                )
-                              ],
-                            ),
-                          );
-                        }),
+                                          SizedBox(
+                                            width: 70,
+                                            child: Center(
+                                              child: Text(
+                                                _brandsActivity
+                                                        .records![index]
+                                                        .kOLBrandsR
+                                                        ?.records![0]
+                                                        .advocacyScore1C ??
+                                                    "-",
+                                                style: const TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          SizedBox(
+                                            width: 70,
+                                            child: Center(
+                                              child: Text(
+                                                _brandsActivity
+                                                        .records![index]
+                                                        .kOLBrandsR
+                                                        ?.records![0]
+                                                        .advocacyScore2C ??
+                                                    "-",
+                                                style: const TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                );
+                              },
+                            )
+                          ],
+                        ),
+                      );
+                    }),
                   ],
                 ),
               ),

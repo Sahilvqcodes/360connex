@@ -150,7 +150,7 @@ class KolOverview extends StatelessWidget {
                               const Text(
                                 "Academic: ",
                                 style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 14,
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
@@ -168,7 +168,7 @@ class KolOverview extends StatelessWidget {
                               const Text(
                                 "Community: ",
                                 style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 14,
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
@@ -186,7 +186,7 @@ class KolOverview extends StatelessWidget {
                               const Text(
                                 "LUGPA: ",
                                 style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 14,
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),

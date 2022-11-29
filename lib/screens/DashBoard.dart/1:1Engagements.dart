@@ -118,7 +118,7 @@ class _MeetingEngagementsState extends State<MeetingEngagements> {
                                                     ),
                                                     Text(
                                                       "${_day} ${_month} ${_date}",
-                                                      style: TextStyle(
+                                                      style: const TextStyle(
                                                         fontSize: 20,
                                                         fontWeight:
                                                             FontWeight.w500,

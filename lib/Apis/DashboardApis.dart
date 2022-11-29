@@ -33,7 +33,7 @@ class DashBoardApi {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQB17Gky5jJiTYtFD836d_gr4arf2JmT75P54XzQf8osy28aiFU8UdZ8CkGXNizFCUTPZ4.mE9sLG.ZcZUK9lRXbpAyb_'
+            'Bearer 00D23000000FGah!AQUAQBlHIrIRsyX7iFOEv6tu2OGoaWGL.76YWFeULkPJGENczdpMO3lL2oGOvQhkkQmQxk.m.Ayx4dqqmbHkaeLai4HYhV_o'
       },
     );
     // print("response ${response.body}");
@@ -42,16 +42,44 @@ class DashBoardApi {
     return _congressList;
   }
 
-  static getTotalEngagements(BuildContext context) async {
+  static getTotalEngagements(BuildContext context, RxList selectedItems,
+      RxString congressSelect) async {
+    print("getTotalEngagements selectedItems $selectedItems");
+    var queryParams1 = "";
+    for (int i = 0; i < selectedItems.length; i++) {
+      if (i == 0) {
+        queryParams1 = "Focus_Master__r.Name = '${selectedItems[i].name}' ";
+      } else {
+        queryParams1 = queryParams1 +
+            " or Focus_Master__r.Name = '${selectedItems[i].name}' ";
+      }
+    }
+
+    print("queryParams1 $queryParams1");
+    // var queryParams1 = "";
+
+    // selectedItems.asMap().map((index, element) {
+    //   if (index == 0) {
+    //     queryParams1 = "Focus_Master__r.Name = '${element.name}' ";
+    //   } else {
+    //     queryParams1 =
+    //         queryParams1 + " or Focus_Master__r.Name = '${element.name}' ";
+    //   }
+    //   return element;
+    // });
+
     String url =
-        "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=SELECT%20Brand_Master__r.Name,%20COUNT(id)%20engs,%20CALENDAR_QUARTER(Engagement_Date__c),%20CALENDAR_YEAR(Engagement_Date__c)%20FROM%20Master_Enagement__c%20where%20KOL_Profile_Portal__c%20=%20%27a343Z000003XdRsQAK%27%20and%20Brand_Master__r.Name%20!=%20%27%27%20GROUP%20BY%20Brand_Master__r.Name,%20CALENDAR_QUARTER(Engagement_Date__c),%20CALENDAR_YEAR(Engagement_Date__c)%20ORDER%20BY%20GROUPING(Brand_Master__r.Name)";
+        "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=SELECT Brand_Master__r.Name, COUNT(id) engs, CALENDAR_QUARTER(Engagement_Date__c), CALENDAR_YEAR(Engagement_Date__c) FROM Master_Enagement__c where KOL_Profile_Portal__c = 'a343Z000003XdRsQAK'  and Brand_Master__r.Name != ' '${congressSelect.value.length != 0 ? "AND Congress__c = '" + congressSelect.value.substring(0, congressSelect.value.length - 3) + "'" : ""} ${queryParams1 != '' ? 'and(' + queryParams1 + ')' : ''} GROUP BY Brand_Master__r.Name, CALENDAR_QUARTER(Engagement_Date__c), CALENDAR_YEAR(Engagement_Date__c) ORDER BY GROUPING(Brand_Master__r.Name)";
+    // "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=SELECT%20Brand_Master__r.Name,%20COUNT(id)%20engs,%20CALENDAR_QUARTER(Engagement_Date__c),%20CALENDAR_YEAR(Engagement_Date__c)%20FROM%20Master_Enagement__c%20where%20KOL_Profile_Portal__c%20=%20%27a343Z000003XdRsQAK%27%20and%20Brand_Master__r.Name%20!=%20%27%27%${queryParams1 != '' ? 'and(' + queryParams1 + ')' : ''}20GROUP%20BY%20Brand_Master__r.Name,%20CALENDAR_QUARTER(Engagement_Date__c),%20CALENDAR_YEAR(Engagement_Date__c)%20ORDER%20BY%20GROUPING(Brand_Master__r.Name)";
+    var encoded = Uri.encodeFull(url);
+    print("encoded $encoded");
     var response = await http.get(
-      Uri.parse(url),
+      Uri.parse(encoded),
       headers: {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQB17Gky5jJiTYtFD836d_gr4arf2JmT75P54XzQf8osy28aiFU8UdZ8CkGXNizFCUTPZ4.mE9sLG.ZcZUK9lRXbpAyb_'
+            'Bearer 00D23000000FGah!AQUAQBlHIrIRsyX7iFOEv6tu2OGoaWGL.76YWFeULkPJGENczdpMO3lL2oGOvQhkkQmQxk.m.Ayx4dqqmbHkaeLai4HYhV_o'
       },
     );
     // print("getTotalEngagements ${response.body}");
@@ -66,11 +94,18 @@ class DashBoardApi {
     List<EngagementsRecords>? prostate_franchise = _totalEngagements.records!
         .where((element) => element.name == "Prostate Franchise")
         .toList();
+    print("_mmPortfolio1 $leukemia_lymphoma");
     // List<EngagementsRecords>? _data;
     List<AllData> listAllData = [
-      AllData(id: 1, recordsList: leukemia_lymphoma),
-      AllData(id: 2, recordsList: _mmPortfolio),
-      AllData(id: 3, recordsList: prostate_franchise),
+      leukemia_lymphoma.length != 0
+          ? AllData(id: 1, recordsList: leukemia_lymphoma)
+          : AllData(id: 1, recordsList: null),
+      _mmPortfolio.length != 0
+          ? AllData(id: 2, recordsList: _mmPortfolio)
+          : AllData(id: 2, recordsList: null),
+      prostate_franchise.length != 0
+          ? AllData(id: 3, recordsList: prostate_franchise)
+          : AllData(id: 3, recordsList: null),
     ];
     // print(listAllData[0].recordsList![0].name);
     // _data![0].brandRecords!.add(_mmPortfolio![0]);
@@ -79,16 +114,28 @@ class DashBoardApi {
     return listAllData;
   }
 
-  static getCommercialEngagements(BuildContext context) async {
+  static getCommercialEngagements(
+      BuildContext context, RxList brandFocus, RxString congressSelect) async {
+    var queryParams1 = "";
+    for (int i = 0; i < brandFocus.length; i++) {
+      if (i == 0) {
+        queryParams1 = "Focus_Master__r.Name = '${brandFocus[i].name}' ";
+      } else {
+        queryParams1 = queryParams1 +
+            " or Focus_Master__r.Name = '${brandFocus[i].name}' ";
+      }
+    }
     String url =
-        "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=SELECT%20Brand_Master__r.Name,%20COUNT(id)%20engs,%20CALENDAR_QUARTER(Engagement_Date__c),%20CALENDAR_YEAR(Engagement_Date__c)%20FROM%20Master_Enagement__c%20where%20KOL_Profile_Portal__c%20=%20%27a343Z000003XdRsQAK%27%20and%20Engagement_Type__c%20=%20%27Commercial%27%20GROUP%20BY%20Brand_Master__r.Name,%20CALENDAR_QUARTER(Engagement_Date__c),%20CALENDAR_YEAR(Engagement_Date__c)%20ORDER%20BY%20GROUPING(Brand_Master__r.Name)";
+        "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=SELECT Brand_Master__r.Name, COUNT(id)engs, CALENDAR_QUARTER(Engagement_Date__c), CALENDAR_YEAR(Engagement_Date__c) FROM Master_Enagement__c where KOL_Profile_Portal__c = 'a343Z000003XdRsQAK' and Engagement_Type__c = 'Commercial' ${congressSelect.value.length != 0 ? "AND Congress__c = '" + congressSelect.value.substring(0, congressSelect.value.length - 3) + "'" : ""} ${queryParams1 != '' ? 'and(' + queryParams1 + ')' : ''} GROUP BY Brand_Master__r.Name, CALENDAR_QUARTER(Engagement_Date__c), CALENDAR_YEAR(Engagement_Date__c) ORDER BY GROUPING(Brand_Master__r.Name) ";
+    var encoded = Uri.encodeFull(url);
+    print("encoded $encoded");
     var response = await http.get(
-      Uri.parse(url),
+      Uri.parse(encoded),
       headers: {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQB17Gky5jJiTYtFD836d_gr4arf2JmT75P54XzQf8osy28aiFU8UdZ8CkGXNizFCUTPZ4.mE9sLG.ZcZUK9lRXbpAyb_'
+            'Bearer 00D23000000FGah!AQUAQBlHIrIRsyX7iFOEv6tu2OGoaWGL.76YWFeULkPJGENczdpMO3lL2oGOvQhkkQmQxk.m.Ayx4dqqmbHkaeLai4HYhV_o'
       },
     );
     // print("getCommercialEngagements ${response.body}");
@@ -105,24 +152,43 @@ class DashBoardApi {
         .toList();
     // List<EngagementsRecords>? _data;
     List<AllData> listAllData = [
-      AllData(id: 1, recordsList: leukemia_lymphoma),
-      AllData(id: 2, recordsList: _mmPortfolio),
-      AllData(id: 3, recordsList: prostate_franchise),
+      leukemia_lymphoma.length != 0
+          ? AllData(id: 1, recordsList: leukemia_lymphoma)
+          : AllData(id: 1, recordsList: null),
+      _mmPortfolio.length != 0
+          ? AllData(id: 2, recordsList: _mmPortfolio)
+          : AllData(id: 2, recordsList: null),
+      prostate_franchise.length != 0
+          ? AllData(id: 3, recordsList: prostate_franchise)
+          : AllData(id: 3, recordsList: null),
     ];
 
     return listAllData;
   }
 
-  static getMedicalEngagements(BuildContext context) async {
+  static getMedicalEngagements(
+      BuildContext context, RxList brandFocus, RxString congressSelect) async {
+    var queryParams1 = "";
+    for (int i = 0; i < brandFocus.length; i++) {
+      if (i == 0) {
+        queryParams1 = "Focus_Master__r.Name = '${brandFocus[i].name}' ";
+      } else {
+        queryParams1 = queryParams1 +
+            " or Focus_Master__r.Name = '${brandFocus[i].name}' ";
+      }
+    }
+
     String url =
-        "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=SELECT%20Brand_Master__r.Name,%20COUNT(id)%20engs,%20CALENDAR_QUARTER(Engagement_Date__c),%20CALENDAR_YEAR(Engagement_Date__c)%20FROM%20Master_Enagement__c%20where%20KOL_Profile_Portal__c%20=%20%27a343Z000003XdRsQAK%27%20and%20Engagement_Type__c%20=%20%27Medical%27%20GROUP%20BY%20Brand_Master__r.Name,%20CALENDAR_QUARTER(Engagement_Date__c),%20CALENDAR_YEAR(Engagement_Date__c)%20ORDER%20BY%20GROUPING(Brand_Master__r.Name)";
+        "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=SELECT Brand_Master__r.Name, COUNT(id)engs, CALENDAR_QUARTER(Engagement_Date__c), CALENDAR_YEAR(Engagement_Date__c) FROM Master_Enagement__c where KOL_Profile_Portal__c = 'a343Z000003XdRsQAK' and Engagement_Type__c = 'Medical' ${congressSelect.value.length != 0 ? "AND Congress__c = '" + congressSelect.value.substring(0, congressSelect.value.length - 3) + "'" : ""} ${queryParams1 != '' ? 'and(' + queryParams1 + ')' : ''} GROUP BY Brand_Master__r.Name, CALENDAR_QUARTER(Engagement_Date__c), CALENDAR_YEAR(Engagement_Date__c) ORDER BY GROUPING(Brand_Master__r.Name) ";
+    var encoded = Uri.encodeFull(url);
+    print("encoded $encoded");
     var response = await http.get(
-      Uri.parse(url),
+      Uri.parse(encoded),
       headers: {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQB17Gky5jJiTYtFD836d_gr4arf2JmT75P54XzQf8osy28aiFU8UdZ8CkGXNizFCUTPZ4.mE9sLG.ZcZUK9lRXbpAyb_'
+            'Bearer 00D23000000FGah!AQUAQBlHIrIRsyX7iFOEv6tu2OGoaWGL.76YWFeULkPJGENczdpMO3lL2oGOvQhkkQmQxk.m.Ayx4dqqmbHkaeLai4HYhV_o'
       },
     );
     // print("getMedicalEngagements ${response.body}");
@@ -139,9 +205,15 @@ class DashBoardApi {
         .toList();
     // List<EngagementsRecords>? _data;
     List<AllData> listAllData = [
-      AllData(id: 1, recordsList: leukemia_lymphoma),
-      AllData(id: 2, recordsList: _mmPortfolio),
-      AllData(id: 3, recordsList: prostate_franchise),
+      leukemia_lymphoma.length != 0
+          ? AllData(id: 1, recordsList: leukemia_lymphoma)
+          : AllData(id: 1, recordsList: null),
+      _mmPortfolio.length != 0
+          ? AllData(id: 2, recordsList: _mmPortfolio)
+          : AllData(id: 2, recordsList: null),
+      prostate_franchise.length != 0
+          ? AllData(id: 3, recordsList: prostate_franchise)
+          : AllData(id: 3, recordsList: null),
     ];
 
     return listAllData;
@@ -156,7 +228,7 @@ class DashBoardApi {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQB17Gky5jJiTYtFD836d_gr4arf2JmT75P54XzQf8osy28aiFU8UdZ8CkGXNizFCUTPZ4.mE9sLG.ZcZUK9lRXbpAyb_'
+            'Bearer 00D23000000FGah!AQUAQBlHIrIRsyX7iFOEv6tu2OGoaWGL.76YWFeULkPJGENczdpMO3lL2oGOvQhkkQmQxk.m.Ayx4dqqmbHkaeLai4HYhV_o'
       },
     );
     // print("totalKolOverview ${response.body}");
@@ -174,7 +246,7 @@ class DashBoardApi {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQB17Gky5jJiTYtFD836d_gr4arf2JmT75P54XzQf8osy28aiFU8UdZ8CkGXNizFCUTPZ4.mE9sLG.ZcZUK9lRXbpAyb_'
+            'Bearer 00D23000000FGah!AQUAQBlHIrIRsyX7iFOEv6tu2OGoaWGL.76YWFeULkPJGENczdpMO3lL2oGOvQhkkQmQxk.m.Ayx4dqqmbHkaeLai4HYhV_o'
       },
     );
     // print("totalKolOverview ${response.body}");
@@ -192,7 +264,7 @@ class DashBoardApi {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQB17Gky5jJiTYtFD836d_gr4arf2JmT75P54XzQf8osy28aiFU8UdZ8CkGXNizFCUTPZ4.mE9sLG.ZcZUK9lRXbpAyb_'
+            'Bearer 00D23000000FGah!AQUAQBlHIrIRsyX7iFOEv6tu2OGoaWGL.76YWFeULkPJGENczdpMO3lL2oGOvQhkkQmQxk.m.Ayx4dqqmbHkaeLai4HYhV_o'
       },
     );
     // print("classificationKolOverview ${response.body}");
@@ -212,7 +284,7 @@ class DashBoardApi {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQB17Gky5jJiTYtFD836d_gr4arf2JmT75P54XzQf8osy28aiFU8UdZ8CkGXNizFCUTPZ4.mE9sLG.ZcZUK9lRXbpAyb_'
+            'Bearer 00D23000000FGah!AQUAQBlHIrIRsyX7iFOEv6tu2OGoaWGL.76YWFeULkPJGENczdpMO3lL2oGOvQhkkQmQxk.m.Ayx4dqqmbHkaeLai4HYhV_o'
       },
     );
     // print("kolTotalEngagements ${response.body}");
@@ -231,7 +303,7 @@ class DashBoardApi {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQB17Gky5jJiTYtFD836d_gr4arf2JmT75P54XzQf8osy28aiFU8UdZ8CkGXNizFCUTPZ4.mE9sLG.ZcZUK9lRXbpAyb_'
+            'Bearer 00D23000000FGah!AQUAQBlHIrIRsyX7iFOEv6tu2OGoaWGL.76YWFeULkPJGENczdpMO3lL2oGOvQhkkQmQxk.m.Ayx4dqqmbHkaeLai4HYhV_o'
       },
     );
     // print("kolTotalInstitutions ${response.body}");
@@ -250,7 +322,7 @@ class DashBoardApi {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQB17Gky5jJiTYtFD836d_gr4arf2JmT75P54XzQf8osy28aiFU8UdZ8CkGXNizFCUTPZ4.mE9sLG.ZcZUK9lRXbpAyb_'
+            'Bearer 00D23000000FGah!AQUAQBlHIrIRsyX7iFOEv6tu2OGoaWGL.76YWFeULkPJGENczdpMO3lL2oGOvQhkkQmQxk.m.Ayx4dqqmbHkaeLai4HYhV_o'
       },
     );
     // print("affliatedKols ${response.body}");
@@ -260,17 +332,35 @@ class DashBoardApi {
     return _kolOverview;
   }
 
-  static getLeukemiaActivity(BuildContext context) async {
+  static getLeukemiaActivity(BuildContext context, RxList brandFocus) async {
     // print("AutoGenerate _brandsActivity");
+    var queryParams1 = "";
+    for (int i = 0; i < brandFocus.length; i++) {
+      if (i == 0) {
+        queryParams1 =
+            "Master_Engagement__r.Focus_Master__r.Name = '${brandFocus[i].name}' ";
+      } else {
+        queryParams1 = queryParams1 +
+            " or Master_Engagement__r.Focus_Master__r.Name ='${brandFocus[i].name}' ";
+      }
+    }
+
+    print("queryParams1 $queryParams1");
     String url =
-        "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=Select%20Id,%20Name,%20(Select%20Id%20from%20KOL_Engagements__r%20where%20Master_Engagement__r.Brand_Master__r.Name%20=%20%27Leukemia-Lymphoma%27%20),%20(Select%20Brand_Master__r.Name,%20Advocacy_Label_1__c,%20Advocacy_Score_1__c,%20Advocacy_Label_2__c,%20Advocacy_Score_2__c%20from%20KOL_Brands__r%20where%20Brand_Master__r.Name%20IN%20(%27Leukemia-Lymphoma%27))%20From%20Account%20Where%20Id%20IN%20(Select%20Expert_Account__c%20from%20Expert__c%20where%20KOL_Profile_Portal__c%20=%20%27a343Z000003XdRsQAK%27)%20and%20Id%20IN%20(Select%20KOL__c%20from%20KOL_Brand__c%20where%20Brand_Master__r.Name%20IN%20(%27Leukemia-Lymphoma%27))";
+        "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=Select Id, Name, (Select Id from KOL_Engagements__r where Master_Engagement__r.Brand_Master__r.Name = 'Leukemia-Lymphoma' ${queryParams1 != '' ? 'and (' + queryParams1 + ')' : ''}  ), (Select Brand_Master__r.Name, Advocacy_Label_1__c, Advocacy_Score_1__c, Advocacy_Label_2__c, Advocacy_Score_2__c from KOL_Brands__r where Brand_Master__r.Name IN ('Leukemia-Lymphoma')) From Account Where Id IN (Select Expert_Account__c from Expert__c where KOL_Profile_Portal__c = 'a343Z000003XdRsQAK') and Id IN (Select KOL__c from KOL_Brand__c where Brand_Master__r.Name IN ('Leukemia-Lymphoma')) ";
+    print("url getLeukemiaActivity $url");
+
+    var encoded = Uri.encodeFull(url);
+
+    print("encoded getLeukemiaActivity $encoded");
+
     var response = await http.get(
-      Uri.parse(url),
+      Uri.parse(encoded),
       headers: {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQB17Gky5jJiTYtFD836d_gr4arf2JmT75P54XzQf8osy28aiFU8UdZ8CkGXNizFCUTPZ4.mE9sLG.ZcZUK9lRXbpAyb_'
+            'Bearer 00D23000000FGah!AQUAQBlHIrIRsyX7iFOEv6tu2OGoaWGL.76YWFeULkPJGENczdpMO3lL2oGOvQhkkQmQxk.m.Ayx4dqqmbHkaeLai4HYhV_o'
       },
     );
     // print("getLeukemiaActivity ${response.body}");
@@ -280,16 +370,29 @@ class DashBoardApi {
     return _brandsActivity;
   }
 
-  static getMMPortfolioActivity(BuildContext context) async {
+  static getMMPortfolioActivity(BuildContext context, RxList brandFocus) async {
+    var queryParams1 = "";
+    for (int i = 0; i < brandFocus.length; i++) {
+      if (i == 0) {
+        queryParams1 =
+            "Master_Engagement__r.Focus_Master__r.Name = '${brandFocus[i].name}' ";
+      } else {
+        queryParams1 = queryParams1 +
+            " or Master_Engagement__r.Focus_Master__r.Name ='${brandFocus[i].name}' ";
+      }
+    }
+
     String url =
-        "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=Select%20Id,%20Name,%20(Select%20Id%20from%20KOL_Engagements__r%20where%20Master_Engagement__r.Brand_Master__r.Name%20=%20%27MM%20Portfolio%27%20),%20(Select%20Brand_Master__r.Name,%20Advocacy_Label_1__c,%20Advocacy_Score_1__c,%20Advocacy_Label_2__c,%20Advocacy_Score_2__c%20from%20KOL_Brands__r%20where%20Brand_Master__r.Name%20IN%20(%27MM%20Portfolio%27))%20From%20Account%20Where%20Id%20IN%20(Select%20Expert_Account__c%20from%20Expert__c%20where%20KOL_Profile_Portal__c%20=%20%27a343Z000003XdRsQAK%27)%20and%20Id%20IN%20(Select%20KOL__c%20from%20KOL_Brand__c%20where%20Brand_Master__r.Name%20IN%20(%27MM%20Portfolio%27))";
+        "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=Select Id, Name, (Select Id from KOL_Engagements__r where Master_Engagement__r.Brand_Master__r.Name = 'MM Portfolio' ${queryParams1 != '' ? 'and (' + queryParams1 + ')' : ''} ), (Select Brand_Master__r.Name, Advocacy_Label_1__c, Advocacy_Score_1__c, Advocacy_Label_2__c, Advocacy_Score_2__c from KOL_Brands__r where Brand_Master__r.Name IN ('MM Portfolio')) From Account Where Id IN (Select Expert_Account__c from Expert__c where KOL_Profile_Portal__c = 'a343Z000003XdRsQAK') and Id IN (Select KOL__c from KOL_Brand__c where Brand_Master__r.Name IN ('MM Portfolio')) ";
+    var encoded = Uri.encodeFull(url);
+
     var response = await http.get(
       Uri.parse(url),
       headers: {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQB17Gky5jJiTYtFD836d_gr4arf2JmT75P54XzQf8osy28aiFU8UdZ8CkGXNizFCUTPZ4.mE9sLG.ZcZUK9lRXbpAyb_'
+            'Bearer 00D23000000FGah!AQUAQBlHIrIRsyX7iFOEv6tu2OGoaWGL.76YWFeULkPJGENczdpMO3lL2oGOvQhkkQmQxk.m.Ayx4dqqmbHkaeLai4HYhV_o'
       },
     );
     // print("getMMPortfolioActivity ${response.body}");
@@ -299,16 +402,29 @@ class DashBoardApi {
     return _brandsActivity;
   }
 
-  static getProstateFranchiseActivity(BuildContext context) async {
+  static getProstateFranchiseActivity(
+      BuildContext context, RxList brandFocus) async {
+    var queryParams1 = "";
+    for (int i = 0; i < brandFocus.length; i++) {
+      if (i == 0) {
+        queryParams1 =
+            "Master_Engagement__r.Focus_Master__r.Name = '${brandFocus[i].name}' ";
+      } else {
+        queryParams1 = queryParams1 +
+            " or Master_Engagement__r.Focus_Master__r.Name ='${brandFocus[i].name}' ";
+      }
+    }
     String url =
-        "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=Select%20Id,%20Name,%20(Select%20Id%20from%20KOL_Engagements__r%20where%20Master_Engagement__r.Brand_Master__r.Name%20=%20%27Prostate%20Franchise%27%20),%20(Select%20Brand_Master__r.Name,%20Advocacy_Label_1__c,%20Advocacy_Score_1__c,%20Advocacy_Label_2__c,%20Advocacy_Score_2__c%20from%20KOL_Brands__r%20where%20Brand_Master__r.Name%20IN%20(%27Prostate%20Franchise%27))%20From%20Account%20Where%20Id%20IN%20(Select%20Expert_Account__c%20from%20Expert__c%20where%20KOL_Profile_Portal__c%20=%20%27a343Z000003XdRsQAK%27)%20and%20Id%20IN%20(Select%20KOL__c%20from%20KOL_Brand__c%20where%20Brand_Master__r.Name%20IN%20(%27Prostate%20Franchise%27))";
+        "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=Select Id, Name, (Select Id from KOL_Engagements__r where Master_Engagement__r.Brand_Master__r.Name = 'Prostate Franchise'  ${queryParams1 != '' ? 'and (' + queryParams1 + ')' : ''} ), (Select Brand_Master__r.Name, Advocacy_Label_1__c, Advocacy_Score_1__c, Advocacy_Label_2__c, Advocacy_Score_2__c from KOL_Brands__r where Brand_Master__r.Name IN ('Prostate Franchise')) From Account Where Id IN (Select Expert_Account__c from Expert__c where KOL_Profile_Portal__c = 'a343Z000003XdRsQAK') and Id IN (Select KOL__c from KOL_Brand__c where Brand_Master__r.Name IN ('Prostate Franchise'))";
+    var encoded = Uri.encodeFull(url);
+
     var response = await http.get(
-      Uri.parse(url),
+      Uri.parse(encoded),
       headers: {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQB17Gky5jJiTYtFD836d_gr4arf2JmT75P54XzQf8osy28aiFU8UdZ8CkGXNizFCUTPZ4.mE9sLG.ZcZUK9lRXbpAyb_'
+            'Bearer 00D23000000FGah!AQUAQBlHIrIRsyX7iFOEv6tu2OGoaWGL.76YWFeULkPJGENczdpMO3lL2oGOvQhkkQmQxk.m.Ayx4dqqmbHkaeLai4HYhV_o'
       },
     );
     // print("getProstateFranchiseActivity ${response.body}");
@@ -327,7 +443,7 @@ class DashBoardApi {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQB17Gky5jJiTYtFD836d_gr4arf2JmT75P54XzQf8osy28aiFU8UdZ8CkGXNizFCUTPZ4.mE9sLG.ZcZUK9lRXbpAyb_'
+            'Bearer 00D23000000FGah!AQUAQBlHIrIRsyX7iFOEv6tu2OGoaWGL.76YWFeULkPJGENczdpMO3lL2oGOvQhkkQmQxk.m.Ayx4dqqmbHkaeLai4HYhV_o'
       },
     );
     // print("getEngagementTopicLraderboard ${response.body}");
@@ -399,7 +515,7 @@ class DashBoardApi {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQB17Gky5jJiTYtFD836d_gr4arf2JmT75P54XzQf8osy28aiFU8UdZ8CkGXNizFCUTPZ4.mE9sLG.ZcZUK9lRXbpAyb_'
+            'Bearer 00D23000000FGah!AQUAQBlHIrIRsyX7iFOEv6tu2OGoaWGL.76YWFeULkPJGENczdpMO3lL2oGOvQhkkQmQxk.m.Ayx4dqqmbHkaeLai4HYhV_o'
       },
     );
     // print("getMeetingsAndActivites ${response.body}");
@@ -449,16 +565,29 @@ class DashBoardApi {
     return _meetingsActivitiesData;
   }
 
-  static getPieChartData(BuildContext context) async {
+  static getPieChartData(BuildContext context, RxList brandFocus) async {
+    var queryParams1 = "";
+    for (int i = 0; i < brandFocus.length; i++) {
+      if (i == 0) {
+        queryParams1 =
+            "Master_Engagement__r.Focus_Master__r.Name = '${brandFocus[i].name}' ";
+      } else {
+        queryParams1 = queryParams1 +
+            " or Master_Engagement__r.Focus_Master__r.Name = '${brandFocus[i].name}' ";
+      }
+    }
     String url =
-        "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=Select%20KOL_Brand__r.Advocacy_Score_1__c,%20count(id)%20from%20KOL_Engagement__c%20where%20Master_Engagement__r.KOL_Profile_Portal__r.Name%20=%20%27Janssen%20KOL%20Portal%27%20and%20(Master_Engagement__r.Brand_Master__r.Name%20=%20%27Leukemia-Lymphoma%27%20or%20Master_Engagement__r.Brand_Master__r.Name%20=%20%27MM%20Portfolio%27%20or%20Master_Engagement__r.Brand_Master__r.Name%20=%20%27Prostate%20Franchise%27%20)%20group%20by%20KOL_Brand__r.Advocacy_Score_1__c%20order%20by%20KOL_Brand__r.Advocacy_Score_1__c%20asc";
+        "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=Select KOL_Brand__r.Advocacy_Score_1__c, count(id)from KOL_Engagement__c where Master_Engagement__r.KOL_Profile_Portal__r.Name = 'Janssen KOL Portal' and (Master_Engagement__r.Brand_Master__r.Name = 'Leukemia-Lymphoma' or Master_Engagement__r.Brand_Master__r.Name = 'MM Portfolio' or Master_Engagement__r.Brand_Master__r.Name = 'Prostate Franchise' )${queryParams1 != '' ? 'and(' + queryParams1 + ')' : ''} group by KOL_Brand__r.Advocacy_Score_1__c order by KOL_Brand__r.Advocacy_Score_1__c asc ";
+    print("url piechart $url");
+
+    var encoded = Uri.encodeFull(url);
     var response = await http.get(
-      Uri.parse(url),
+      Uri.parse(encoded),
       headers: {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQB17Gky5jJiTYtFD836d_gr4arf2JmT75P54XzQf8osy28aiFU8UdZ8CkGXNizFCUTPZ4.mE9sLG.ZcZUK9lRXbpAyb_'
+            'Bearer 00D23000000FGah!AQUAQBlHIrIRsyX7iFOEv6tu2OGoaWGL.76YWFeULkPJGENczdpMO3lL2oGOvQhkkQmQxk.m.Ayx4dqqmbHkaeLai4HYhV_o'
       },
     );
     // print("getProstateFranchiseActivity ${response.body}");
@@ -477,7 +606,7 @@ class DashBoardApi {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQB17Gky5jJiTYtFD836d_gr4arf2JmT75P54XzQf8osy28aiFU8UdZ8CkGXNizFCUTPZ4.mE9sLG.ZcZUK9lRXbpAyb_'
+            'Bearer 00D23000000FGah!AQUAQBlHIrIRsyX7iFOEv6tu2OGoaWGL.76YWFeULkPJGENczdpMO3lL2oGOvQhkkQmQxk.m.Ayx4dqqmbHkaeLai4HYhV_o'
       },
     );
     // print("getProstateFranchiseActivity ${response.body}");
@@ -487,7 +616,7 @@ class DashBoardApi {
         .where((element) => element.typeC == "1:1 Meetings")
         .toList();
     List<PieChartRecords> _UnscoredMeetingData = _oneMeetingListData
-        .where((element) => element.advocacyScore1C == "Unscored")
+        .where((element) => element.advocacyScore1C == null)
         .toList();
     List<PieChartRecords> _DetractorMeetingData = _oneMeetingListData
         .where((element) => element.advocacyScore1C == "Detractor")
@@ -506,7 +635,7 @@ class DashBoardApi {
         .where((element) => element.typeC == "Advisory Board")
         .toList();
     List<PieChartRecords> _UnscoredAdvisoryData = _advisoryListData
-        .where((element) => element.advocacyScore1C == "Unscored")
+        .where((element) => element.advocacyScore1C == null)
         .toList();
     List<PieChartRecords> _DetractorAdvisoryData = _advisoryListData
         .where((element) => element.advocacyScore1C == "Detractor")
@@ -525,7 +654,7 @@ class DashBoardApi {
         .where((element) => element.typeC == "Consulting")
         .toList();
     List<PieChartRecords> _UnscoredConsultingData = _consultingData
-        .where((element) => element.advocacyScore1C == "Unscored")
+        .where((element) => element.advocacyScore1C == null)
         .toList();
     List<PieChartRecords> _DetractorConsultingData = _consultingData
         .where((element) => element.advocacyScore1C == "Detractor")
@@ -543,7 +672,7 @@ class DashBoardApi {
         .where((element) => element.typeC == "Executive Encounter")
         .toList();
     List<PieChartRecords> _UnscoredExecutiveData =
-        _ExecutiveData.where((element) => element.advocacyScore1C == "Unscored")
+        _ExecutiveData.where((element) => element.advocacyScore1C == null)
             .toList();
     List<PieChartRecords> _DetractorExecutiveData = _ExecutiveData.where(
         (element) => element.advocacyScore1C == "Detractor").toList();
@@ -558,8 +687,9 @@ class DashBoardApi {
     List<PieChartRecords> _InstitutionalData = __rectangleChartData.records!
         .where((element) => element.typeC == "Institutional Programs")
         .toList();
-    List<PieChartRecords> _UnscoredInstitutionalData = _InstitutionalData.where(
-        (element) => element.advocacyScore1C == "Unscored").toList();
+    List<PieChartRecords> _UnscoredInstitutionalData =
+        _InstitutionalData.where((element) => element.advocacyScore1C == null)
+            .toList();
     List<PieChartRecords> _DetractorInstitutionalData =
         _InstitutionalData.where(
             (element) => element.advocacyScore1C == "Detractor").toList();
@@ -576,79 +706,81 @@ class DashBoardApi {
         .where((element) => element.typeC == "Sponsorship / 3rd Party Events")
         .toList();
     List<PieChartRecords> _UnscoredSponsorshipData =
-        _SponsorshipData.where((element) => element.typeC == "Unscored")
+        _SponsorshipData.where((element) => element.advocacyScore1C == null)
             .toList();
-    List<PieChartRecords> _DetractorSponsorshipData =
-        _SponsorshipData.where((element) => element.typeC == "Detractor")
-            .toList();
-    List<PieChartRecords> _NeutralSponsorshipData =
-        _SponsorshipData.where((element) => element.typeC == "Neutral")
-            .toList();
+    List<PieChartRecords> _DetractorSponsorshipData = _SponsorshipData.where(
+        (element) => element.advocacyScore1C == "Detractor").toList();
+    List<PieChartRecords> _NeutralSponsorshipData = _SponsorshipData.where(
+        (element) => element.advocacyScore1C == "Neutral").toList();
     List<PieChartRecords> _PassiveSponsorshipData = _SponsorshipData.where(
-        (element) => element.typeC == "Passive Supporter").toList();
+        (element) => element.advocacyScore1C == "Passive Supporter").toList();
     List<PieChartRecords> _ProactiveSponsorshipData = _SponsorshipData.where(
-        (element) => element.typeC == "Proactive Advocate").toList();
+        (element) => element.advocacyScore1C == "Proactive Advocate").toList();
 
     List<PieChartRecords> _InternalData = __rectangleChartData.records!
         .where((element) => element.typeC == "Internal Event")
         .toList();
     List<PieChartRecords> _UnscoredInternalData =
-        _InternalData.where((element) => element.typeC == "Unscored").toList();
+        _InternalData.where((element) => element.advocacyScore1C == null)
+            .toList();
     List<PieChartRecords> _DetractorInternalData =
-        _InternalData.where((element) => element.typeC == "Detractor").toList();
+        _InternalData.where((element) => element.advocacyScore1C == "Detractor")
+            .toList();
     List<PieChartRecords> _NeutralInternalData =
-        _InternalData.where((element) => element.typeC == "Neutral").toList();
-    List<PieChartRecords> _PassiveInternalData =
-        _InternalData.where((element) => element.typeC == "Passive Supporter")
+        _InternalData.where((element) => element.advocacyScore1C == "Neutral")
             .toList();
-    List<PieChartRecords> _ProactiveInternalData =
-        _InternalData.where((element) => element.typeC == "Proactive Advocate")
-            .toList();
+    List<PieChartRecords> _PassiveInternalData = _InternalData.where(
+        (element) => element.advocacyScore1C == "Passive Supporter").toList();
+    List<PieChartRecords> _ProactiveInternalData = _InternalData.where(
+        (element) => element.advocacyScore1C == "Proactive Advocate").toList();
 
     List<PieChartRecords> _SteeringData = __rectangleChartData.records!
         .where((element) => element.typeC == "Steering Committee")
         .toList();
     List<PieChartRecords> _UnscoredSteeringData =
-        _SteeringData.where((element) => element.typeC == "Unscored").toList();
+        _SteeringData.where((element) => element.advocacyScore1C == null)
+            .toList();
     List<PieChartRecords> _DetractorSteeringData =
-        _SteeringData.where((element) => element.typeC == "Detractor").toList();
+        _SteeringData.where((element) => element.advocacyScore1C == "Detractor")
+            .toList();
     List<PieChartRecords> _NeutralSteeringData =
-        _SteeringData.where((element) => element.typeC == "Neutral").toList();
-    List<PieChartRecords> _PassiveSteeringData =
-        _SteeringData.where((element) => element.typeC == "Passive Supporter")
+        _SteeringData.where((element) => element.advocacyScore1C == "Neutral")
             .toList();
-    List<PieChartRecords> _ProactiveSteeringData =
-        _SteeringData.where((element) => element.typeC == "Proactive Advocate")
-            .toList();
+    List<PieChartRecords> _PassiveSteeringData = _SteeringData.where(
+        (element) => element.advocacyScore1C == "Passive Supporter").toList();
+    List<PieChartRecords> _ProactiveSteeringData = _SteeringData.where(
+        (element) => element.advocacyScore1C == "Proactive Advocate").toList();
 
     List<PieChartRecords> _ProductData = __rectangleChartData.records!
         .where((element) => element.typeC == "Product Theater/Symposium")
         .toList();
     List<PieChartRecords> _UnscoredProductData =
-        _ProductData.where((element) => element.typeC == "Unscored").toList();
+        _ProductData.where((element) => element.advocacyScore1C == null)
+            .toList();
     List<PieChartRecords> _DetractorProductData =
-        _ProductData.where((element) => element.typeC == "Detractor").toList();
+        _ProductData.where((element) => element.advocacyScore1C == "Detractor")
+            .toList();
     List<PieChartRecords> _NeutralProductData =
-        _ProductData.where((element) => element.typeC == "Neutral").toList();
-    List<PieChartRecords> _PassiveProductData =
-        _ProductData.where((element) => element.typeC == "Passive Supporter")
+        _ProductData.where((element) => element.advocacyScore1C == "Neutral")
             .toList();
-    List<PieChartRecords> _ProactiveProductData =
-        _ProductData.where((element) => element.typeC == "Proactive Advocate")
-            .toList();
+    List<PieChartRecords> _PassiveProductData = _ProductData.where(
+        (element) => element.advocacyScore1C == "Passive Supporter").toList();
+    List<PieChartRecords> _ProactiveProductData = _ProductData.where(
+        (element) => element.advocacyScore1C == "Proactive Advocate").toList();
 
     List<PieChartRecords> _OtherData = __rectangleChartData.records!
         .where((element) => element.typeC == "Other")
         .toList();
     List<PieChartRecords> _UnscoredOtherData =
-        _OtherData.where((element) => element.typeC == "Unscored").toList();
+        _OtherData.where((element) => element.advocacyScore1C == null).toList();
     List<PieChartRecords> _DetractorOtherData =
-        _OtherData.where((element) => element.typeC == "Detractor").toList();
-    List<PieChartRecords> _NeutralOtherData =
-        _OtherData.where((element) => element.typeC == "Neutral").toList();
-    List<PieChartRecords> _PassiveOtherData =
-        _OtherData.where((element) => element.typeC == "Passive Supporter")
+        _OtherData.where((element) => element.advocacyScore1C == "Detractor")
             .toList();
+    List<PieChartRecords> _NeutralOtherData =
+        _OtherData.where((element) => element.advocacyScore1C == "Neutral")
+            .toList();
+    List<PieChartRecords> _PassiveOtherData = _OtherData.where(
+        (element) => element.advocacyScore1C == "Passive Supporter").toList();
     List<PieChartRecords> _ProactiveOtherData =
         _OtherData.where((element) => element.typeC == "Proactive Advocate")
             .toList();
@@ -656,12 +788,15 @@ class DashBoardApi {
     List<PieChartRecords> _speakerList = __rectangleChartData.records!
         .where((element) => element.typeC == "Speaker Training")
         .toList();
-    List<PieChartRecords> _UnscoredSpeakerData =
-        _speakerList.where((element) => element.typeC == "Unscored").toList();
-    List<PieChartRecords> _DetractorSpeakerData =
-        _speakerList.where((element) => element.typeC == "Detractor").toList();
-    List<PieChartRecords> _NeutralSpeakerData =
-        _speakerList.where((element) => element.typeC == "Neutral").toList();
+    List<PieChartRecords> _UnscoredSpeakerData = _speakerList
+        .where((element) => element.advocacyScore1C == null)
+        .toList();
+    List<PieChartRecords> _DetractorSpeakerData = _speakerList
+        .where((element) => element.advocacyScore1C == "Detractor")
+        .toList();
+    List<PieChartRecords> _NeutralSpeakerData = _speakerList
+        .where((element) => element.advocacyScore1C == "Neutral")
+        .toList();
     List<PieChartRecords> _PassiveSpeakerData = _speakerList
         .where((element) => element.typeC == "Passive Supporter")
         .toList();
@@ -670,57 +805,58 @@ class DashBoardApi {
         .toList();
 
     List<PieChartRecords> _mslRoundtableList = __rectangleChartData.records!
-        .where((element) => element.typeC == "MSL Roundtable")
+        .where((element) => element.advocacyScore1C == "MSL Roundtable")
         .toList();
     List<PieChartRecords> _UnscoredmslRoundtableData = _mslRoundtableList
-        .where((element) => element.typeC == "Unscored")
+        .where((element) => element.advocacyScore1C == null)
         .toList();
     List<PieChartRecords> _DetractormslRoundtableData = _mslRoundtableList
-        .where((element) => element.typeC == "Detractor")
+        .where((element) => element.advocacyScore1C == "Detractor")
         .toList();
     List<PieChartRecords> _NeutralmslRoundtableData = _mslRoundtableList
-        .where((element) => element.typeC == "Neutral")
+        .where((element) => element.advocacyScore1C == "Neutral")
         .toList();
     List<PieChartRecords> _PassivemslRoundtableData = _mslRoundtableList
-        .where((element) => element.typeC == "Passive Supporter")
+        .where((element) => element.advocacyScore1C == "Passive Supporter")
         .toList();
     List<PieChartRecords> _ProactivemslRoundtableData = _mslRoundtableList
-        .where((element) => element.typeC == "Proactive Advocate")
+        .where((element) => element.advocacyScore1C == "Proactive Advocate")
         .toList();
 
     List<PieChartRecords> _mediaEventList = __rectangleChartData.records!
         .where((element) => element.typeC == "Media Event")
         .toList();
     List<PieChartRecords> _UnscoredmediaEventData = _mediaEventList
-        .where((element) => element.typeC == "Unscored")
+        .where((element) => element.advocacyScore1C == null)
         .toList();
     List<PieChartRecords> _DetractormediaEventData = _mediaEventList
-        .where((element) => element.typeC == "Detractor")
+        .where((element) => element.advocacyScore1C == "Detractor")
         .toList();
-    List<PieChartRecords> _NeutralmediaEventData =
-        _mediaEventList.where((element) => element.typeC == "Neutral").toList();
+    List<PieChartRecords> _NeutralmediaEventData = _mediaEventList
+        .where((element) => element.advocacyScore1C == "Neutral")
+        .toList();
     List<PieChartRecords> _PassivemediaEventData = _mediaEventList
-        .where((element) => element.typeC == "Passive Supporter")
+        .where((element) => element.advocacyScore1C == "Passive Supporter")
         .toList();
     List<PieChartRecords> _ProactivemediaEventData = _mediaEventList
-        .where((element) => element.typeC == "Proactive Advocate")
+        .where((element) => element.advocacyScore1C == "Proactive Advocate")
         .toList();
 
     List<PieChartRecords> _CMEList = __rectangleChartData.records!
         .where((element) => element.typeC == "CME")
         .toList();
     List<PieChartRecords> _UnscoredCMEData =
-        _CMEList.where((element) => element.typeC == "Unscored").toList();
+        _CMEList.where((element) => element.advocacyScore1C == null).toList();
     List<PieChartRecords> _DetractorCMEData =
-        _CMEList.where((element) => element.typeC == "Detractor").toList();
+        _CMEList.where((element) => element.advocacyScore1C == "Detractor")
+            .toList();
     List<PieChartRecords> _NeutralCMEData =
-        _CMEList.where((element) => element.typeC == "Neutral").toList();
-    List<PieChartRecords> _PassiveCMEData =
-        _CMEList.where((element) => element.typeC == "Passive Supporter")
+        _CMEList.where((element) => element.advocacyScore1C == "Neutral")
             .toList();
-    List<PieChartRecords> _ProactiveCMEData =
-        _CMEList.where((element) => element.typeC == "Proactive Advocate")
-            .toList();
+    List<PieChartRecords> _PassiveCMEData = _CMEList.where(
+        (element) => element.advocacyScore1C == "Passive Supporter").toList();
+    List<PieChartRecords> _ProactiveCMEData = _CMEList.where(
+        (element) => element.advocacyScore1C == "Proactive Advocate").toList();
 
     List<RectangleChartDataMap>? __rectangleChartDataMap = [
       RectangleChartDataMap(
@@ -864,6 +1000,10 @@ class DashBoardApi {
         proactiveList: _ProactiveOtherData,
       ),
     ];
+    __rectangleChartDataMap.forEach((element) {
+      print("__rectangleChartDataMap ${element.id} ${element.unscoredList}");
+    });
+
     return __rectangleChartDataMap;
   }
 }
