@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SingleSelect extends StatefulWidget {
-  final List<CongressRecords> congress;
+  final RxList<CongressRecords> congress;
 
   const SingleSelect({
     Key? key,
@@ -29,7 +29,7 @@ class _SingleSelectState extends State<SingleSelect> {
 // this function is called when the Submit button is tapped
   void _submit(CongressRecords item) {
     _CongressItems.add(item);
-    print("_CongressItems $_CongressItems");
+
     Navigator.pop(context, _CongressItems);
   }
 

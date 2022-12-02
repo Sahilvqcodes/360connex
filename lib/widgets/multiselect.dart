@@ -1,26 +1,31 @@
-import 'package:connex/Models/brandList_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../Models/brandList_model.dart';
 
 class MultiSelect extends StatefulWidget {
   final List<Records> brands;
   // final List<String> subBrands;
   final RxList<Records> selectedItems;
+  final RxList<Records> brandsFocus;
   const MultiSelect({
     Key? key,
     required this.brands,
     required this.selectedItems,
+    required this.brandsFocus,
   }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _MultiSelectState();
+  State<StatefulWidget> createState() => _MultiSelectsState();
 }
 
-class _MultiSelectState extends State<MultiSelect> {
+class _MultiSelectsState extends State<MultiSelect> {
   // this variable holds the selected items
   RxList<Records> _selectedItems = RxList<Records>([]);
+  RxList<Records> _brandsFocus = RxList<Records>([]);
 
   void initState() {
+    _brandsFocus = widget.brandsFocus;
     _selectedItems = widget.selectedItems;
     print("widget.brands ${widget.brands}");
     super.initState();
@@ -29,9 +34,23 @@ class _MultiSelectState extends State<MultiSelect> {
 // This function is triggered when a checkbox is checked or unchecked
   void _itemChange(Records itemValue, bool isSelected) {
     if (isSelected) {
-      _selectedItems.add(itemValue);
+      if (itemValue.name == "MM Portfolio" ||
+          itemValue.name == "Leukemia-Lymphoma" ||
+          itemValue.name == "Prostate Franchise") {
+        _selectedItems.add(itemValue);
+      } else {
+        _brandsFocus.add(itemValue);
+        _selectedItems.add(itemValue);
+      }
     } else {
-      _selectedItems.remove(itemValue);
+      if (itemValue.name == "MM Portfolio" ||
+          itemValue.name == "Leukemia-Lymphoma" ||
+          itemValue.name == "Prostate Franchise") {
+        _selectedItems.remove(itemValue);
+      } else {
+        _brandsFocus.remove(itemValue);
+        _selectedItems.remove(itemValue);
+      }
     }
   }
 

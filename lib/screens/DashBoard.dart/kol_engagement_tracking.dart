@@ -1,27 +1,30 @@
 import 'package:connex/Apis/DashboardApis.dart';
+import 'package:connex/Models/brandList_model.dart';
+import 'package:connex/controller/home_controller.dart';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../Models/pie_chart_data.dart';
 import '../../Models/pie_data_map.dart';
 
-class KolEngagemetTracking extends StatefulWidget {
-  const KolEngagemetTracking({super.key});
+// class KolEngagemetTracking extends StatefulWidget {
+//   const KolEngagemetTracking({super.key});
 
-  @override
-  State<KolEngagemetTracking> createState() => _KolEngagemetTrackingState();
-}
+//   @override
+//   State<KolEngagemetTracking> createState() => _KolEngagemetTrackingState();
+// }
 
-class _KolEngagemetTrackingState extends State<KolEngagemetTracking> {
+class KolEngagemetTracking extends GetView<StoreController> {
   // late List<ExpenseData>? _chartData;
   late TooltipBehavior _tooltipBehavior;
 
-  @override
-  void initState() {
-    _tooltipBehavior = TooltipBehavior(enable: true);
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   _tooltipBehavior = TooltipBehavior(enable: true);
+  //   super.initState();
+  // }
 
   // @override
   // Widget build(BuildContext context) {
@@ -33,180 +36,169 @@ class _KolEngagemetTrackingState extends State<KolEngagemetTracking> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        // height: MediaQuery.of(context).size.height / 3.5,
-        width: MediaQuery.of(context).size.width / 1.10,
-        // height: 200,
-        // width: 300,
-        color: Colors.white,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Padding(
-              padding: EdgeInsets.all(10.0),
-              child: Text(
-                "Overall KOL Engagment Tracking",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+    _tooltipBehavior = TooltipBehavior(enable: true);
+    return Obx(
+      () => Container(
+          // height: MediaQuery.of(context).size.height / 3.5,
+          width: MediaQuery.of(context).size.width / 1.10,
+          // height: 200,
+          // width: 300,
+          color: Colors.white,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(10.0),
+                child: Text(
+                  "Overall KOL Engagment Tracking",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
-            ),
-            const Divider(
-              height: 10.0,
-              color: Colors.black26,
-              endIndent: 10,
-              indent: 10,
-              thickness: 1.0,
-            ),
-            Container(
-              height: 500,
-              child: FutureBuilder(
-                  future: getData(context),
-                  builder: (BuildContext context, AsyncSnapshot snapshot) {
-                    List<ExpenseData>? _chartData = snapshot.data;
-                    if (snapshot.data == null || !snapshot.hasData) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
+              const Divider(
+                height: 10.0,
+                color: Colors.black26,
+                endIndent: 10,
+                indent: 10,
+                thickness: 1.0,
+              ),
+              Container(
+                height: 500,
+                child: FutureBuilder(
+                    future: getData(context, controller.brandsFocus),
+                    builder: (BuildContext context, AsyncSnapshot snapshot) {
+                      List<ExpenseData>? _chartData = snapshot.data;
+                      if (snapshot.data == null || !snapshot.hasData) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      return SfCartesianChart(
+                        legend: Legend(
+                          isVisible: true,
+                          overflowMode: LegendItemOverflowMode.wrap,
+                          position: LegendPosition.bottom,
+                        ),
+                        tooltipBehavior: _tooltipBehavior,
+                        series: <ChartSeries>[
+                          StackedBarSeries<ExpenseData, String>(
+                            dataSource: _chartData!,
+                            xValueMapper: (ExpenseData exp, _) => exp.name,
+                            yValueMapper: (ExpenseData exp, _) => exp.unscored,
+                            name: "Unscored: ",
+                            // pointColorMapper: (ExpenseData data, _) =>
+                            //     Color(0xffDFDFDF),
+                            color: Color(0xffDFDFDF),
+                            legendIconType: LegendIconType.rectangle,
+                            // markerSettings: MarkerSettings(
+                            //   isVisible: false,
+                            // ),
+                          ),
+                          StackedBarSeries<ExpenseData, String>(
+                            dataSource: _chartData!,
+                            xValueMapper: (ExpenseData exp, _) => exp.name,
+                            yValueMapper: (ExpenseData exp, _) => exp.detractor,
+                            name: "Detractor",
+                            // pointColorMapper: (ExpenseData data, _) =>
+                            //     Color(0xffDF3E46),
+                            color: Color(0xffDF3E46),
+                            legendIconType: LegendIconType.rectangle,
+                            // markerSettings: MarkerSettings(
+                            //   isVisible: false,
+                            // ),
+                          ),
+                          StackedBarSeries<ExpenseData, String>(
+                            dataSource: _chartData,
+                            xValueMapper: (ExpenseData exp, _) => exp.name,
+                            yValueMapper: (ExpenseData exp, _) => exp.neutral,
+                            name: "Neutral",
+                            // pointColorMapper: (ExpenseData data, _) =>
+                            //     Color(0xffF1DF4B),
+                            color: Color(0xffF1DF4B),
+                            legendIconType: LegendIconType.rectangle,
+                            // markerSettings: MarkerSettings(
+                            //   isVisible: false,
+                            // ),
+                          ),
+                          StackedBarSeries<ExpenseData, String>(
+                            dataSource: _chartData,
+                            xValueMapper: (ExpenseData exp, _) => exp.name,
+                            yValueMapper: (ExpenseData exp, _) => exp.passive,
+                            name: "Passive Supporter",
+                            // pointColorMapper: (ExpenseData data, _) =>
+                            //     Color(0xff356BDF)
+                            color: Color(0xff356BDF),
+                            legendIconType: LegendIconType.rectangle,
+                            // markerSettings: MarkerSettings(
+                            //   isVisible: false,
+                            // ),
+                          ),
+                          StackedBarSeries<ExpenseData, String>(
+                            dataSource: _chartData,
+                            xValueMapper: (ExpenseData exp, _) => exp.name,
+                            yValueMapper: (ExpenseData exp, _) => exp.proactive,
+                            name: "Proactive Advocate",
+                            // pointColorMapper: (ExpenseData data, _) =>
+                            //     Color(0xff008000)
+                            color: Color(0xff008000),
+
+                            legendIconType: LegendIconType.rectangle,
+                            // markerSettings: MarkerSettings(
+                            //   isVisible: false,
+                            // ),
+                          ),
+
+                          // StackedBarSeries<ExpenseData, String>(
+                          //   dataSource: _chartData,
+                          //   xValueMapper: (ExpenseData exp, _) => exp.name,
+                          //   yValueMapper: (ExpenseData exp, _) => exp.detractor,
+                          //   name: 'Father',
+                          //   // markerSettings: MarkerSettings(
+                          //   //   isVisible: false,
+                          //   // ),
+                          // ),
+                          // StackedBarSeries<ExpenseData, String>(
+                          //   dataSource: _chartData,
+                          //   xValueMapper: (ExpenseData exp, _) => exp.name,
+                          //   yValueMapper: (ExpenseData exp, _) => exp.neutral,
+                          //   name: 'Mother',
+                          //   // markerSettings: MarkerSettings(
+                          //   //   isVisible: true,
+                          //   // ),
+                          // ),
+                          // StackedBarSeries<ExpenseData, String>(
+                          //   dataSource: _chartData,
+                          //   xValueMapper: (ExpenseData exp, _) => exp.name,
+                          //   yValueMapper: (ExpenseData exp, _) => exp.passive,
+                          //   name: 'Son',
+                          //   // markerSettings: MarkerSettings(
+                          //   //   isVisible: true,
+                          //   // ),
+                          // ),
+                          // StackedBarSeries<ExpenseData, String>(
+                          //   dataSource: _chartData,
+                          //   xValueMapper: (ExpenseData exp, _) => exp.name,
+                          //   yValueMapper: (ExpenseData exp, _) => exp.proactive,
+                          //   name: 'Daughter',
+                          //   // markerSettings: MarkerSettings(
+                          //   //   isVisible: true,
+                          //   // ),
+                          // ),
+                        ],
+                        primaryXAxis: CategoryAxis(),
                       );
-                    }
-                    return SfCartesianChart(
-                      // onLegendItemRender: (args) {
-                      //   // Setting color for the series legend based on its index.
-                      //   if (args.seriesIndex == 0) {
-                      //     args.color = Color(0xffDFDFDF);
-                      //   } else if (args.seriesIndex == 1) {
-                      //     args.color = Color(0xffDF3E46);
-                      //   } else if (args.seriesIndex == 2) {
-                      //     args.color = Color(0xffF1DF4B);
-                      //   } else if (args.seriesIndex == 3) {
-                      //     args.color = Color(0xff356BDF);
-                      //   } else if (args.seriesIndex == 4) {
-                      //     args.color = Color(0xff008000);
-                      //   }
-                      // },
-                      legend: Legend(
-                        isVisible: true,
-                        overflowMode: LegendItemOverflowMode.wrap,
-                        position: LegendPosition.bottom,
-                      ),
-                      tooltipBehavior: _tooltipBehavior,
-                      series: <ChartSeries>[
-                        StackedBarSeries<ExpenseData, String>(
-                          dataSource: _chartData!,
-                          xValueMapper: (ExpenseData exp, _) => exp.name,
-                          yValueMapper: (ExpenseData exp, _) => exp.unscored,
-                          name: "Unscored: ",
-                          // pointColorMapper: (ExpenseData data, _) =>
-                          //     Color(0xffDFDFDF),
-                          color: Color(0xffDFDFDF),
-                          legendIconType: LegendIconType.rectangle,
-                          // markerSettings: MarkerSettings(
-                          //   isVisible: false,
-                          // ),
-                        ),
-                        StackedBarSeries<ExpenseData, String>(
-                          dataSource: _chartData!,
-                          xValueMapper: (ExpenseData exp, _) => exp.name,
-                          yValueMapper: (ExpenseData exp, _) => exp.detractor,
-                          name: "Detractor",
-                          // pointColorMapper: (ExpenseData data, _) =>
-                          //     Color(0xffDF3E46),
-                          color: Color(0xffDF3E46),
-                          legendIconType: LegendIconType.rectangle,
-                          // markerSettings: MarkerSettings(
-                          //   isVisible: false,
-                          // ),
-                        ),
-                        StackedBarSeries<ExpenseData, String>(
-                          dataSource: _chartData,
-                          xValueMapper: (ExpenseData exp, _) => exp.name,
-                          yValueMapper: (ExpenseData exp, _) => exp.neutral,
-                          name: "Neutral",
-                          // pointColorMapper: (ExpenseData data, _) =>
-                          //     Color(0xffF1DF4B),
-                          color: Color(0xffF1DF4B),
-                          legendIconType: LegendIconType.rectangle,
-                          // markerSettings: MarkerSettings(
-                          //   isVisible: false,
-                          // ),
-                        ),
-                        StackedBarSeries<ExpenseData, String>(
-                          dataSource: _chartData,
-                          xValueMapper: (ExpenseData exp, _) => exp.name,
-                          yValueMapper: (ExpenseData exp, _) => exp.passive,
-                          name: "Passive Supporter",
-                          // pointColorMapper: (ExpenseData data, _) =>
-                          //     Color(0xff356BDF)
-                          color: Color(0xff356BDF),
-                          legendIconType: LegendIconType.rectangle,
-                          // markerSettings: MarkerSettings(
-                          //   isVisible: false,
-                          // ),
-                        ),
-                        StackedBarSeries<ExpenseData, String>(
-                          dataSource: _chartData,
-                          xValueMapper: (ExpenseData exp, _) => exp.name,
-                          yValueMapper: (ExpenseData exp, _) => exp.proactive,
-                          name: "Proactive Advocate",
-                          // pointColorMapper: (ExpenseData data, _) =>
-                          //     Color(0xff008000)
-                          color: Color(0xff008000),
-
-                          legendIconType: LegendIconType.rectangle,
-                          // markerSettings: MarkerSettings(
-                          //   isVisible: false,
-                          // ),
-                        ),
-
-                        // StackedBarSeries<ExpenseData, String>(
-                        //   dataSource: _chartData,
-                        //   xValueMapper: (ExpenseData exp, _) => exp.name,
-                        //   yValueMapper: (ExpenseData exp, _) => exp.detractor,
-                        //   name: 'Father',
-                        //   // markerSettings: MarkerSettings(
-                        //   //   isVisible: false,
-                        //   // ),
-                        // ),
-                        // StackedBarSeries<ExpenseData, String>(
-                        //   dataSource: _chartData,
-                        //   xValueMapper: (ExpenseData exp, _) => exp.name,
-                        //   yValueMapper: (ExpenseData exp, _) => exp.neutral,
-                        //   name: 'Mother',
-                        //   // markerSettings: MarkerSettings(
-                        //   //   isVisible: true,
-                        //   // ),
-                        // ),
-                        // StackedBarSeries<ExpenseData, String>(
-                        //   dataSource: _chartData,
-                        //   xValueMapper: (ExpenseData exp, _) => exp.name,
-                        //   yValueMapper: (ExpenseData exp, _) => exp.passive,
-                        //   name: 'Son',
-                        //   // markerSettings: MarkerSettings(
-                        //   //   isVisible: true,
-                        //   // ),
-                        // ),
-                        // StackedBarSeries<ExpenseData, String>(
-                        //   dataSource: _chartData,
-                        //   xValueMapper: (ExpenseData exp, _) => exp.name,
-                        //   yValueMapper: (ExpenseData exp, _) => exp.proactive,
-                        //   name: 'Daughter',
-                        //   // markerSettings: MarkerSettings(
-                        //   //   isVisible: true,
-                        //   // ),
-                        // ),
-                      ],
-                      primaryXAxis: CategoryAxis(),
-                    );
-                  }),
-            ),
-          ],
-        ));
+                    }),
+              ),
+            ],
+          )),
+    );
   }
 
-  getData(BuildContext context) async {
+  getData(BuildContext context, RxList brandsFocus) async {
     List<RectangleChartDataMap>? __rectangleChartDataMap =
-        await DashBoardApi.getRectangleChartData(context);
+        await DashBoardApi.getRectangleChartData(context, brandsFocus);
     List<ExpenseData> _chartData = await getChartData(__rectangleChartDataMap);
     print("_chartData $_chartData");
     return _chartData;
