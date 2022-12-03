@@ -33,7 +33,7 @@ class DashBoardApi {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQJgbGqr6NhM6RfgLMoAogYO4pvTIIvThn7FeVUOJW4oxZ3Cg8Wr1KNbte2_awRIuWp4CUwuG3pD5R0PEAVS5AxORDnvF'
+            'Bearer 00D23000000FGah!AQUAQIwJ8_gMZAefetee35zchEEQSBXGiwFILUeJirHUkLcrSmPHbrPdzZfDiHySnn3u8gdjaJR7HgW5hSw.3tes84hg9zVZ'
       },
     );
     // print("response ${response.body}");
@@ -42,8 +42,11 @@ class DashBoardApi {
     return _congressList;
   }
 
-  static getTotalEngagements(BuildContext context,
-      RxList<CongressRecords> congress, RxList brandFocus) async {
+  static getTotalEngagements(
+      BuildContext context,
+      RxList<CongressRecords> congress,
+      RxList brandFocus,
+      RxBool myValue) async {
     var queryParams1 = "";
     for (int i = 0; i < brandFocus.length; i++) {
       if (i == 0) {
@@ -53,11 +56,14 @@ class DashBoardApi {
             " or Focus_Master__r.Name = '${brandFocus[i].name}' ";
       }
     }
-
-    print("queryParamsgetTotalEngagements $queryParams1");
-
-    String url =
-        "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=SELECT Brand_Master__r.Name, COUNT(id) engs, CALENDAR_QUARTER(Engagement_Date__c), CALENDAR_YEAR(Engagement_Date__c) FROM Master_Enagement__c where KOL_Profile_Portal__c = 'a343Z000003XdRsQAK'  and Brand_Master__r.Name != ''${congress.length != 0 ? "AND Congress__c = '" + congress[0].id!.substring(0, congress[0].id!.length - 3) + "'" : ""} ${queryParams1 != '' ? 'and(' + queryParams1 + ')' : ''} GROUP BY Brand_Master__r.Name, CALENDAR_QUARTER(Engagement_Date__c), CALENDAR_YEAR(Engagement_Date__c) ORDER BY GROUPING(Brand_Master__r.Name)";
+    String? url;
+    if (myValue == true) {
+      url =
+          "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=SELECT Brand_Master__r.Name, COUNT(id) engs, CALENDAR_QUARTER(Engagement_Date__c), CALENDAR_YEAR(Engagement_Date__c) FROM Master_Enagement__c where KOL_Profile_Portal__c = 'a343Z000003XdRsQAK'  and Brand_Master__r.Name != ''${congress.length != 0 ? "AND Congress__c = '" + congress[0].id!.substring(0, congress[0].id!.length - 3) + "'" : ""} ${queryParams1 != '' ? 'and(' + queryParams1 + ')' : ''}AND ID IN (Select Master_Engagement__c from Kol_Attendee__c where Employee__r.Employee__c = '0053Z00000LOFbR')  GROUP BY Brand_Master__r.Name, CALENDAR_QUARTER(Engagement_Date__c), CALENDAR_YEAR(Engagement_Date__c) ORDER BY GROUPING(Brand_Master__r.Name)";
+    } else {
+      url =
+          "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=SELECT Brand_Master__r.Name, COUNT(id) engs, CALENDAR_QUARTER(Engagement_Date__c), CALENDAR_YEAR(Engagement_Date__c) FROM Master_Enagement__c where KOL_Profile_Portal__c = 'a343Z000003XdRsQAK'  and Brand_Master__r.Name != ''${congress.length != 0 ? "AND Congress__c = '" + congress[0].id!.substring(0, congress[0].id!.length - 3) + "'" : ""} ${queryParams1 != '' ? 'and(' + queryParams1 + ')' : ''} GROUP BY Brand_Master__r.Name, CALENDAR_QUARTER(Engagement_Date__c), CALENDAR_YEAR(Engagement_Date__c) ORDER BY GROUPING(Brand_Master__r.Name)";
+    }
 
     print("urlurl $url");
     //     "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=SELECT Brand_Master__r.Name, COUNT(id) engs, CALENDAR_QUARTER(Engagement_Date__c), CALENDAR_YEAR(Engagement_Date__c) FROM Master_Enagement__c where KOL_Profile_Portal__c = 'a343Z000003XdRsQAK'  and Brand_Master__r.Name != ' '${congressSelect.value.length != 0 ? "AND Congress__c = '" + congressSelect.value.substring(0, congressSelect.value.length - 3) + "'" : ""} ${queryParams1 != '' ? 'and(' + queryParams1 + ')' : ''} GROUP BY Brand_Master__r.Name, CALENDAR_QUARTER(Engagement_Date__c), CALENDAR_YEAR(Engagement_Date__c) ORDER BY GROUPING(Brand_Master__r.Name)";
@@ -70,7 +76,7 @@ class DashBoardApi {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQJgbGqr6NhM6RfgLMoAogYO4pvTIIvThn7FeVUOJW4oxZ3Cg8Wr1KNbte2_awRIuWp4CUwuG3pD5R0PEAVS5AxORDnvF'
+            'Bearer 00D23000000FGah!AQUAQIwJ8_gMZAefetee35zchEEQSBXGiwFILUeJirHUkLcrSmPHbrPdzZfDiHySnn3u8gdjaJR7HgW5hSw.3tes84hg9zVZ'
       },
     );
     // print("getTotalEngagements ${response.body}");
@@ -88,15 +94,14 @@ class DashBoardApi {
     print("_mmPortfolio1 $leukemia_lymphoma");
     // List<EngagementsRecords>? _data;
     List<AllData> listAllData = [
-      leukemia_lymphoma.length != 0
-          ? AllData(id: 1, recordsList: leukemia_lymphoma)
-          : AllData(id: 1, recordsList: null),
-      _mmPortfolio.length != 0
-          ? AllData(id: 2, recordsList: _mmPortfolio)
-          : AllData(id: 2, recordsList: null),
-      prostate_franchise.length != 0
-          ? AllData(id: 3, recordsList: prostate_franchise)
-          : AllData(id: 3, recordsList: null),
+      if (leukemia_lymphoma.length != 0)
+        AllData(id: 1, recordsList: leukemia_lymphoma),
+      // : AllData(id: 1, recordsList: null),
+      if (_mmPortfolio.length != 0) AllData(id: 2, recordsList: _mmPortfolio),
+      // : AllData(id: 2, recordsList: null),
+      if (prostate_franchise.length != 0)
+        AllData(id: 3, recordsList: prostate_franchise)
+      // : AllData(id: 3, recordsList: null),
     ];
     // print(listAllData[0].recordsList![0].name);
     // _data![0].brandRecords!.add(_mmPortfolio![0]);
@@ -105,8 +110,11 @@ class DashBoardApi {
     return listAllData;
   }
 
-  static getCommercialEngagements(BuildContext context,
-      RxList<CongressRecords> congress, RxList brandFocus) async {
+  static getCommercialEngagements(
+      BuildContext context,
+      RxList<CongressRecords> congress,
+      RxList brandFocus,
+      RxBool myValue) async {
     var queryParams1 = "";
     for (int i = 0; i < brandFocus.length; i++) {
       if (i == 0) {
@@ -116,8 +124,16 @@ class DashBoardApi {
             " or Focus_Master__r.Name = '${brandFocus[i].name}' ";
       }
     }
-    String url =
-        "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=SELECT Brand_Master__r.Name, COUNT(id) engs, CALENDAR_QUARTER(Engagement_Date__c), CALENDAR_YEAR(Engagement_Date__c) FROM Master_Enagement__c where KOL_Profile_Portal__c = 'a343Z000003XdRsQAK' and Engagement_Type__c = 'Commercial'${congress.length != 0 ? "AND Congress__c = '" + congress[0].id!.substring(0, congress[0].id!.length - 3) + "'" : ""} ${queryParams1 != '' ? 'and(' + queryParams1 + ')' : ''} GROUP BY Brand_Master__r.Name, CALENDAR_QUARTER(Engagement_Date__c), CALENDAR_YEAR(Engagement_Date__c) ORDER BY GROUPING(Brand_Master__r.Name) ";
+    String? url;
+    if (myValue == true) {
+      url =
+          "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=SELECT Brand_Master__r.Name, COUNT(id) engs, CALENDAR_QUARTER(Engagement_Date__c), CALENDAR_YEAR(Engagement_Date__c) FROM Master_Enagement__c where KOL_Profile_Portal__c = 'a343Z000003XdRsQAK' and Engagement_Type__c = 'Commercial'${congress.length != 0 ? "AND Congress__c = '" + congress[0].id!.substring(0, congress[0].id!.length - 3) + "'" : ""} ${queryParams1 != '' ? 'and(' + queryParams1 + ')' : ''}AND ID IN (Select Master_Engagement__c from Kol_Attendee__c where Employee__r.Employee__c = '0053Z00000LOFbR') GROUP BY Brand_Master__r.Name, CALENDAR_QUARTER(Engagement_Date__c), CALENDAR_YEAR(Engagement_Date__c) ORDER BY GROUPING(Brand_Master__r.Name) ";
+    }
+    {
+      url =
+          "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=SELECT Brand_Master__r.Name, COUNT(id) engs, CALENDAR_QUARTER(Engagement_Date__c), CALENDAR_YEAR(Engagement_Date__c) FROM Master_Enagement__c where KOL_Profile_Portal__c = 'a343Z000003XdRsQAK' and Engagement_Type__c = 'Commercial'${congress.length != 0 ? "AND Congress__c = '" + congress[0].id!.substring(0, congress[0].id!.length - 3) + "'" : ""} ${queryParams1 != '' ? 'and(' + queryParams1 + ')' : ''} GROUP BY Brand_Master__r.Name, CALENDAR_QUARTER(Engagement_Date__c), CALENDAR_YEAR(Engagement_Date__c) ORDER BY GROUPING(Brand_Master__r.Name) ";
+    }
+
     // "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=SELECT Brand_Master__r.Name, COUNT(id)engs, CALENDAR_QUARTER(Engagement_Date__c), CALENDAR_YEAR(Engagement_Date__c) FROM Master_Enagement__c where KOL_Profile_Portal__c = 'a343Z000003XdRsQAK' and Engagement_Type__c = 'Commercial' ${congressSelect.value.length != 0 ? "AND Congress__c = '" + congressSelect.value.substring(0, congressSelect.value.length - 3) + "'" : ""} ${queryParams1 != '' ? 'and(' + queryParams1 + ')' : ''} GROUP BY Brand_Master__r.Name, CALENDAR_QUARTER(Engagement_Date__c), CALENDAR_YEAR(Engagement_Date__c) ORDER BY GROUPING(Brand_Master__r.Name) ";
     var encoded = Uri.encodeFull(url);
     print("encoded $encoded");
@@ -127,7 +143,7 @@ class DashBoardApi {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQJgbGqr6NhM6RfgLMoAogYO4pvTIIvThn7FeVUOJW4oxZ3Cg8Wr1KNbte2_awRIuWp4CUwuG3pD5R0PEAVS5AxORDnvF'
+            'Bearer 00D23000000FGah!AQUAQIwJ8_gMZAefetee35zchEEQSBXGiwFILUeJirHUkLcrSmPHbrPdzZfDiHySnn3u8gdjaJR7HgW5hSw.3tes84hg9zVZ'
       },
     );
     // print("getCommercialEngagements ${response.body}");
@@ -158,8 +174,11 @@ class DashBoardApi {
     return listAllData;
   }
 
-  static getMedicalEngagements(BuildContext context,
-      RxList<CongressRecords> congress, RxList brandFocus) async {
+  static getMedicalEngagements(
+      BuildContext context,
+      RxList<CongressRecords> congress,
+      RxList brandFocus,
+      RxBool myValue) async {
     var queryParams1 = "";
     for (int i = 0; i < brandFocus.length; i++) {
       if (i == 0) {
@@ -169,9 +188,14 @@ class DashBoardApi {
             " or Focus_Master__r.Name = '${brandFocus[i].name}' ";
       }
     }
-
-    String url =
-        "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=SELECT Brand_Master__r.Name, COUNT(id) engs, CALENDAR_QUARTER(Engagement_Date__c), CALENDAR_YEAR(Engagement_Date__c) FROM Master_Enagement__c where KOL_Profile_Portal__c = 'a343Z000003XdRsQAK' and Engagement_Type__c = 'Medical'${congress.length != 0 ? "AND Congress__c = '" + congress[0].id!.substring(0, congress[0].id!.length - 3) + "'" : ""} ${queryParams1 != '' ? 'and(' + queryParams1 + ')' : ''} GROUP BY Brand_Master__r.Name, CALENDAR_QUARTER(Engagement_Date__c), CALENDAR_YEAR(Engagement_Date__c) ORDER BY GROUPING(Brand_Master__r.Name) ";
+    String? url;
+    if (myValue == true) {
+      url =
+          "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=SELECT Brand_Master__r.Name, COUNT(id) engs, CALENDAR_QUARTER(Engagement_Date__c), CALENDAR_YEAR(Engagement_Date__c) FROM Master_Enagement__c where KOL_Profile_Portal__c = 'a343Z000003XdRsQAK' and Engagement_Type__c = 'Medical'${congress.length != 0 ? "AND Congress__c = '" + congress[0].id!.substring(0, congress[0].id!.length - 3) + "'" : ""} ${queryParams1 != '' ? 'and(' + queryParams1 + ')' : ''}AND ID IN (Select Master_Engagement__c from Kol_Attendee__c where Employee__r.Employee__c = '0053Z00000LOFbR') GROUP BY Brand_Master__r.Name, CALENDAR_QUARTER(Engagement_Date__c), CALENDAR_YEAR(Engagement_Date__c) ORDER BY GROUPING(Brand_Master__r.Name) ";
+    } else {
+      url =
+          "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=SELECT Brand_Master__r.Name, COUNT(id) engs, CALENDAR_QUARTER(Engagement_Date__c), CALENDAR_YEAR(Engagement_Date__c) FROM Master_Enagement__c where KOL_Profile_Portal__c = 'a343Z000003XdRsQAK' and Engagement_Type__c = 'Medical'${congress.length != 0 ? "AND Congress__c = '" + congress[0].id!.substring(0, congress[0].id!.length - 3) + "'" : ""} ${queryParams1 != '' ? 'and(' + queryParams1 + ')' : ''} GROUP BY Brand_Master__r.Name, CALENDAR_QUARTER(Engagement_Date__c), CALENDAR_YEAR(Engagement_Date__c) ORDER BY GROUPING(Brand_Master__r.Name) ";
+    }
     // "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=SELECT Brand_Master__r.Name, COUNT(id)engs, CALENDAR_QUARTER(Engagement_Date__c), CALENDAR_YEAR(Engagement_Date__c) FROM Master_Enagement__c where KOL_Profile_Portal__c = 'a343Z000003XdRsQAK' and Engagement_Type__c = 'Medical' ${congressSelect.value.length != 0 ? "AND Congress__c = '" + congressSelect.value.substring(0, congressSelect.value.length - 3) + "'" : ""} ${queryParams1 != '' ? 'and(' + queryParams1 + ')' : ''} GROUP BY Brand_Master__r.Name, CALENDAR_QUARTER(Engagement_Date__c), CALENDAR_YEAR(Engagement_Date__c) ORDER BY GROUPING(Brand_Master__r.Name) ";
     var encoded = Uri.encodeFull(url);
     print("encoded $encoded");
@@ -181,7 +205,7 @@ class DashBoardApi {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQJgbGqr6NhM6RfgLMoAogYO4pvTIIvThn7FeVUOJW4oxZ3Cg8Wr1KNbte2_awRIuWp4CUwuG3pD5R0PEAVS5AxORDnvF'
+            'Bearer 00D23000000FGah!AQUAQIwJ8_gMZAefetee35zchEEQSBXGiwFILUeJirHUkLcrSmPHbrPdzZfDiHySnn3u8gdjaJR7HgW5hSw.3tes84hg9zVZ'
       },
     );
     // print("getMedicalEngagements ${response.body}");
@@ -233,7 +257,7 @@ class DashBoardApi {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQJgbGqr6NhM6RfgLMoAogYO4pvTIIvThn7FeVUOJW4oxZ3Cg8Wr1KNbte2_awRIuWp4CUwuG3pD5R0PEAVS5AxORDnvF'
+            'Bearer 00D23000000FGah!AQUAQIwJ8_gMZAefetee35zchEEQSBXGiwFILUeJirHUkLcrSmPHbrPdzZfDiHySnn3u8gdjaJR7HgW5hSw.3tes84hg9zVZ'
       },
     );
     // print("totalKolOverview ${response.body}");
@@ -261,7 +285,7 @@ class DashBoardApi {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQJgbGqr6NhM6RfgLMoAogYO4pvTIIvThn7FeVUOJW4oxZ3Cg8Wr1KNbte2_awRIuWp4CUwuG3pD5R0PEAVS5AxORDnvF'
+            'Bearer 00D23000000FGah!AQUAQIwJ8_gMZAefetee35zchEEQSBXGiwFILUeJirHUkLcrSmPHbrPdzZfDiHySnn3u8gdjaJR7HgW5hSw.3tes84hg9zVZ'
       },
     );
     // print("totalKolOverview ${response.body}");
@@ -289,7 +313,7 @@ class DashBoardApi {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQJgbGqr6NhM6RfgLMoAogYO4pvTIIvThn7FeVUOJW4oxZ3Cg8Wr1KNbte2_awRIuWp4CUwuG3pD5R0PEAVS5AxORDnvF'
+            'Bearer 00D23000000FGah!AQUAQIwJ8_gMZAefetee35zchEEQSBXGiwFILUeJirHUkLcrSmPHbrPdzZfDiHySnn3u8gdjaJR7HgW5hSw.3tes84hg9zVZ'
       },
     );
     // print("classificationKolOverview ${response.body}");
@@ -299,8 +323,8 @@ class DashBoardApi {
     return _kolOverview;
   }
 
-  static kolTotalEngagements(
-      BuildContext context, RxList<String> brandsName) async {
+  static kolTotalEngagements(BuildContext context, RxList<String> brandsName,
+      RxList<CongressRecords> congress) async {
     var queryParams1 = "";
     for (int i = 0; i < brandsName.length; i++) {
       if (i == 0) {
@@ -312,7 +336,7 @@ class DashBoardApi {
       }
     }
     String url =
-        "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=Select count(Master_Engagement__c) from KOL_Engagement__c where KOLAccount__c IN (Select Expert_Account__c from Expert__c where KOL_Profile_Portal__c = 'a343Z000003XdRsQAK' and Active__c = true) and (${queryParams1} ) and CALENDAR_YEAR(Master_Engagement__r.Engagement_Date__c) = 2022 ";
+        "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=Select count(Master_Engagement__c) from KOL_Engagement__c where KOLAccount__c IN (Select Expert_Account__c from Expert__c where KOL_Profile_Portal__c = 'a343Z000003XdRsQAK' and Active__c = true) and (${queryParams1} ) and CALENDAR_YEAR(Master_Engagement__r.Engagement_Date__c) = 2022 ${congress.length != 0 ? "and Master_Engagement__r.Congress__c = '${congress[0].id}'" : ""} ";
 
     var response = await http.get(
       Uri.parse(url),
@@ -320,7 +344,7 @@ class DashBoardApi {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQJgbGqr6NhM6RfgLMoAogYO4pvTIIvThn7FeVUOJW4oxZ3Cg8Wr1KNbte2_awRIuWp4CUwuG3pD5R0PEAVS5AxORDnvF'
+            'Bearer 00D23000000FGah!AQUAQIwJ8_gMZAefetee35zchEEQSBXGiwFILUeJirHUkLcrSmPHbrPdzZfDiHySnn3u8gdjaJR7HgW5hSw.3tes84hg9zVZ'
       },
     );
     // print("kolTotalEngagements ${response.body}");
@@ -349,7 +373,7 @@ class DashBoardApi {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQJgbGqr6NhM6RfgLMoAogYO4pvTIIvThn7FeVUOJW4oxZ3Cg8Wr1KNbte2_awRIuWp4CUwuG3pD5R0PEAVS5AxORDnvF'
+            'Bearer 00D23000000FGah!AQUAQIwJ8_gMZAefetee35zchEEQSBXGiwFILUeJirHUkLcrSmPHbrPdzZfDiHySnn3u8gdjaJR7HgW5hSw.3tes84hg9zVZ'
       },
     );
     // print("kolTotalInstitutions ${response.body}");
@@ -378,7 +402,7 @@ class DashBoardApi {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQJgbGqr6NhM6RfgLMoAogYO4pvTIIvThn7FeVUOJW4oxZ3Cg8Wr1KNbte2_awRIuWp4CUwuG3pD5R0PEAVS5AxORDnvF'
+            'Bearer 00D23000000FGah!AQUAQIwJ8_gMZAefetee35zchEEQSBXGiwFILUeJirHUkLcrSmPHbrPdzZfDiHySnn3u8gdjaJR7HgW5hSw.3tes84hg9zVZ'
       },
     );
     // print("affliatedKols ${response.body}");
@@ -388,7 +412,8 @@ class DashBoardApi {
     return _kolOverview;
   }
 
-  static getLeukemiaActivity(BuildContext context, RxList brandFocus) async {
+  static getLeukemiaActivity(
+      BuildContext context, RxList brandFocus, RxBool myValue) async {
     // print("AutoGenerate _brandsActivity");
     var queryParams1 = "";
     for (int i = 0; i < brandFocus.length; i++) {
@@ -400,10 +425,15 @@ class DashBoardApi {
             " or Master_Engagement__r.Focus_Master__r.Name ='${brandFocus[i].name}' ";
       }
     }
+    String url;
+    if (myValue == true) {
+      url =
+          "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=Select Id, Name, (Select Id from KOL_Engagements__r where Master_Engagement__r.Brand_Master__r.Name = 'Leukemia-Lymphoma'  ${queryParams1 != '' ? 'and (' + queryParams1 + ')' : ''} AND Master_Engagement__c IN (Select Master_Engagement__c from Kol_Attendee__c where Employee__r.Employee__c = '0053Z00000LOFbR') ), (Select Brand_Master__r.Name, Advocacy_Label_1__c, Advocacy_Score_1__c, Advocacy_Label_2__c, Advocacy_Score_2__c from KOL_Brands__r where Brand_Master__r.Name IN ('Leukemia-Lymphoma')) From Account Where Id IN (Select Expert_Account__c from Expert__c where KOL_Profile_Portal__c = 'a343Z000003XdRsQAK') and Id IN (Select KOL__c from KOL_Brand__c where Brand_Master__r.Name IN ('Leukemia-Lymphoma')) ";
+    } else {
+      url =
+          "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=Select Id, Name, (Select Id from KOL_Engagements__r where Master_Engagement__r.Brand_Master__r.Name = 'Leukemia-Lymphoma' ${queryParams1 != '' ? 'and (' + queryParams1 + ')' : ''}  ), (Select Brand_Master__r.Name, Advocacy_Label_1__c, Advocacy_Score_1__c, Advocacy_Label_2__c, Advocacy_Score_2__c from KOL_Brands__r where Brand_Master__r.Name IN ('Leukemia-Lymphoma')) From Account Where Id IN (Select Expert_Account__c from Expert__c where KOL_Profile_Portal__c = 'a343Z000003XdRsQAK') and Id IN (Select KOL__c from KOL_Brand__c where Brand_Master__r.Name IN ('Leukemia-Lymphoma')) ";
+    }
 
-    print("queryParams1 $queryParams1");
-    String url =
-        "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=Select Id, Name, (Select Id from KOL_Engagements__r where Master_Engagement__r.Brand_Master__r.Name = 'Leukemia-Lymphoma' ${queryParams1 != '' ? 'and (' + queryParams1 + ')' : ''}  ), (Select Brand_Master__r.Name, Advocacy_Label_1__c, Advocacy_Score_1__c, Advocacy_Label_2__c, Advocacy_Score_2__c from KOL_Brands__r where Brand_Master__r.Name IN ('Leukemia-Lymphoma')) From Account Where Id IN (Select Expert_Account__c from Expert__c where KOL_Profile_Portal__c = 'a343Z000003XdRsQAK') and Id IN (Select KOL__c from KOL_Brand__c where Brand_Master__r.Name IN ('Leukemia-Lymphoma')) ";
     print("url getLeukemiaActivity $url");
 
     var encoded = Uri.encodeFull(url);
@@ -416,7 +446,7 @@ class DashBoardApi {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQJgbGqr6NhM6RfgLMoAogYO4pvTIIvThn7FeVUOJW4oxZ3Cg8Wr1KNbte2_awRIuWp4CUwuG3pD5R0PEAVS5AxORDnvF'
+            'Bearer 00D23000000FGah!AQUAQIwJ8_gMZAefetee35zchEEQSBXGiwFILUeJirHUkLcrSmPHbrPdzZfDiHySnn3u8gdjaJR7HgW5hSw.3tes84hg9zVZ'
       },
     );
     // print("getLeukemiaActivity ${response.body}");
@@ -426,7 +456,8 @@ class DashBoardApi {
     return _brandsActivity;
   }
 
-  static getMMPortfolioActivity(BuildContext context, RxList brandFocus) async {
+  static getMMPortfolioActivity(
+      BuildContext context, RxList brandFocus, RxBool myValue) async {
     var queryParams1 = "";
     for (int i = 0; i < brandFocus.length; i++) {
       if (i == 0) {
@@ -437,9 +468,15 @@ class DashBoardApi {
             " or Master_Engagement__r.Focus_Master__r.Name ='${brandFocus[i].name}' ";
       }
     }
+    String url;
+    if (myValue == true) {
+      url =
+          "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=Select Id, Name, (Select Id from KOL_Engagements__r where Master_Engagement__r.Brand_Master__r.Name = 'MM Portfolio' ${queryParams1 != '' ? 'and (' + queryParams1 + ')' : ''} AND Master_Engagement__c IN (Select Master_Engagement__c from Kol_Attendee__c where Employee__r.Employee__c = '0053Z00000LOFbR') ), (Select Brand_Master__r.Name, Advocacy_Label_1__c, Advocacy_Score_1__c, Advocacy_Label_2__c, Advocacy_Score_2__c from KOL_Brands__r where Brand_Master__r.Name IN ('MM Portfolio')) From Account Where Id IN (Select Expert_Account__c from Expert__c where KOL_Profile_Portal__c = 'a343Z000003XdRsQAK') and Id IN (Select KOL__c from KOL_Brand__c where Brand_Master__r.Name IN ('MM Portfolio')) ";
+    } else {
+      url =
+          "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=Select Id, Name, (Select Id from KOL_Engagements__r where Master_Engagement__r.Brand_Master__r.Name = 'MM Portfolio' ${queryParams1 != '' ? 'and (' + queryParams1 + ')' : ''} ), (Select Brand_Master__r.Name, Advocacy_Label_1__c, Advocacy_Score_1__c, Advocacy_Label_2__c, Advocacy_Score_2__c from KOL_Brands__r where Brand_Master__r.Name IN ('MM Portfolio')) From Account Where Id IN (Select Expert_Account__c from Expert__c where KOL_Profile_Portal__c = 'a343Z000003XdRsQAK') and Id IN (Select KOL__c from KOL_Brand__c where Brand_Master__r.Name IN ('MM Portfolio')) ";
+    }
 
-    String url =
-        "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=Select Id, Name, (Select Id from KOL_Engagements__r where Master_Engagement__r.Brand_Master__r.Name = 'MM Portfolio' ${queryParams1 != '' ? 'and (' + queryParams1 + ')' : ''} ), (Select Brand_Master__r.Name, Advocacy_Label_1__c, Advocacy_Score_1__c, Advocacy_Label_2__c, Advocacy_Score_2__c from KOL_Brands__r where Brand_Master__r.Name IN ('MM Portfolio')) From Account Where Id IN (Select Expert_Account__c from Expert__c where KOL_Profile_Portal__c = 'a343Z000003XdRsQAK') and Id IN (Select KOL__c from KOL_Brand__c where Brand_Master__r.Name IN ('MM Portfolio')) ";
     var encoded = Uri.encodeFull(url);
 
     var response = await http.get(
@@ -448,7 +485,7 @@ class DashBoardApi {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQJgbGqr6NhM6RfgLMoAogYO4pvTIIvThn7FeVUOJW4oxZ3Cg8Wr1KNbte2_awRIuWp4CUwuG3pD5R0PEAVS5AxORDnvF'
+            'Bearer 00D23000000FGah!AQUAQIwJ8_gMZAefetee35zchEEQSBXGiwFILUeJirHUkLcrSmPHbrPdzZfDiHySnn3u8gdjaJR7HgW5hSw.3tes84hg9zVZ'
       },
     );
     // print("getMMPortfolioActivity ${response.body}");
@@ -459,7 +496,7 @@ class DashBoardApi {
   }
 
   static getProstateFranchiseActivity(
-      BuildContext context, RxList brandFocus) async {
+      BuildContext context, RxList brandFocus, RxBool myValue) async {
     var queryParams1 = "";
     for (int i = 0; i < brandFocus.length; i++) {
       if (i == 0) {
@@ -470,8 +507,15 @@ class DashBoardApi {
             " or Master_Engagement__r.Focus_Master__r.Name ='${brandFocus[i].name}' ";
       }
     }
-    String url =
-        "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=Select Id, Name, (Select Id from KOL_Engagements__r where Master_Engagement__r.Brand_Master__r.Name = 'Prostate Franchise'  ${queryParams1 != '' ? 'and (' + queryParams1 + ')' : ''} ), (Select Brand_Master__r.Name, Advocacy_Label_1__c, Advocacy_Score_1__c, Advocacy_Label_2__c, Advocacy_Score_2__c from KOL_Brands__r where Brand_Master__r.Name IN ('Prostate Franchise')) From Account Where Id IN (Select Expert_Account__c from Expert__c where KOL_Profile_Portal__c = 'a343Z000003XdRsQAK') and Id IN (Select KOL__c from KOL_Brand__c where Brand_Master__r.Name IN ('Prostate Franchise'))";
+    String url;
+    if (myValue == true) {
+      url =
+          "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=Select Id, Name, (Select Id from KOL_Engagements__r where Master_Engagement__r.Brand_Master__r.Name = 'Prostate Franchise'  ${queryParams1 != '' ? 'and (' + queryParams1 + ')' : ''}AND Master_Engagement__c IN (Select Master_Engagement__c from Kol_Attendee__c where Employee__r.Employee__c = '0053Z00000LOFbR')), (Select Brand_Master__r.Name, Advocacy_Label_1__c, Advocacy_Score_1__c, Advocacy_Label_2__c, Advocacy_Score_2__c from KOL_Brands__r where Brand_Master__r.Name IN ('Prostate Franchise')) From Account Where Id IN (Select Expert_Account__c from Expert__c where KOL_Profile_Portal__c = 'a343Z000003XdRsQAK') and Id IN (Select KOL__c from KOL_Brand__c where Brand_Master__r.Name IN ('Prostate Franchise'))";
+    } else {
+      url =
+          "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=Select Id, Name, (Select Id from KOL_Engagements__r where Master_Engagement__r.Brand_Master__r.Name = 'Prostate Franchise'  ${queryParams1 != '' ? 'and (' + queryParams1 + ')' : ''} ), (Select Brand_Master__r.Name, Advocacy_Label_1__c, Advocacy_Score_1__c, Advocacy_Label_2__c, Advocacy_Score_2__c from KOL_Brands__r where Brand_Master__r.Name IN ('Prostate Franchise')) From Account Where Id IN (Select Expert_Account__c from Expert__c where KOL_Profile_Portal__c = 'a343Z000003XdRsQAK') and Id IN (Select KOL__c from KOL_Brand__c where Brand_Master__r.Name IN ('Prostate Franchise'))";
+    }
+
     var encoded = Uri.encodeFull(url);
 
     var response = await http.get(
@@ -480,7 +524,7 @@ class DashBoardApi {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQJgbGqr6NhM6RfgLMoAogYO4pvTIIvThn7FeVUOJW4oxZ3Cg8Wr1KNbte2_awRIuWp4CUwuG3pD5R0PEAVS5AxORDnvF'
+            'Bearer 00D23000000FGah!AQUAQIwJ8_gMZAefetee35zchEEQSBXGiwFILUeJirHUkLcrSmPHbrPdzZfDiHySnn3u8gdjaJR7HgW5hSw.3tes84hg9zVZ'
       },
     );
     // print("getProstateFranchiseActivity ${response.body}");
@@ -499,7 +543,7 @@ class DashBoardApi {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQJgbGqr6NhM6RfgLMoAogYO4pvTIIvThn7FeVUOJW4oxZ3Cg8Wr1KNbte2_awRIuWp4CUwuG3pD5R0PEAVS5AxORDnvF'
+            'Bearer 00D23000000FGah!AQUAQIwJ8_gMZAefetee35zchEEQSBXGiwFILUeJirHUkLcrSmPHbrPdzZfDiHySnn3u8gdjaJR7HgW5hSw.3tes84hg9zVZ'
       },
     );
     // print("getEngagementTopicLraderboard ${response.body}");
@@ -562,21 +606,40 @@ class DashBoardApi {
     return listTotalLeaderboard;
   }
 
-  static getMeetingsAndActivites(BuildContext context) async {
-    String url =
-        "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=SELECT%20Master_Engagement__r.Brand_Master__r.Name,Master_Engagement__r.Brand_Master__r.Color__c,%20Attendee_Type__c,%20Master_Engagement__r.Engagement_Date__c,%20Master_Engagement__r.Name,%20Master_Engagement__r.Start_Date_Time__c,%20Id,%20KOLAccount__r.Name,%20Master_Engagement__r.Id%20FROM%20KOL_Engagement__c%20WHERE%20Master_Engagement__r.KOL_Profile_Portal__r.Name%20=%20%27Janssen%20KOL%20Portal%27%20AND%20CALENDAR_YEAR(Master_Engagement__r.Engagement_Date__c)%20=%202022%20AND%20(Master_Engagement__r.Brand_Master__r.Name%20=%20%27Leukemia-Lymphoma%27%20or%20Master_Engagement__r.Brand_Master__r.Name%20=%20%27MM%20Portfolio%27%20or%20Master_Engagement__r.Brand_Master__r.Name%20=%20%27Prostate%20Franchise%27%20)%20ORDER%20BY%20Master_Engagement__r.Start_Date_Time__c%20desc";
+  static getMeetingsAndActivites(BuildContext context, RxList brandFocus,
+      RxList<CongressRecords> congress, RxBool myValue) async {
+    var queryParams1 = "";
+    for (int i = 0; i < brandFocus.length; i++) {
+      if (i == 0) {
+        queryParams1 =
+            "Master_Engagement__r.Focus_Master__r.Name = '${brandFocus[i].name}' ";
+      } else {
+        queryParams1 = queryParams1 +
+            " or Master_Engagement__r.Focus_Master__r.Name ='${brandFocus[i].name}' ";
+      }
+    }
+    String? url;
+    // print("myValue $myValue");
+    if (myValue == true) {
+      url =
+          "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=SELECT Master_Engagement__r.Brand_Master__r.Name,Master_Engagement__r.Brand_Master__r.Color__c, Attendee_Type__c, Master_Engagement__r.Engagement_Date__c, Master_Engagement__r.Name, Master_Engagement__r.Start_Date_Time__c, Id, KOLAccount__r.Name, Master_Engagement__r.Id FROM KOL_Engagement__c WHERE Master_Engagement__r.KOL_Profile_Portal__r.Name = 'Janssen KOL Portal' AND CALENDAR_YEAR(Master_Engagement__r.Engagement_Date__c) = 2022 AND Master_Engagement__c IN (Select Master_Engagement__c from Kol_Attendee__c where Employee__r.Employee__c = '0053Z00000LOFbR') AND (Master_Engagement__r.Brand_Master__r.Name = 'Leukemia-Lymphoma' or Master_Engagement__r.Brand_Master__r.Name = 'MM Portfolio' or Master_Engagement__r.Brand_Master__r.Name = 'Prostate Franchise' )${queryParams1 != '' ? 'and (' + queryParams1 + ')' : ''} ORDER BY Master_Engagement__r.Start_Date_Time__c desc ";
+    } else {
+      url =
+          "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=SELECT Master_Engagement__r.Brand_Master__r.Name,Master_Engagement__r.Brand_Master__r.Color__c, Attendee_Type__c, Master_Engagement__r.Engagement_Date__c, Master_Engagement__r.Name, Master_Engagement__r.Start_Date_Time__c, Id, KOLAccount__r.Name, Master_Engagement__r.Id FROM KOL_Engagement__c WHERE Master_Engagement__r.KOL_Profile_Portal__r.Name = 'Janssen KOL Portal' AND CALENDAR_YEAR(Master_Engagement__r.Engagement_Date__c) = 2022 AND (Master_Engagement__r.Brand_Master__r.Name = 'Leukemia-Lymphoma' or Master_Engagement__r.Brand_Master__r.Name = 'MM Portfolio' or Master_Engagement__r.Brand_Master__r.Name = 'Prostate Franchise' )${queryParams1 != '' ? 'and (' + queryParams1 + ')' : ''} ORDER BY Master_Engagement__r.Start_Date_Time__c desc ";
+    }
+
     var response = await http.get(
       Uri.parse(url),
       headers: {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQJgbGqr6NhM6RfgLMoAogYO4pvTIIvThn7FeVUOJW4oxZ3Cg8Wr1KNbte2_awRIuWp4CUwuG3pD5R0PEAVS5AxORDnvF'
+            'Bearer 00D23000000FGah!AQUAQIwJ8_gMZAefetee35zchEEQSBXGiwFILUeJirHUkLcrSmPHbrPdzZfDiHySnn3u8gdjaJR7HgW5hSw.3tes84hg9zVZ'
       },
     );
     // print("getMeetingsAndActivites ${response.body}");
     final _currentDate = DateTime.now();
-    String _dateNow = DateFormat("yyyy-MM-dd").format(_currentDate);
+    String _dateNow = DateFormat("yyyy-MM-dd HH:MM").format(_currentDate);
     MeetingsActivites _meetingsActivites =
         MeetingsActivites.fromJson(jsonDecode(response.body));
     List<MeetingsActivitesRecords> lisOfOneonOneMeeting =
@@ -589,23 +652,27 @@ class DashBoardApi {
     }).toList();
     List<MeetingsActivitesRecords> _listUpcomingMeetings =
         lisOfOneonOneMeeting.where((element) {
-      return DateTime.parse(element.masterEngagementR!.engagementDateC ?? "")
-          .isAfter(DateTime.parse(_dateNow));
+      String data = DateFormat("yyyy-MM-dd HH:MM").format(
+          DateTime.parse(element.masterEngagementR!.startDateTimeC ?? ""));
+      return DateTime.parse(data).isAfter(DateTime.parse(_dateNow));
     }).toList();
     List<MeetingsActivitesRecords> _listPreviusMeetings =
         lisOfOneonOneMeeting.where((element) {
-      return DateTime.parse(element.masterEngagementR!.engagementDateC ?? "")
-          .isBefore(DateTime.parse(_dateNow));
+      var data = DateFormat("yyyy-MM-dd HH:MM").format(
+          DateTime.parse(element.masterEngagementR!.startDateTimeC ?? ""));
+      return DateTime.parse(data).isBefore(DateTime.parse(_dateNow));
     }).toList();
     List<MeetingsActivitesRecords> _listUpcomingActivities =
         lisOfActivities.where((element) {
-      return DateTime.parse(element.masterEngagementR!.engagementDateC ?? "")
-          .isAfter(DateTime.parse(_dateNow));
+      var data = DateFormat("yyyy-MM-dd HH:MM").format(
+          DateTime.parse(element.masterEngagementR!.startDateTimeC ?? ""));
+      return DateTime.parse(data).isAfter(DateTime.parse(_dateNow));
     }).toList();
     List<MeetingsActivitesRecords> _listPreviusActivites =
         lisOfActivities.where((element) {
-      return DateTime.parse(element.masterEngagementR!.engagementDateC ?? "")
-          .isBefore(DateTime.parse(_dateNow));
+      var data = DateFormat("yyyy-MM-dd HH:MM").format(
+          DateTime.parse(element.masterEngagementR!.startDateTimeC ?? ""));
+      return DateTime.parse(data).isBefore(DateTime.parse(_dateNow));
     }).toList();
     List<MeetingsActivitiesData> _meetingsActivitiesData = [
       MeetingsActivitiesData(
@@ -617,11 +684,17 @@ class DashBoardApi {
           upcomingList: _listUpcomingActivities,
           previousList: _listPreviusActivites),
     ];
-
+    // List<MeetingsActivitesRecords> testing = lisOfActivities.where((element) {
+    //   print(DateFormat("yyyy-MM-dd HH:MM:SS").format(
+    //       DateTime.parse(element.masterEngagementR!.startDateTimeC ?? "")));
+    //   return DateTime.parse(element.masterEngagementR!.engagementDateC ?? "")
+    //       .isBefore(DateTime.parse(_dateNow));
+    // }).toList();
     return _meetingsActivitiesData;
   }
 
-  static getPieChartData(BuildContext context, RxList brandFocus) async {
+  static getPieChartData(
+      BuildContext context, RxList brandFocus, RxBool myValue) async {
     var queryParams1 = "";
     for (int i = 0; i < brandFocus.length; i++) {
       if (i == 0) {
@@ -632,8 +705,15 @@ class DashBoardApi {
             " or Master_Engagement__r.Focus_Master__r.Name = '${brandFocus[i].name}' ";
       }
     }
-    String url =
-        "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=Select KOL_Brand__r.Advocacy_Score_1__c, count(id)from KOL_Engagement__c where Master_Engagement__r.KOL_Profile_Portal__r.Name = 'Janssen KOL Portal' and (Master_Engagement__r.Brand_Master__r.Name = 'Leukemia-Lymphoma' or Master_Engagement__r.Brand_Master__r.Name = 'MM Portfolio' or Master_Engagement__r.Brand_Master__r.Name = 'Prostate Franchise' )${queryParams1 != '' ? 'and(' + queryParams1 + ')' : ''} group by KOL_Brand__r.Advocacy_Score_1__c order by KOL_Brand__r.Advocacy_Score_1__c asc ";
+    String? url;
+    if (myValue == true) {
+      url =
+          "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=Select KOL_Brand__r.Advocacy_Score_1__c, count(id)from KOL_Engagement__c where Master_Engagement__r.KOL_Profile_Portal__r.Name = 'Janssen KOL Portal' and (Master_Engagement__r.Brand_Master__r.Name = 'Leukemia-Lymphoma' or Master_Engagement__r.Brand_Master__r.Name = 'MM Portfolio' or Master_Engagement__r.Brand_Master__r.Name = 'Prostate Franchise' )${queryParams1 != '' ? 'and(' + queryParams1 + ')' : ''}AND Master_Engagement__c IN (Select Master_Engagement__c from Kol_Attendee__c where Employee__r.Employee__c = '0053Z00000LOFbR') group by KOL_Brand__r.Advocacy_Score_1__c order by KOL_Brand__r.Advocacy_Score_1__c asc ";
+    } else {
+      url =
+          "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=Select KOL_Brand__r.Advocacy_Score_1__c, count(id)from KOL_Engagement__c where Master_Engagement__r.KOL_Profile_Portal__r.Name = 'Janssen KOL Portal' and (Master_Engagement__r.Brand_Master__r.Name = 'Leukemia-Lymphoma' or Master_Engagement__r.Brand_Master__r.Name = 'MM Portfolio' or Master_Engagement__r.Brand_Master__r.Name = 'Prostate Franchise' )${queryParams1 != '' ? 'and(' + queryParams1 + ')' : ''} group by KOL_Brand__r.Advocacy_Score_1__c order by KOL_Brand__r.Advocacy_Score_1__c asc ";
+    }
+
     print("url piechart $url");
 
     var encoded = Uri.encodeFull(url);
@@ -643,7 +723,7 @@ class DashBoardApi {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQJgbGqr6NhM6RfgLMoAogYO4pvTIIvThn7FeVUOJW4oxZ3Cg8Wr1KNbte2_awRIuWp4CUwuG3pD5R0PEAVS5AxORDnvF'
+            'Bearer 00D23000000FGah!AQUAQIwJ8_gMZAefetee35zchEEQSBXGiwFILUeJirHUkLcrSmPHbrPdzZfDiHySnn3u8gdjaJR7HgW5hSw.3tes84hg9zVZ'
       },
     );
     // print("getProstateFranchiseActivity ${response.body}");
@@ -653,7 +733,8 @@ class DashBoardApi {
     return _pieChartData;
   }
 
-  static getRectangleChartData(BuildContext context, RxList brandFocus) async {
+  static getRectangleChartData(
+      BuildContext context, RxList brandFocus, RxBool myValue) async {
     var queryParams1 = "";
     for (int i = 0; i < brandFocus.length; i++) {
       if (i == 0) {
@@ -664,15 +745,22 @@ class DashBoardApi {
             " or Master_Engagement__r.Focus_Master__r.Name = '${brandFocus[i].name}' ";
       }
     }
-    String url =
-        "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=Select Master_Engagement__r.Type__c, KOL_Brand__r.Advocacy_Score_1__c, count(id)from KOL_Engagement__c where Master_Engagement__r.KOL_Profile_Portal__r.Name = 'Janssen KOL Portal' and (Master_Engagement__r.Brand_Master__r.Name = 'Leukemia-Lymphoma' or Master_Engagement__r.Brand_Master__r.Name = 'MM Portfolio' or Master_Engagement__r.Brand_Master__r.Name = 'Prostate Franchise' )${queryParams1 != '' ? 'and(' + queryParams1 + ')' : ''} group by Master_Engagement__r.Type__c, KOL_Brand__r.Advocacy_Score_1__c order by KOL_Brand__r.Advocacy_Score_1__c asc ";
+    String? url;
+    if (myValue == true) {
+      url =
+          "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=Select Master_Engagement__r.Type__c, KOL_Brand__r.Advocacy_Score_1__c, count(id)from KOL_Engagement__c where Master_Engagement__r.KOL_Profile_Portal__r.Name = 'Janssen KOL Portal' and (Master_Engagement__r.Brand_Master__r.Name = 'Leukemia-Lymphoma' or Master_Engagement__r.Brand_Master__r.Name = 'MM Portfolio' or Master_Engagement__r.Brand_Master__r.Name = 'Prostate Franchise' )${queryParams1 != '' ? 'and(' + queryParams1 + ')' : ''}AND Master_Engagement__c IN (Select Master_Engagement__c from Kol_Attendee__c where Employee__r.Employee__c = '0053Z00000LOFbR') group by Master_Engagement__r.Type__c, KOL_Brand__r.Advocacy_Score_1__c order by KOL_Brand__r.Advocacy_Score_1__c asc ";
+    } else {
+      url =
+          "https://evolutionmedcom--fullcopy.sandbox.my.salesforce.com/services/data/v42.0/query?q=Select Master_Engagement__r.Type__c, KOL_Brand__r.Advocacy_Score_1__c, count(id)from KOL_Engagement__c where Master_Engagement__r.KOL_Profile_Portal__r.Name = 'Janssen KOL Portal' and (Master_Engagement__r.Brand_Master__r.Name = 'Leukemia-Lymphoma' or Master_Engagement__r.Brand_Master__r.Name = 'MM Portfolio' or Master_Engagement__r.Brand_Master__r.Name = 'Prostate Franchise' )${queryParams1 != '' ? 'and(' + queryParams1 + ')' : ''} group by Master_Engagement__r.Type__c, KOL_Brand__r.Advocacy_Score_1__c order by KOL_Brand__r.Advocacy_Score_1__c asc ";
+    }
+
     var response = await http.get(
       Uri.parse(url),
       headers: {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQJgbGqr6NhM6RfgLMoAogYO4pvTIIvThn7FeVUOJW4oxZ3Cg8Wr1KNbte2_awRIuWp4CUwuG3pD5R0PEAVS5AxORDnvF'
+            'Bearer 00D23000000FGah!AQUAQIwJ8_gMZAefetee35zchEEQSBXGiwFILUeJirHUkLcrSmPHbrPdzZfDiHySnn3u8gdjaJR7HgW5hSw.3tes84hg9zVZ'
       },
     );
     // print("getProstateFranchiseActivity ${response.body}");

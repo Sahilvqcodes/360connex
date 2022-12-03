@@ -8,12 +8,14 @@ class MultiSelect extends StatefulWidget {
   // final List<String> subBrands;
   final RxList<Records> selectedItems;
   final RxList<Records> brandsFocus;
-  const MultiSelect({
-    Key? key,
-    required this.brands,
-    required this.selectedItems,
-    required this.brandsFocus,
-  }) : super(key: key);
+  final RxList brandsName;
+  const MultiSelect(
+      {Key? key,
+      required this.brands,
+      required this.selectedItems,
+      required this.brandsFocus,
+      required this.brandsName})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _MultiSelectsState();
@@ -23,10 +25,12 @@ class _MultiSelectsState extends State<MultiSelect> {
   // this variable holds the selected items
   RxList<Records> _selectedItems = RxList<Records>([]);
   RxList<Records> _brandsFocus = RxList<Records>([]);
+  RxList _brandsName = RxList([]);
 
   void initState() {
     _brandsFocus = widget.brandsFocus;
     _selectedItems = widget.selectedItems;
+    _brandsName = widget.brandsName;
     print("widget.brands ${widget.brands}");
     super.initState();
   }
@@ -38,6 +42,7 @@ class _MultiSelectsState extends State<MultiSelect> {
           itemValue.name == "Leukemia-Lymphoma" ||
           itemValue.name == "Prostate Franchise") {
         _selectedItems.add(itemValue);
+        _brandsName.add(itemValue.name);
       } else {
         _brandsFocus.add(itemValue);
         _selectedItems.add(itemValue);
@@ -46,7 +51,16 @@ class _MultiSelectsState extends State<MultiSelect> {
       if (itemValue.name == "MM Portfolio" ||
           itemValue.name == "Leukemia-Lymphoma" ||
           itemValue.name == "Prostate Franchise") {
+        itemValue.kOLFocusMastersR!.records!.forEach((element) {
+          print("_brandsFocus-contains  ${_brandsFocus.contains(element)} ");
+          if (_brandsFocus.contains(element) == true) {
+            _brandsFocus.remove(element);
+            _selectedItems.remove(element);
+          }
+          print("_brandsFocus-contains1 $_brandsFocus");
+        });
         _selectedItems.remove(itemValue);
+        _brandsName.remove(itemValue.name);
       } else {
         _brandsFocus.remove(itemValue);
         _selectedItems.remove(itemValue);
@@ -91,18 +105,23 @@ class _MultiSelectsState extends State<MultiSelect> {
                           padding: const EdgeInsets.only(left: 40.0),
                           child: ListBody(
                             children: item.kOLFocusMastersR!.records!
-                                .map((item) => Column(
+                                .map((items) => Column(
                                       children: [
                                         CheckboxListTile(
                                           activeColor: Theme.of(context)
                                               .colorScheme
                                               .primary,
-                                          value: _selectedItems.contains(item),
-                                          title: Text(item.name!),
+                                          value: _selectedItems.contains(item)
+                                              ? _selectedItems.contains(items)
+                                              : false,
+                                          title: Text(items.name!),
                                           controlAffinity:
                                               ListTileControlAffinity.leading,
                                           onChanged: (isChecked) =>
-                                              _itemChange(item, isChecked!),
+                                              _selectedItems.contains(item)
+                                                  ? _itemChange(
+                                                      items, isChecked!)
+                                                  : null,
                                         ),
                                       ],
                                     ))

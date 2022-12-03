@@ -43,7 +43,7 @@ class kolInstitution extends GetView<StoreController> {
               ),
               FutureBuilder(
                 future: DashBoardApi.kolTotalEngagements(
-                    context, controller.BrandsName),
+                    context, controller.BrandsName, controller.congress),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   KolOvervievAndInstitution? _kolOverview = snapshot.data;
 

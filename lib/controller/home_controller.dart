@@ -10,6 +10,7 @@ class StoreController extends GetxController {
   var congress = <CongressRecords>[].obs;
   var brands = <Records>[].obs;
   var brandsFocus = <Records>[].obs;
+  var myValue = false.obs;
   var EngagementsName = [
     "Total Engagements",
     "Commercial Engagements",
@@ -20,4 +21,7 @@ class StoreController extends GetxController {
     "MM Portfolio",
     "Prostate Franchise",
   ].obs;
+  upateMyValue() {
+    myValue.toggle();
+  }
 }

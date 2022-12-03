@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:connex/Apis/DashboardApis.dart';
 import 'package:connex/Models/pie_data_map.dart';
 import 'package:connex/controller/home_controller.dart';
@@ -79,14 +77,15 @@ class KolEngagemetReach extends GetView<StoreController> {
                 child: Center(
                   child: FutureBuilder(
                       future: DashBoardApi.getPieChartData(
-                          context, controller.brandsFocus),
+                          context, controller.brandsFocus, controller.myValue),
                       builder: (BuildContext context, AsyncSnapshot snapshot) {
                         PieChartData? _pieChartData = snapshot.data;
+                        // print("_pieChartData $_pieChartData");
                         RxList _dataMap = RxList([]);
                         RxList<DataMap>? dataList = RxList([]);
 
                         _pieChartData?.records!.forEach((element) {
-                          print(element.advocacyScore1C);
+                          // print("dataList.length ${element.advocacyScore1C}");
                           dataList.add(
                             DataMap(
                               unorted: element.advocacyScore1C == null
@@ -109,6 +108,33 @@ class KolEngagemetReach extends GetView<StoreController> {
                             ),
                           );
                         });
+                        List<DataMap> detractor = [];
+                        List<DataMap> unorted = [];
+                        List<DataMap> neutral = [];
+                        List<DataMap> passive = [];
+                        List<DataMap> proactive = [];
+                        detractor = dataList.where((element) {
+                          return element.detractor != 0;
+                        }).toList();
+                        unorted = dataList.where((element) {
+                          return element.unorted != 0;
+                        }).toList();
+                        neutral = dataList.where((element) {
+                          return element.neutral != 0;
+                        }).toList();
+                        passive = dataList.where((element) {
+                          return element.passive != 0;
+                        }).toList();
+                        proactive = dataList.where((element) {
+                          return element.proactive != 0;
+                        }).toList();
+                        // print("dataList.length ${passive[0].passive}");
+                        // print("dataList.length ------->>>>");
+                        // print("dataList.length1 ${detractor.length}");
+                        // print("dataList.length2 ${unorted.length}");
+                        // print("dataList.length3 ${neutral.length}");
+                        // print("dataList.length4 ${passive.length}");
+                        // print("dataList.length5 ${proactive.length}");
                         // dataList.forEach((element) {
                         //   print("element.detractor ${element.detractor}");
                         //   print("element.neutral ${element.neutral}");
@@ -117,16 +143,26 @@ class KolEngagemetReach extends GetView<StoreController> {
                         //   print("element.unorted ${element.unorted}");
                         // });
                         Rx<Map<String, double>> dataMap = Rx({
-                          'Unscored: ${dataList[0].unorted ?? 0}':
-                              dataList[0].unorted!.toDouble(),
-                          "Detractor: ${dataList[1].detractor ?? 0}":
-                              dataList[1].detractor!.toDouble(),
-                          "Neutral: ${dataList[2].neutral ?? 0}":
-                              dataList[2].neutral!.toDouble(),
-                          "Passive Supporter: ${dataList[3].passive ?? 0}":
-                              dataList[3].passive!.toDouble(),
-                          "Proactive Advocate: ${dataList[4].proactive ?? 0}":
-                              dataList[4].proactive!.toDouble(),
+                          'Unscored: ${unorted.length != 0 ? unorted[0].unorted : 0}':
+                              unorted.length != 0
+                                  ? unorted[0].unorted!.toDouble()
+                                  : 0,
+                          "Detractor: ${detractor.length != 0 ? detractor[0].detractor : 0}":
+                              detractor.length != 0
+                                  ? detractor[0].detractor!.toDouble()
+                                  : 0,
+                          "Neutral: ${neutral.length != 0 ? neutral[0].neutral : 0}":
+                              neutral.length != 0
+                                  ? neutral[0].neutral!.toDouble()
+                                  : 0,
+                          "Passive Supporter: ${passive.length != 0 ? passive[0].passive : 0}":
+                              passive.length != 0
+                                  ? passive[0].passive!.toDouble()
+                                  : 0,
+                          "Proactive Advocate: ${proactive.length != 0 ? proactive[0].proactive : 0}":
+                              proactive.length != 0
+                                  ? proactive[0].proactive!.toDouble()
+                                  : 0,
                         });
                         // Map<String, String> dataMap1 = {
                         //   'unorted': dataList[0].unorted!.toString(),
@@ -135,7 +171,7 @@ class KolEngagemetReach extends GetView<StoreController> {
                         //   "Neutral": dataList[4].proactive!.toString(),
                         //   "Detractor": dataList[2].detractor!.toString(),
                         // };
-                        print(dataMap);
+                        // print(dataMap);
 
                         return PieChart(
                           dataMap: dataMap.value,

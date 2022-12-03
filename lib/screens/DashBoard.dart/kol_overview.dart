@@ -199,13 +199,21 @@ class KolOverview extends GetView<StoreController> {
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
-                                Text(
-                                  "${_lugpa?.length != 0 ? _lugpa![0].expr0 : 0}",
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
+                                _kolOverview != null
+                                    ? Text(
+                                        "${_lugpa?.length != 0 ? _lugpa![0].expr0 : 0}",
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      )
+                                    : const Text(
+                                        "0",
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
                               ],
                             ),
                           ],

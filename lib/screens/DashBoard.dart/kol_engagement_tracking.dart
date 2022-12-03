@@ -67,7 +67,8 @@ class KolEngagemetTracking extends GetView<StoreController> {
               Container(
                 height: 500,
                 child: FutureBuilder(
-                    future: getData(context, controller.brandsFocus),
+                    future: getData(
+                        context, controller.brandsFocus, controller.myValue),
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       List<ExpenseData>? _chartData = snapshot.data;
                       if (snapshot.data == null || !snapshot.hasData) {
@@ -196,11 +197,11 @@ class KolEngagemetTracking extends GetView<StoreController> {
     );
   }
 
-  getData(BuildContext context, RxList brandsFocus) async {
+  getData(BuildContext context, RxList brandsFocus, RxBool myValue) async {
     List<RectangleChartDataMap>? __rectangleChartDataMap =
-        await DashBoardApi.getRectangleChartData(context, brandsFocus);
+        await DashBoardApi.getRectangleChartData(context, brandsFocus, myValue);
     List<ExpenseData> _chartData = await getChartData(__rectangleChartDataMap);
-    print("_chartData $_chartData");
+    // print("_chartData $_chartData");
     return _chartData;
   }
 
@@ -208,9 +209,9 @@ class KolEngagemetTracking extends GetView<StoreController> {
       List<RectangleChartDataMap>? _rectangleChartDataMap) {
     // print("unscoredList ${_rectangleChartDataMap![0].unscoredList![0].expr0}");
     final List<ExpenseData> chartData = [];
-    print("length ${_rectangleChartDataMap!.length}");
-    for (int i = 0; i < _rectangleChartDataMap.length; i++) {
-      print("index $i ${_rectangleChartDataMap[i].unscoredList}");
+    // print("length ${_rectangleChartDataMap!.length}");
+    for (int i = 0; i < _rectangleChartDataMap!.length; i++) {
+      // print("index $i ${_rectangleChartDataMap[i].unscoredList}");
 
       chartData.add(ExpenseData(
         _rectangleChartDataMap[i].name!,
@@ -232,9 +233,9 @@ class KolEngagemetTracking extends GetView<StoreController> {
       ));
       // print("chartData2 $chartData");
     }
-    print("chartData3 $chartData");
+    // print("chartData3 $chartData");
     chartData.forEach((element) {
-      print("name ${element.name} ${element.unscored}");
+      // print("name ${element.name} ${element.unscored}");
     });
     List<ExpenseData> reversedchartData = chartData.reversed.toList();
 

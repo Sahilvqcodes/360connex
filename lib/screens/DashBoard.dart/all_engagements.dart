@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:connex/Apis/DashboardApis.dart';
 import 'package:connex/Models/brandList_model.dart';
 import 'package:connex/controller/home_controller.dart';
@@ -56,14 +54,23 @@ class AllEngagemets extends GetView<StoreController> {
                   FutureBuilder(
                       future: controller.EngagementsName[index] ==
                               "Total Engagements"
-                          ? DashBoardApi.getTotalEngagements(context,
-                              controller.congress, controller.brandsFocus)
+                          ? DashBoardApi.getTotalEngagements(
+                              context,
+                              controller.congress,
+                              controller.brandsFocus,
+                              controller.myValue)
                           : controller.EngagementsName[index] ==
                                   "Commercial Engagements"
-                              ? DashBoardApi.getCommercialEngagements(context,
-                                  controller.congress, controller.brandsFocus)
-                              : DashBoardApi.getMedicalEngagements(context,
-                                  controller.congress, controller.brandsFocus),
+                              ? DashBoardApi.getCommercialEngagements(
+                                  context,
+                                  controller.congress,
+                                  controller.brandsFocus,
+                                  controller.myValue)
+                              : DashBoardApi.getMedicalEngagements(
+                                  context,
+                                  controller.congress,
+                                  controller.brandsFocus,
+                                  controller.myValue),
                       // future: DashBoardApi.getTotalEngagements(
                       //     context, controller.selectedItems, controller.brandsFocus),
                       builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -149,7 +156,7 @@ class AllEngagemets extends GetView<StoreController> {
                                   ),
                                 ),
                                 ...List.generate(
-                                  controller.BrandsName.length,
+                                  _totalEngagements.length,
                                   (index) {
                                     List<EngagementsRecords>? forExpr1 = [];
                                     List<EngagementsRecords>? forExpr2 = [];
@@ -200,19 +207,19 @@ class AllEngagemets extends GetView<StoreController> {
                                                 width: 15,
                                                 decoration: BoxDecoration(
                                                   shape: BoxShape.circle,
-                                                  color: controller.BrandsName[
-                                                              index] ==
-                                                          "Leukemia-Lymphoma"
-                                                      ? Colors.green
-                                                      : controller.BrandsName[
-                                                                  index] ==
-                                                              "MM Portfolio"
-                                                          ? Colors.blue
-                                                          : controller.BrandsName[
-                                                                      index] ==
-                                                                  "Prostate Franchise"
-                                                              ? Colors.yellow
-                                                              : null,
+                                                  // color: controller.BrandsName[
+                                                  //             index] ==
+                                                  //         "Leukemia-Lymphoma"
+                                                  //     ? Colors.green
+                                                  //     : controller.BrandsName[
+                                                  //                 index] ==
+                                                  //             "MM Portfolio"
+                                                  //         ? Colors.blue
+                                                  //         : controller.BrandsName[
+                                                  //                     index] ==
+                                                  //                 "Prostate Franchise"
+                                                  //             ? Colors.yellow
+                                                  //             : null,
                                                 ),
                                               ),
                                               const SizedBox(
@@ -220,7 +227,7 @@ class AllEngagemets extends GetView<StoreController> {
                                               ),
                                               Expanded(
                                                   child: Text(
-                                                      "${controller.BrandsName[index]}")),
+                                                      "${_totalEngagements[index].recordsList![0].name}")),
                                             ],
                                           ),
                                           trailing: Row(
@@ -252,7 +259,8 @@ class AllEngagemets extends GetView<StoreController> {
                                                 child: SizedBox(
                                                   width: 30,
                                                   child: Text(
-                                                      "${forExpr3.length > 0 ? forExpr3[0].engs : "-"}"),
+                                                    "${forExpr3.length > 0 ? forExpr3[0].engs : "-"}",
+                                                  ),
                                                 ),
                                               ),
                                               Padding(
@@ -269,8 +277,10 @@ class AllEngagemets extends GetView<StoreController> {
                                                     EdgeInsets.only(right: 5),
                                                 child: SizedBox(
                                                     width: 40,
-                                                    child:
-                                                        Text("${totalValue}")),
+                                                    child: Text(
+                                                      "${totalValue}",
+                                                      textAlign: TextAlign.end,
+                                                    )),
                                               )
                                             ],
                                           ),
