@@ -58,25 +58,30 @@ class AllEngagemets extends GetView<StoreController> {
                               context,
                               controller.congress,
                               controller.brandsFocus,
-                              controller.myValue)
+                              controller.myValue,
+                              controller.BrandsName)
                           : controller.EngagementsName[index] ==
                                   "Commercial Engagements"
                               ? DashBoardApi.getCommercialEngagements(
                                   context,
                                   controller.congress,
                                   controller.brandsFocus,
-                                  controller.myValue)
+                                  controller.myValue,
+                                  controller.BrandsName)
                               : DashBoardApi.getMedicalEngagements(
                                   context,
                                   controller.congress,
                                   controller.brandsFocus,
-                                  controller.myValue),
+                                  controller.myValue,
+                                  controller.BrandsName),
                       // future: DashBoardApi.getTotalEngagements(
                       //     context, controller.selectedItems, controller.brandsFocus),
                       builder: (BuildContext context, AsyncSnapshot snapshot) {
                         List<AllData>? _totalEngagements = snapshot.data;
 
-                        if (!snapshot.hasData || _totalEngagements == null) {
+                        if (!snapshot.hasData ||
+                            _totalEngagements == null ||
+                            snapshot.data == null) {
                           return Center(child: CircularProgressIndicator());
                         }
                         return Container(
@@ -207,19 +212,26 @@ class AllEngagemets extends GetView<StoreController> {
                                                 width: 15,
                                                 decoration: BoxDecoration(
                                                   shape: BoxShape.circle,
-                                                  // color: controller.BrandsName[
-                                                  //             index] ==
-                                                  //         "Leukemia-Lymphoma"
-                                                  //     ? Colors.green
-                                                  //     : controller.BrandsName[
-                                                  //                 index] ==
-                                                  //             "MM Portfolio"
-                                                  //         ? Colors.blue
-                                                  //         : controller.BrandsName[
-                                                  //                     index] ==
-                                                  //                 "Prostate Franchise"
-                                                  //             ? Colors.yellow
-                                                  //             : null,
+                                                  color: _totalEngagements[
+                                                                  index]
+                                                              .recordsList![0]
+                                                              .name ==
+                                                          "Leukemia-Lymphoma"
+                                                      ? Colors.green
+                                                      : _totalEngagements[index]
+                                                                  .recordsList![
+                                                                      0]
+                                                                  .name ==
+                                                              "MM Portfolio"
+                                                          ? Colors.blue
+                                                          : _totalEngagements[
+                                                                          index]
+                                                                      .recordsList![
+                                                                          0]
+                                                                      .name ==
+                                                                  "Prostate Franchise"
+                                                              ? Colors.yellow
+                                                              : null,
                                                 ),
                                               ),
                                               const SizedBox(

@@ -52,12 +52,10 @@ class _MultiSelectsState extends State<MultiSelect> {
           itemValue.name == "Leukemia-Lymphoma" ||
           itemValue.name == "Prostate Franchise") {
         itemValue.kOLFocusMastersR!.records!.forEach((element) {
-          print("_brandsFocus-contains  ${_brandsFocus.contains(element)} ");
           if (_brandsFocus.contains(element) == true) {
             _brandsFocus.remove(element);
             _selectedItems.remove(element);
           }
-          print("_brandsFocus-contains1 $_brandsFocus");
         });
         _selectedItems.remove(itemValue);
         _brandsName.remove(itemValue.name);

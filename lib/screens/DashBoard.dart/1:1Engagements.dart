@@ -62,154 +62,192 @@ class MeetingEngagements extends GetView<StoreController> {
                       child: TabBarView(
                         children: <Widget>[
                           ...List.generate(2, ((i) {
-                            return FutureBuilder(
-                              future: DashBoardApi.getMeetingsAndActivites(
-                                  context,
-                                  controller.brandsFocus,
-                                  controller.congress,
-                                  controller.myValue),
-                              builder: (BuildContext context,
-                                  AsyncSnapshot snapshot) {
-                                List<MeetingsActivitiesData>?
-                                    _meetingsActivitesList = snapshot.data;
-                                MeetingsActivitiesData? _meetingsActivites =
-                                    _meetingsActivitesList?[0];
-                                List<MeetingsActivitesRecords>? _upcomingList;
+                            return controller.BrandsName.length != 0
+                                ? FutureBuilder(
+                                    future:
+                                        DashBoardApi.getMeetingsAndActivites(
+                                            context,
+                                            controller.brandsFocus,
+                                            controller.congress,
+                                            controller.myValue,
+                                            controller.BrandsName),
+                                    builder: (BuildContext context,
+                                        AsyncSnapshot snapshot) {
+                                      List<MeetingsActivitiesData>?
+                                          _meetingsActivitesList =
+                                          snapshot.data;
+                                      MeetingsActivitiesData?
+                                          _meetingsActivites =
+                                          _meetingsActivitesList?[0];
+                                      List<MeetingsActivitesRecords>?
+                                          _upcomingList;
 
-                                i == 0
-                                    ? _upcomingList =
-                                        _meetingsActivites?.upcomingList
-                                    : _upcomingList =
-                                        _meetingsActivites?.previousList;
-                                int length = _upcomingList?.length ?? 0;
+                                      i == 0
+                                          ? _upcomingList =
+                                              _meetingsActivites?.upcomingList
+                                          : _upcomingList =
+                                              _meetingsActivites?.previousList;
+                                      int length = _upcomingList?.length ?? 0;
 
-                                return _upcomingList?.length != 0
-                                    ? MediaQuery.removePadding(
-                                        removeTop: true,
-                                        context: context,
-                                        child: ListView(
-                                          physics:
-                                              NeverScrollableScrollPhysics(),
-                                          children: [
-                                            ...List.generate(
-                                              length >= 5 ? 5 : length,
-                                              (index) {
-                                                String? _day = DateFormat.EEEE()
-                                                    .format(DateTime.parse(
-                                                        _upcomingList?[index]
-                                                                .masterEngagementR!
-                                                                .engagementDateC ??
-                                                            "2022-11-23"));
-                                                String? _month = DateFormat
-                                                        .LLLL()
-                                                    .format(DateTime.parse(
-                                                        _upcomingList?[index]
-                                                                .masterEngagementR!
-                                                                .engagementDateC ??
-                                                            "2022-11-23"));
-                                                String? _date = DateFormat.d()
-                                                    .format(DateTime.parse(
-                                                        _upcomingList?[index]
-                                                                .masterEngagementR!
-                                                                .engagementDateC ??
-                                                            "2022-11-23"));
-                                                return Padding(
-                                                  padding: const EdgeInsets.all(
-                                                      10.0),
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      const SizedBox(
-                                                        height: 10,
-                                                      ),
-                                                      Text(
-                                                        "${_day} ${_month} ${_date}",
-                                                        style: const TextStyle(
-                                                          fontSize: 20,
-                                                          fontWeight:
-                                                              FontWeight.w500,
+                                      return _upcomingList?.length != 0
+                                          ? MediaQuery.removePadding(
+                                              removeTop: true,
+                                              context: context,
+                                              child: ListView(
+                                                physics:
+                                                    NeverScrollableScrollPhysics(),
+                                                children: [
+                                                  ...List.generate(
+                                                    length >= 5 ? 5 : length,
+                                                    (index) {
+                                                      String? _day = DateFormat
+                                                              .EEEE()
+                                                          .format(DateTime.parse(
+                                                              _upcomingList?[
+                                                                          index]
+                                                                      .masterEngagementR!
+                                                                      .engagementDateC ??
+                                                                  "2022-11-23"));
+                                                      String? _month = DateFormat
+                                                              .LLLL()
+                                                          .format(DateTime.parse(
+                                                              _upcomingList?[
+                                                                          index]
+                                                                      .masterEngagementR!
+                                                                      .engagementDateC ??
+                                                                  "2022-11-23"));
+                                                      String? _date = DateFormat
+                                                              .d()
+                                                          .format(DateTime.parse(
+                                                              _upcomingList?[
+                                                                          index]
+                                                                      .masterEngagementR!
+                                                                      .engagementDateC ??
+                                                                  "2022-11-23"));
+                                                      return Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(10.0),
+                                                        child: Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            const SizedBox(
+                                                              height: 10,
+                                                            ),
+                                                            Text(
+                                                              "${_day} ${_month} ${_date}",
+                                                              style:
+                                                                  const TextStyle(
+                                                                fontSize: 20,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                              ),
+                                                            ),
+                                                            const SizedBox(
+                                                              height: 10,
+                                                            ),
+                                                            const Divider(
+                                                              height: 10.0,
+                                                              color: Colors
+                                                                  .black54,
+                                                              endIndent: 10,
+                                                              indent: 10,
+                                                              thickness: 1.0,
+                                                            ),
+                                                            const SizedBox(
+                                                              height: 10,
+                                                            ),
+                                                            Row(
+                                                              children: [
+                                                                Container(
+                                                                  height: 15,
+                                                                  width: 15,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    shape: BoxShape
+                                                                        .circle,
+                                                                    color: "${_upcomingList?[index].masterEngagementR!.brandMasterR!.colorC}"
+                                                                        .toColor(),
+                                                                  ),
+                                                                ),
+                                                                const SizedBox(
+                                                                  width: 10,
+                                                                ),
+                                                                Expanded(
+                                                                    child: Text(
+                                                                  _upcomingList?[
+                                                                              index]
+                                                                          .kOLAccountR!
+                                                                          .name ??
+                                                                      "",
+                                                                  style:
+                                                                      const TextStyle(
+                                                                    fontSize:
+                                                                        15,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                  ),
+                                                                )),
+                                                              ],
+                                                            ),
+                                                          ],
                                                         ),
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 10,
-                                                      ),
-                                                      const Divider(
-                                                        height: 10.0,
-                                                        color: Colors.black54,
-                                                        endIndent: 10,
-                                                        indent: 10,
-                                                        thickness: 1.0,
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 10,
-                                                      ),
-                                                      Row(
-                                                        children: [
-                                                          Container(
-                                                            height: 15,
-                                                            width: 15,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              shape: BoxShape
-                                                                  .circle,
-                                                              color:
-                                                                  "${_upcomingList?[index].masterEngagementR!.brandMasterR!.colorC}"
-                                                                      .toColor(),
-                                                            ),
-                                                          ),
-                                                          const SizedBox(
-                                                            width: 10,
-                                                          ),
-                                                          Expanded(
-                                                              child: Text(
-                                                            _upcomingList?[
-                                                                        index]
-                                                                    .kOLAccountR!
-                                                                    .name ??
-                                                                "",
-                                                            style:
-                                                                const TextStyle(
-                                                              fontSize: 15,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                            ),
-                                                          )),
-                                                        ],
-                                                      ),
-                                                    ],
+                                                      );
+                                                    },
                                                   ),
-                                                );
-                                              },
-                                            ),
-                                          ],
-                                        ),
-                                      )
-                                    : Container(
-                                        child: Center(
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: const [
-                                              Text(
-                                                "No Meeting Found!",
-                                                style: TextStyle(
-                                                  color: Color(0xFF05357c),
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.w500,
+                                                ],
+                                              ),
+                                            )
+                                          : Container(
+                                              child: Center(
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: const [
+                                                    Text(
+                                                      "No Meeting Found!",
+                                                      style: TextStyle(
+                                                        color:
+                                                            Color(0xFF05357c),
+                                                        fontSize: 20,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 20,
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
-                                              SizedBox(
-                                                height: 20,
-                                              ),
-                                            ],
+                                            );
+                                    },
+                                  )
+                                : Container(
+                                    child: Center(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: const [
+                                          Text(
+                                            "No Meeting Found!",
+                                            style: TextStyle(
+                                              color: Color(0xFF05357c),
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w500,
+                                            ),
                                           ),
-                                        ),
-                                      );
-                              },
-                            );
+                                          SizedBox(
+                                            height: 20,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
                           })),
                         ],
                       ),

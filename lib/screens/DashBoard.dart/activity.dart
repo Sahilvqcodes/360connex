@@ -1,6 +1,7 @@
 import 'package:connex/Apis/DashboardApis.dart';
 import 'package:connex/Models/brands_activity.dart';
 import 'package:connex/controller/home_controller.dart';
+import 'package:connex/main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -54,10 +55,12 @@ class Activity extends GetView<StoreController> {
                       controller.BrandsName.length,
                       ((i) {
                         return Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Container(
                               height: 15,
                               width: 15,
+                              alignment: Alignment.center,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: controller.BrandsName[i] ==
@@ -72,7 +75,10 @@ class Activity extends GetView<StoreController> {
                               width: 5,
                             ),
                             Expanded(
-                                child: Text('${controller.BrandsName[i]}')),
+                                child: Text(
+                              '${controller.BrandsName[i]}',
+                              textAlign: TextAlign.center,
+                            )),
                           ],
                         );
                       }),

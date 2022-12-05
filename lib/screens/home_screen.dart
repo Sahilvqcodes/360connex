@@ -110,7 +110,7 @@ class HomeScreen extends GetView<StoreController> {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQIwJ8_gMZAefetee35zchEEQSBXGiwFILUeJirHUkLcrSmPHbrPdzZfDiHySnn3u8gdjaJR7HgW5hSw.3tes84hg9zVZ'
+            'Bearer 00D23000000FGah!AQUAQAGmhHaR8It53uWqoeF.00pYoI1JjkcFnXtF66ngmY1sND1_WBioxDmZh64RtqYzWwUBUs3FYEAUDr7ed6Q5yOOrRain'
       },
     );
     controller.selectedItems.clear();
@@ -140,7 +140,7 @@ class HomeScreen extends GetView<StoreController> {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQIwJ8_gMZAefetee35zchEEQSBXGiwFILUeJirHUkLcrSmPHbrPdzZfDiHySnn3u8gdjaJR7HgW5hSw.3tes84hg9zVZ'
+            'Bearer 00D23000000FGah!AQUAQAGmhHaR8It53uWqoeF.00pYoI1JjkcFnXtF66ngmY1sND1_WBioxDmZh64RtqYzWwUBUs3FYEAUDr7ed6Q5yOOrRain'
       },
     );
     print("response ${response.body}");
@@ -341,13 +341,22 @@ class HomeScreen extends GetView<StoreController> {
                                                       controller
                                                           .selectedItems[index]
                                                           .name)) {
-                                                print("BrandsName ");
                                                 controller.BrandsName.remove(
                                                     controller
                                                         .selectedItems[index]
                                                         .name);
-                                                print(
-                                                    "BrandsName ${controller.BrandsName}");
+                                                controller.selectedItems[index]
+                                                    .kOLFocusMastersR!.records!
+                                                    .forEach((element) {
+                                                  if (controller.brandsFocus
+                                                          .contains(element) ==
+                                                      true) {
+                                                    controller.brandsFocus
+                                                        .remove(element);
+                                                    controller.selectedItems
+                                                        .remove(element);
+                                                  }
+                                                });
                                               }
                                               controller.selectedItems.remove(
                                                   controller

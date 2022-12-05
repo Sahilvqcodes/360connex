@@ -77,7 +77,10 @@ class KolEngagemetReach extends GetView<StoreController> {
                 child: Center(
                   child: FutureBuilder(
                       future: DashBoardApi.getPieChartData(
-                          context, controller.brandsFocus, controller.myValue),
+                          context,
+                          controller.brandsFocus,
+                          controller.myValue,
+                          controller.BrandsName),
                       builder: (BuildContext context, AsyncSnapshot snapshot) {
                         PieChartData? _pieChartData = snapshot.data;
                         // print("_pieChartData $_pieChartData");

@@ -156,7 +156,7 @@ class KolOverview extends GetView<StoreController> {
                           children: [
                             Row(
                               children: [
-                                const Text(
+                                Text(
                                   "Academic: ",
                                   style: TextStyle(
                                     fontSize: 14,
@@ -164,7 +164,7 @@ class KolOverview extends GetView<StoreController> {
                                   ),
                                 ),
                                 Text(
-                                  "${_kolOverview != null ? _academic![0].expr0 : 0}",
+                                  "${_kolOverview != null ? _academic![0].expr0 : "00"}",
                                   style: const TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w600,
@@ -174,7 +174,7 @@ class KolOverview extends GetView<StoreController> {
                             ),
                             Row(
                               children: [
-                                const Text(
+                                Text(
                                   "Community: ",
                                   style: TextStyle(
                                     fontSize: 14,
@@ -182,7 +182,7 @@ class KolOverview extends GetView<StoreController> {
                                   ),
                                 ),
                                 Text(
-                                  "${_kolOverview != null ? _community![0].expr0 : 0}",
+                                  "${_kolOverview != null ? _community?.length != 0 ? _community![0].expr0 : "" : "00"}",
                                   style: const TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w600,
@@ -192,8 +192,8 @@ class KolOverview extends GetView<StoreController> {
                             ),
                             Row(
                               children: [
-                                const Text(
-                                  "LUGPA: ",
+                                Text(
+                                  "${_kolOverview != null ? _lugpa?.length != 0 ? "${_lugpa![0].kOLClassificationC}: " : "" : ""}",
                                   style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,
@@ -201,14 +201,14 @@ class KolOverview extends GetView<StoreController> {
                                 ),
                                 _kolOverview != null
                                     ? Text(
-                                        "${_lugpa?.length != 0 ? _lugpa![0].expr0 : 0}",
+                                        "${_lugpa?.length != 0 ? _lugpa![0].expr0 : ""}",
                                         style: const TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w600,
                                         ),
                                       )
                                     : const Text(
-                                        "0",
+                                        " ",
                                         style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w600,

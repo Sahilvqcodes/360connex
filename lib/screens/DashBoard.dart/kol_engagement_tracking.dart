@@ -33,7 +33,7 @@ class KolEngagemetTracking extends GetView<StoreController> {
   //     child:
   //   );
   // }
-
+  var Data = 0.obs;
   @override
   Widget build(BuildContext context) {
     _tooltipBehavior = TooltipBehavior(enable: true);
@@ -67,8 +67,8 @@ class KolEngagemetTracking extends GetView<StoreController> {
               Container(
                 height: 500,
                 child: FutureBuilder(
-                    future: getData(
-                        context, controller.brandsFocus, controller.myValue),
+                    future: getData(context, controller.brandsFocus,
+                        controller.myValue, controller.BrandsName),
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       List<ExpenseData>? _chartData = snapshot.data;
                       if (snapshot.data == null || !snapshot.hasData) {
@@ -88,7 +88,7 @@ class KolEngagemetTracking extends GetView<StoreController> {
                             dataSource: _chartData!,
                             xValueMapper: (ExpenseData exp, _) => exp.name,
                             yValueMapper: (ExpenseData exp, _) => exp.unscored,
-                            name: "Unscored: ",
+                            name: "Unscored",
                             // pointColorMapper: (ExpenseData data, _) =>
                             //     Color(0xffDFDFDF),
                             color: Color(0xffDFDFDF),
@@ -197,9 +197,11 @@ class KolEngagemetTracking extends GetView<StoreController> {
     );
   }
 
-  getData(BuildContext context, RxList brandsFocus, RxBool myValue) async {
+  getData(BuildContext context, RxList brandsFocus, RxBool myValue,
+      RxList<String> brandsName) async {
     List<RectangleChartDataMap>? __rectangleChartDataMap =
-        await DashBoardApi.getRectangleChartData(context, brandsFocus, myValue);
+        await DashBoardApi.getRectangleChartData(
+            context, brandsFocus, myValue, brandsName);
     List<ExpenseData> _chartData = await getChartData(__rectangleChartDataMap);
     // print("_chartData $_chartData");
     return _chartData;
@@ -231,12 +233,19 @@ class KolEngagemetTracking extends GetView<StoreController> {
             ? _rectangleChartDataMap[i].passiveList![0].expr0!
             : 0,
       ));
+      int val = 0;
+      // Data.value += _rectangleChartDataMap[i].unscoredList![0].expr0!;
       // print("chartData2 $chartData");
     }
     // print("chartData3 $chartData");
-    chartData.forEach((element) {
-      // print("name ${element.name} ${element.unscored}");
-    });
+    // _rectangleChartDataMap.forEach((element) {
+    //   if (element.unscoredList!.length != 0) {
+    //     Data.value = Data.value + element.unscoredList![0].expr0!;
+    //   }
+
+    //   print("Data ${Data}");
+    //   // print("name ${element.name} ${element.unscored}");
+    // });
     List<ExpenseData> reversedchartData = chartData.reversed.toList();
 
     return reversedchartData;
