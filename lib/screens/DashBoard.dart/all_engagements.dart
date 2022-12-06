@@ -7,7 +7,6 @@ import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
 import '../../Models/engagements_sort.dart';
 import '../../Models/engagements.dart';
-import '../peopleone.dart';
 
 // class TotalEngagements extends StatefulWidget {
 //   RxList brandFocus;

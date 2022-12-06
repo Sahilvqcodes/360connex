@@ -1,4 +1,4 @@
-import 'package:connex/screens/home_screen.dart';
+import 'package:connex/screens/pages/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

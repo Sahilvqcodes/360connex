@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 
 import '../../Models/engagements_sort.dart';
 import '../../Models/engagements.dart';
-import '../peopleone.dart';
 
 class KolOverview extends GetView<StoreController> {
   // KolOverview({super.key});
@@ -133,7 +132,7 @@ class KolOverview extends GetView<StoreController> {
                         .where(
                             (element) => element.kOLClassificationC == "LUGPA")
                         .toList();
-                    print("_academic ${_lugpa!.length}");
+                    // print("_academic ${_lugpa!.length}");
                   }
 
                   return Padding(
