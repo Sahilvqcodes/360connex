@@ -1,12 +1,12 @@
-import 'package:connex/Apis/DashboardApis.dart';
+import 'package:connex/Apis/Dashboard/apis/dashboardApis.dart';
 import 'package:connex/controller/home_controller.dart';
 import 'package:connex/widgets/extension.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-import '../../Models/1:1_and_activities.dart';
-import '../../Models/engagements_sort.dart';
+import '../../Apis/Dashboard/models/1:1_and_activities.dart';
+import '../../Apis/Dashboard/models/engagements_sort.dart';
 
 // class UpcomingActivities extends StatefulWidget {
 //   const UpcomingActivities({Key? key}) : super(key: key);

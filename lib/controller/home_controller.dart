@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../Models/brandList_model.dart';
-import '../Models/congressList_model.dart';
+import '../Apis/Dashboard/models/brandList_model.dart';
+import '../Apis/Dashboard/models/congressList_model.dart';
 
 class StoreController extends GetxController {
   var selectedItems = <Records>[].obs;
@@ -21,6 +21,11 @@ class StoreController extends GetxController {
     "MM Portfolio",
     "Prostate Franchise",
   ].obs;
+  var pageNo = 1.obs;
+  var dropdownvalue = 'Last Name'.obs;
+  RxDouble navSize = 0.0.obs;
+  var statesList = ["a", "b", "c"];
+  var statesSelected = "a".obs;
   upateMyValue() {
     myValue.toggle();
   }

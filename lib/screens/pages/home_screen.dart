@@ -1,6 +1,4 @@
-import 'package:connex/Apis/DashboardApis.dart';
-import 'package:connex/Models/brandList_model.dart';
-import 'package:connex/Models/congressList_model.dart';
+import 'package:connex/Apis/Dashboard/apis/dashboardApis.dart';
 import 'package:connex/Routes/app_routes.dart';
 import 'package:connex/controller/home_controller.dart';
 import 'package:connex/screens/DashBoard.dart/institution.dart';
@@ -13,6 +11,8 @@ import 'package:connex/widgets/nav_menu.dart';
 import 'package:connex/widgets/singleSelect.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../Apis/Dashboard/models/brandList_model.dart';
+import '../../Apis/Dashboard/models/congressList_model.dart';
 import '../DashBoard.dart/1:1Engagements.dart';
 import '../DashBoard.dart/activity.dart';
 import '../DashBoard.dart/upcoming_activities.dart';
@@ -176,7 +176,7 @@ class HomeScreen extends GetView<StoreController> {
                 onTap: () {
                   Get.toNamed(Routes.HOMESCREEN);
                 },
-                child: Text(
+                child: const Text(
                   "Dashboard",
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -192,7 +192,7 @@ class HomeScreen extends GetView<StoreController> {
                       print(controller.myValue);
                     },
                   ),
-                  Text(
+                  const Text(
                     "My View ",
                     style: TextStyle(
                       fontSize: 14,
@@ -201,13 +201,14 @@ class HomeScreen extends GetView<StoreController> {
                   )
                 ],
               ),
-              Text(
+              const Text(
                 "Date Range:",
                 style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
               ),
               Container(
-                margin: EdgeInsets.all(10),
-                padding: EdgeInsets.symmetric(vertical: 4, horizontal: 12),
+                margin: const EdgeInsets.all(10),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
                 decoration: BoxDecoration(
                     border: Border.all(
                   color: Colors.black,
@@ -240,8 +241,9 @@ class HomeScreen extends GetView<StoreController> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.all(10),
-                padding: EdgeInsets.symmetric(vertical: 4, horizontal: 12),
+                margin: const EdgeInsets.all(10),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
                 decoration: BoxDecoration(
                     border: Border.all(
                   color: Colors.black,

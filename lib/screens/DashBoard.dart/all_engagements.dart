@@ -1,12 +1,11 @@
-import 'package:connex/Apis/DashboardApis.dart';
-import 'package:connex/Models/brandList_model.dart';
+import 'package:connex/Apis/Dashboard/apis/dashboardApis.dart';
 import 'package:connex/controller/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
-import '../../Models/engagements_sort.dart';
-import '../../Models/engagements.dart';
+import '../../Apis/Dashboard/models/engagements.dart';
+import '../../Apis/Dashboard/models/engagements_sort.dart';
 
 // class TotalEngagements extends StatefulWidget {
 //   RxList brandFocus;

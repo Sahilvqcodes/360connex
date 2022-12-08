@@ -1,12 +1,10 @@
-import 'package:connex/Apis/DashboardApis.dart';
-import 'package:connex/Models/Kol_overview.dart';
-import 'package:connex/Models/brandList_model.dart';
+import 'package:connex/Apis/Dashboard/apis/dashboardApis.dart';
+
 import 'package:connex/controller/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../Models/engagements_sort.dart';
-import '../../Models/engagements.dart';
+import '../../Apis/Dashboard/models/Kol_overview.dart';
 
 class kolInstitution extends GetView<StoreController> {
   // kolInstitution({super.key});

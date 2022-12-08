@@ -1,9 +1,10 @@
-import 'package:connex/Apis/DashboardApis.dart';
-import 'package:connex/Models/brands_activity.dart';
+import 'package:connex/Apis/Dashboard/apis/dashboardApis.dart';
 import 'package:connex/controller/home_controller.dart';
 import 'package:connex/main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../Apis/Dashboard/models/brands_activity.dart';
 
 // class Activity extends StatefulWidget {
 //   const Activity({Key? key}) : super(key: key);

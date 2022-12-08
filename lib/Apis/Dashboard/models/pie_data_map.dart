@@ -1,4 +1,4 @@
-import 'package:connex/Models/pie_chart_data.dart';
+import 'package:connex/Apis/Dashboard/models/pie_chart_data.dart';
 
 class DataMap {
   int? unorted;

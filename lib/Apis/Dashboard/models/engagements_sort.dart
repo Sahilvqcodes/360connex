@@ -1,6 +1,6 @@
-import 'package:connex/Models/1:1_and_activities.dart';
-import 'package:connex/Models/engagements.dart';
-import 'package:connex/Models/total_leaderboard.dart';
+import 'package:connex/Apis/Dashboard/models/1:1_and_activities.dart';
+import 'package:connex/Apis/Dashboard/models/total_leaderboard.dart';
+import 'engagements.dart';
 
 class AllData {
   int? id;

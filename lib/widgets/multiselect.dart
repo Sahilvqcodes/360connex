@@ -2,7 +2,7 @@ import 'package:connex/controller/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../Models/brandList_model.dart';
+import '../Apis/Dashboard/models/brandList_model.dart';
 
 // class MultiSelect extends StatefulWidget {
 //   final List<Records> brands;

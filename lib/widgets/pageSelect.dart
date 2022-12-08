@@ -3,22 +3,23 @@ import 'package:get/get.dart';
 
 import '../Apis/Dashboard/models/congressList_model.dart';
 
-class SingleSelect extends StatefulWidget {
-  final RxList<CongressRecords> congress;
+class PageSelect extends StatefulWidget {
+  int? pageLength;
 
-  const SingleSelect({
-    Key? key,
-    required this.congress,
-  }) : super(key: key);
+  PageSelect({Key? key, this.pageLength}) : super(key: key);
 
   @override
-  State<SingleSelect> createState() => _SingleSelectState();
+  State<PageSelect> createState() => _PageSelectState();
 }
 
-class _SingleSelectState extends State<SingleSelect> {
-  RxList<CongressRecords> _CongressItems = RxList<CongressRecords>([]);
+class _PageSelectState extends State<PageSelect> {
+  List pageValue = [];
+  // double? _pageLength;
   void initState() {
-    // _selectedItems = widget.congress;
+    // _pageLength =widget.pageLength!/10;
+    List.generate((widget.pageLength! / 10).toInt() + 1, (index) {
+      pageValue.add(index + 1);
+    });
     super.initState();
   }
 
@@ -27,10 +28,8 @@ class _SingleSelectState extends State<SingleSelect> {
   }
 
 // this function is called when the Submit button is tapped
-  void _submit(CongressRecords item) {
-    _CongressItems.add(item);
-
-    Navigator.pop(context, _CongressItems);
+  void _submit(item) {
+    Navigator.pop(context, item);
   }
 
   @override
@@ -39,10 +38,10 @@ class _SingleSelectState extends State<SingleSelect> {
     // print(_selectedItems.contains(LanguageModel(code: 'en', name: 'English')));
 
     return AlertDialog(
-      title: const Text('Select Congress'),
+      title: const Text('Select Page'),
       content: SingleChildScrollView(
         child: ListBody(
-          children: widget.congress
+          children: pageValue
               .map((item) => Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -52,7 +51,7 @@ class _SingleSelectState extends State<SingleSelect> {
                         },
                         child: ListTile(
                           leading: Text(
-                            item.labelC!,
+                            "${item}",
                             style: const TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.w500),
                           ),

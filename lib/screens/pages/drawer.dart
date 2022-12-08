@@ -1,6 +1,8 @@
+import 'package:connex/Routes/app_routes.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-import 'kol_search.dart';
+import '../KolSearch/kol_search.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({Key? key}) : super(key: key);
@@ -32,21 +34,26 @@ class AppDrawer extends StatelessWidget {
                       ),
                       onPressed: () => Navigator.pop(context),
                     ),
-                    Divider(
+                    const Divider(
                       height: 10.0,
                       color: Colors.black54,
                       //  endIndent: 10,
                       // indent: 10,
                       thickness: 1.0,
                     ),
-                    Text(
-                      "Dashboard",
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF05357c)),
+                    InkWell(
+                      onTap: () {
+                        Get.toNamed(Routes.HOMESCREEN);
+                      },
+                      child: const Text(
+                        "Dashboard",
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF05357c)),
+                      ),
                     ),
-                    Divider(
+                    const Divider(
                       height: 10.0,
                       color: Colors.black54,
                       //  endIndent: 10,
@@ -77,10 +84,7 @@ class AppDrawer extends StatelessWidget {
                 ),
               ),
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => KolSearch()),
-                );
+                Get.toNamed(Routes.KOLSEARCH);
               },
             ),
             ListTile(

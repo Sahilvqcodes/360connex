@@ -1,12 +1,12 @@
-import 'package:connex/Apis/DashboardApis.dart';
-import 'package:connex/Models/pie_data_map.dart';
+import 'package:connex/Apis/Dashboard/apis/dashboardApis.dart';
 import 'package:connex/controller/home_controller.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pie_chart/pie_chart.dart';
 
-import '../../Models/pie_chart_data.dart';
+import '../../Apis/Dashboard/models/pie_chart_data.dart';
+import '../../Apis/Dashboard/models/pie_data_map.dart';
 
 class KolEngagemetReach extends GetView<StoreController> {
   // KolEngagemetReach({super.key});
