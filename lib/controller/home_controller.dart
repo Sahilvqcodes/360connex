@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../Apis/Dashboard/models/brandList_model.dart';
 import '../Apis/Dashboard/models/congressList_model.dart';
+import '../Apis/KolSearch/models/kol_search_Data.dart';
 
 class StoreController extends GetxController {
   var selectedItems = <Records>[].obs;
@@ -26,6 +27,14 @@ class StoreController extends GetxController {
   RxDouble navSize = 0.0.obs;
   var statesList = ["a", "b", "c"];
   var statesSelected = "a".obs;
+  var sortByAlphabaticaly = false.obs;
+
+  var KolDataList = <RecordsData>[].obs;
+  var kolData = KolSearcDataModel().obs;
+  updateSortByAlphabaticaly() {
+    sortByAlphabaticaly.toggle();
+  }
+
   upateMyValue() {
     myValue.toggle();
   }

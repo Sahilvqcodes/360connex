@@ -92,7 +92,7 @@ class Filters extends GetView<StoreController> {
                         // DropDownMultiSelect comes from multiselect
                         child: DropDownMultiSelect(
                           onChanged: (List<String> x) {},
-                          options: controller.statesList,
+                          options: filtersConst.STATE_CODES,
                           selectedValues: [],
                           whenEmpty: 'Select',
                         ),
@@ -122,7 +122,7 @@ class Filters extends GetView<StoreController> {
                         // DropDownMultiSelect comes from multiselect
                         child: DropDownMultiSelect(
                           onChanged: (List<String> x) {},
-                          options: controller.statesList,
+                          options: filtersConst.REGION,
                           selectedValues: [],
                           whenEmpty: 'Select',
                         ),
@@ -152,7 +152,7 @@ class Filters extends GetView<StoreController> {
                         // DropDownMultiSelect comes from multiselect
                         child: DropDownMultiSelect(
                           onChanged: (List<String> x) {},
-                          options: controller.statesList,
+                          options: filtersConst.CLASSIFICATIONS,
                           selectedValues: [],
                           whenEmpty: 'Select',
                         ),

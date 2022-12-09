@@ -17,7 +17,7 @@ class _PageSelectState extends State<PageSelect> {
   // double? _pageLength;
   void initState() {
     // _pageLength =widget.pageLength!/10;
-    List.generate((widget.pageLength! / 10).toInt() + 1, (index) {
+    List.generate(widget.pageLength!, (index) {
       pageValue.add(index + 1);
     });
     super.initState();

@@ -33,7 +33,7 @@ class NavBar extends GetView<StoreController> {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',
         'Authorization':
-            'Bearer 00D23000000FGah!AQUAQMZ_89mZgeJJAlE94GvQz0JkRdW260onnWa5BBbBb8dd9EX.3jMW3SQUa6byjBLWUsRIm3pjs1QlRJMR2x.iyBRTmUcn'
+            'Bearer 00D23000000FGah!AQUAQC94lOENWuhvAa8bkIf7JPzI6GJ8DHUM8WuzMbjlNxSJGoVgvq1v8LIvxQkQOzu1HzCZAUAD1rbwmYd4DejopSGH1dsf'
       },
     );
     controller.selectedItems.clear();
@@ -79,13 +79,13 @@ class NavBar extends GetView<StoreController> {
                 onTap: () {
                   Scaffold.of(context).openDrawer();
                 },
-                child: Icon(
+                child: const Icon(
                   Icons.menu,
                   color: Colors.white,
                   size: 35,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 50,
               ),
               Container(
